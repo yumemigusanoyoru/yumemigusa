@@ -742,3 +742,29 @@ main { position: relative; z-index: 2; }
       0 0 12px rgba(90, 50, 140, 0.9);
   }
 }
+/* ページ見出しの両側に、光る蝶 */
+.page-title h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+.page-title h1::before,
+.page-title h1::after {
+  content: "";
+  flex: none;
+  width: 1.3em;
+  height: 0.98em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60'%3E %3Cg fill='%23cfe0ff' fill-opacity='.5' stroke='%23ffffff' stroke-width='1.6' stroke-linejoin='round'%3E %3Cpath d='M39 25C33 13 20 3 9 3C2 3 1 10 4 15C9 23 22 28 39 29Z'/%3E %3Cpath d='M39 31C30 31 19 35 17 43C15 51 23 56 29 51C34 47 37 39 39 31Z'/%3E %3Cpath d='M41 25C47 13 60 3 71 3C78 3 79 10 76 15C71 23 58 28 41 29Z'/%3E %3Cpath d='M41 31C50 31 61 35 63 43C65 51 57 56 51 51C46 47 43 39 41 31Z'/%3E %3C/g%3E %3Cg fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='.75' stroke-linecap='round'%3E %3Cpath d='M38 26C30 18 20 11 11 8'/%3E%3Cpath d='M38 27C29 23 19 20 9 17'/%3E %3Cpath d='M42 26C50 18 60 11 69 8'/%3E%3Cpath d='M42 27C51 23 61 20 71 17'/%3E %3Cpath d='M38 33C33 38 28 43 24 49'/%3E%3Cpath d='M42 33C47 38 52 43 56 49'/%3E %3Cpath d='M39 21C37 14 33 9 28 7'/%3E%3Cpath d='M41 21C43 14 47 9 52 7'/%3E %3C/g%3E %3Ccircle cx='28' cy='7' r='1.6' fill='%23ffffff'/%3E%3Ccircle cx='52' cy='7' r='1.6' fill='%23ffffff'/%3E %3Cpath d='M40 20C41.8 20 41.8 42 40 46C38.2 42 38.2 20 40 20Z' fill='%23ffffff'/%3E %3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 4px rgba(150, 185, 255, 0.95)) drop-shadow(0 0 10px rgba(120, 150, 255, 0.6));
+  animation: titleButterfly 3.2s ease-in-out infinite;
+}
+.page-title h1::before { --tilt: -12deg; }
+.page-title h1::after  { --tilt: 12deg; margin-left: -0.25em; animation-delay: -1.6s; }
+
+/* ゆっくり羽ばたきながら、ふわふわ浮かぶ */
+@keyframes titleButterfly {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt)) scaleX(1); }
+  25%      { transform: translateY(-3px) rotate(var(--tilt)) scaleX(0.55); }
+  50%      { transform: translateY(-5px) rotate(var(--tilt)) scaleX(1); }
+  75%      { transform: translateY(-2px) rotate(var(--tilt)) scaleX(0.7); }
+}
