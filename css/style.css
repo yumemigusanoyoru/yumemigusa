@@ -626,3 +626,12 @@ main { position: relative; z-index: 2; }
   0%, 100% { filter: brightness(1.05) drop-shadow(0 0 6px rgba(232, 199, 122, 0.7)); }
   50%      { filter: brightness(1.1)  drop-shadow(0 0 16px rgba(232, 199, 122, 1)); }
 }
+/* パソコン表示：ロゴを小さく、下寄せにして弦真に被らないように */
+@media (min-width: 769px) {
+  .hero-logo {
+    bottom: 3%;
+  }
+  .hero-logo img {
+    max-width: 440px;
+  }
+}
