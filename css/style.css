@@ -690,3 +690,40 @@ main { position: relative; z-index: 2; }
   height: calc(100vh - var(--header-h));
   height: calc(100svh - var(--header-h));
 }
+/* トップ：SNSリンク */
+.sns-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px 56px;
+  margin-top: 48px;
+}
+.sns-label {
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.sns-btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sns-btn {
+  min-width: 100px;
+  padding: 6px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  background: rgba(24, 33, 74, 0.5);
+  transition: border-color .3s, color .3s, box-shadow .3s;
+}
+.sns-btn:hover {
+  border-color: var(--sakura);
+  color: var(--sakura);
+  box-shadow: 0 0 12px rgba(242, 184, 203, 0.4);
+}
