@@ -648,11 +648,11 @@ main { position: relative; z-index: 2; }
 .hero-catch {
   position: absolute;
   z-index: 3;
-  top: 2.5vw;                 /* 上からの位置 */
+  top: 1.8vw;                 /* 上からの位置 */
   writing-mode: vertical-rl;  /* 縦書き */
   font-family: var(--font-title);
   font-weight: 600;
-    font-size: 1.95vw;          /* 文字の大きさ */
+    font-size: 1.85vw;          /* 文字の大きさ */
   white-space: nowrap;        /* 折り返さない */
   letter-spacing: 0.12em;
   line-height: 1;
