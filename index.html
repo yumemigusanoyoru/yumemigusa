@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="preload" as="image" href="images/kv.webp" media="(min-width: 769px)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/kv-sp.webp" media="(max-width: 768px)" fetchpriority="high">
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -53,7 +55,7 @@
     <section class="hero">
       <div class="hero-visual">
         <!-- キービジュアルができたら、下の div を
-             <img src="images/kv.webp" alt="夢見草の夜、君と キービジュアル">
+               <img src="images/kv.webp" alt="夢見草の夜、君と キービジュアル" fetchpriority="high">
              に置き換えてください -->
            <picture>
   <source media="(max-width: 768px)" srcset="images/kv-sp.webp">
