@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>夢見草の夜、君と 公式サイト</title>
+  <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+
+  <!-- SNSでシェアされたときの表示（画像ができたら images/ogp.jpg を置いてください） -->
+  <meta property="og:title" content="夢見草の夜、君と 公式サイト">
+  <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- タブのアイコン（images/favicon.png を置くと表示されます） -->
+  <link rel="icon" href="images/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">
+      <!-- ロゴ画像ができたら、下の文字を <img src="images/logo.png" alt="夢見草の夜、君と"> に置き換え -->
+      夢見草の夜、君と
+    </a>
+    <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">トップ<small>TOP</small></a></li>
+        <li><a href="news.html">ニュース<small>NEWS</small></a></li>
+        <li><a href="story.html">ストーリー<small>STORY</small></a></li>
+        <li><a href="character.html">キャラクター<small>CHARACTER</small></a></li>
+        <li><a href="system.html">システム<small>SYSTEM</small></a></li>
+        <li><a href="special.html">スペシャル<small>SPECIAL</small></a></li>
+        <li><a href="contact.html">お問い合わせ<small>CONTACT</small></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== キービジュアル ===== -->
+    <section class="hero">
+      <div class="hero-visual">
+        <!-- キービジュアルができたら、下の div を
+             <img src="images/kv.webp" alt="夢見草の夜、君と キービジュアル">
+             に置き換えてください -->
+        <div class="placeholder">キービジュアル（images/kv.webp）</div>
+      </div>
+      <div class="hero-logo">
+        <!-- タイトルロゴ画像ができたら、h1 と p を
+             <img src="images/title-logo.png" alt="夢見草の夜、君と ～想い繋ぐ刻～">
+             に置き換えてください -->
+        <h1>夢見草の夜、君と</h1>
+        <p>～想い繋ぐ刻～</p>
+      </div>
+    </section>
+
+    <!-- ===== 発売情報 ===== -->
+    <section class="top-info container fade-in">
+      <p class="release-text">20XX年 発売予定</p>
+      <p class="platform-text">Windows ／ Steam・DLsite・BOOTH</p>
+      <div class="btn-row">
+        <!-- SteamストアページのURLに差し替えてください -->
+        <a href="https://store.steampowered.com/" class="btn" target="_blank" rel="noopener">Steamでウィッシュリストに追加</a>
+        <a href="special.html" class="btn btn-sakura">PVを見る</a>
+      </div>
+    </section>
+
+    <!-- ===== 最新ニュース（新しいものを上に3件ほど） ===== -->
+    <section class="top-news container fade-in">
+      <h2 class="section-title">ニュース<span class="en">NEWS</span></h2>
+      <ul class="news-list">
+        <li><a href="news.html#n20261107"><span class="news-date">2026.11.07</span><span><span class="news-tag">お知らせ</span>公式サイトを公開しました</span></a></li>
+        <li><a href="news.html#n2026xxxx-event"><span class="news-date">2026.11.XX</span><span><span class="news-tag">イベント</span>大阪ゲームダンジョン2に出展します</span></a></li>
+        <li><a href="news.html#n20261030"><span class="news-date">2026.10.30</span><span><span class="news-tag">お知らせ</span>Steamストアページを公開しました</span></a></li>
+      </ul>
+      <div class="btn-row" style="margin-top:32px"><a href="news.html" class="btn">ニュース一覧</a></div>
+    </section>
+
+    <!-- ===== バナー ===== -->
+    <section class="container">
+      <div class="top-banners fade-in">
+        <a href="story.html"><div class="placeholder">ストーリー バナー</div></a>
+        <a href="character.html"><div class="placeholder">キャラクター バナー</div></a>
+        <a href="special.html"><div class="placeholder">大阪ゲームダンジョン2 バナー</div></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <!-- 公式XとSteamのURLに差し替えてください -->
+      <li><a href="https://x.com/" target="_blank" rel="noopener">公式X</a></li>
+      <li><a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <p class="footer-circle">羽根いろの記憶</p>
+    <p class="copyright">&copy; 2026 羽根いろの記憶 All Rights Reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>キャラクター｜夢見草の夜、君と 公式サイト</title>
+  <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+
+  <!-- SNSでシェアされたときの表示（画像ができたら images/ogp.jpg を置いてください） -->
+  <meta property="og:title" content="キャラクター｜夢見草の夜、君と 公式サイト">
+  <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- タブのアイコン（images/favicon.png を置くと表示されます） -->
+  <link rel="icon" href="images/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">
+      <!-- ロゴ画像ができたら、下の文字を <img src="images/logo.png" alt="夢見草の夜、君と"> に置き換え -->
+      夢見草の夜、君と
+    </a>
+    <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">トップ<small>TOP</small></a></li>
+        <li><a href="news.html">ニュース<small>NEWS</small></a></li>
+        <li><a href="story.html">ストーリー<small>STORY</small></a></li>
+        <li><a href="character.html">キャラクター<small>CHARACTER</small></a></li>
+        <li><a href="system.html">システム<small>SYSTEM</small></a></li>
+        <li><a href="special.html">スペシャル<small>SPECIAL</small></a></li>
+        <li><a href="contact.html">お問い合わせ<small>CONTACT</small></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <div class="page-title fade-in">
+        <h1>キャラクター</h1>
+        <span class="en">CHARACTER</span>
+      </div>
+
+      <!-- アイコンを押すとキャラクターが切り替わります -->
+      <div class="chara-tabs fade-in">
+        <button class="chara-tab is-active" data-target="yuzuki">
+          <div class="thumb placeholder">アイコン</div>
+          結月
+        </button>
+        <button class="chara-tab" data-target="genma">
+          <div class="thumb placeholder">アイコン</div>
+          弦真
+        </button>
+        <button class="chara-tab" data-target="mitsunari">
+          <div class="thumb placeholder">アイコン</div>
+          光成
+        </button>
+        <button class="chara-tab" data-target="shion">
+          <div class="thumb placeholder">アイコン</div>
+          詩音
+        </button>
+        <button class="chara-tab" data-target="ryoma">
+          <div class="thumb placeholder">アイコン</div>
+          涼馬
+        </button>
+        <button class="chara-tab" data-target="iori">
+          <div class="thumb placeholder">アイコン</div>
+          伊織
+        </button>
+      </div>
+
+      <!-- ===== 結月 ===== -->
+      <section class="chara-detail is-active" id="yuzuki">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/yuzuki.webp" alt="結月"> -->
+          <div class="placeholder">立ち絵（images/chara/yuzuki.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">主人公</p>
+          <h2 class="chara-name"><span class="ruby">ゆづき</span>結月</h2>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>○○歳</dd>
+            <dt>職業</dt><dd>大学生</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>素敵な恋に憧れる大学生。（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+      <!-- ===== 弦真 ===== -->
+      <section class="chara-detail" id="genma">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/genma.webp" alt="弦真"> -->
+          <div class="placeholder">立ち絵（images/chara/genma.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">（肩書き）</p>
+          <h2 class="chara-name"><span class="ruby">げんま</span>弦真</h2>
+          <p class="chara-cv">CV：○○○○</p>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>○○歳</dd>
+            <dt>職業</dt><dd>古書店の店主</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+      <!-- ===== 光成 ===== -->
+      <section class="chara-detail" id="mitsunari">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/mitsunari.webp" alt="光成"> -->
+          <div class="placeholder">立ち絵（images/chara/mitsunari.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">（肩書き）</p>
+          <h2 class="chara-name"><span class="ruby">みつなり</span>光成</h2>
+          <p class="chara-cv">CV：○○○○</p>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>○○歳</dd>
+            <dt>職業</dt><dd>○○</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+      <!-- ===== 詩音 ===== -->
+      <section class="chara-detail" id="shion">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/shion.webp" alt="詩音"> -->
+          <div class="placeholder">立ち絵（images/chara/shion.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">（肩書き）</p>
+          <h2 class="chara-name"><span class="ruby">しおん</span>詩音</h2>
+          <p class="chara-cv">CV：○○○○</p>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>○○歳</dd>
+            <dt>職業</dt><dd>○○</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+      <!-- ===== 神尾 涼馬 ===== -->
+      <section class="chara-detail" id="ryoma">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/ryoma.webp" alt="神尾 涼馬"> -->
+          <div class="placeholder">立ち絵（images/chara/ryoma.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">（肩書き）</p>
+          <h2 class="chara-name"><span class="ruby">かみお りょうま</span>神尾 涼馬</h2>
+          <p class="chara-cv">CV：○○○○</p>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>○○歳</dd>
+            <dt>関係</dt><dd>結月の幼なじみ</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+      <!-- ===== 伊織 ===== -->
+      <section class="chara-detail" id="iori">
+        <div class="chara-stand">
+          <!-- 立ち絵に差し替え：<img src="images/chara/iori.webp" alt="伊織"> -->
+          <div class="placeholder">立ち絵（images/chara/iori.webp）</div>
+        </div>
+        <div class="chara-text">
+          <p class="chara-role">（肩書き）</p>
+          <h2 class="chara-name"><span class="ruby">いおり</span>伊織</h2>
+          <p class="chara-cv">CV：○○○○</p>
+          <dl class="chara-profile">
+            <dt>年齢</dt><dd>28歳</dd>
+            <dt>職業</dt><dd>○○</dd>
+            <dt>身長</dt><dd>○○cm</dd>
+          </dl>
+          <p>（紹介文を入れる）</p>
+          <p class="chara-quote">「（台詞を入れる）」</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <!-- 公式XとSteamのURLに差し替えてください -->
+      <li><a href="https://x.com/" target="_blank" rel="noopener">公式X</a></li>
+      <li><a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <p class="footer-circle">羽根いろの記憶</p>
+    <p class="copyright">&copy; 2026 羽根いろの記憶 All Rights Reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
