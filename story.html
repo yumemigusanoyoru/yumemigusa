@@ -6,7 +6,7 @@
   <title>ストーリー｜夢見草の夜、君と 公式サイト</title>
   <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
 
-  <!-- SNSでシェアされたときの表示（画像ができたら images/ogp.jpg を置いてください） -->
+  <!-- SNSでシェアされたときの表示 -->
   <meta property="og:title" content="ストーリー｜夢見草の夜、君と 公式サイト">
   <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
   <meta property="og:type" content="website">
@@ -19,7 +19,40 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+
+  <!-- このページだけで使う見た目 -->
+  <style>
+    .story-poem {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      line-height: 2.6;
+      text-align: center;
+      margin: 0 0 64px;
+      text-shadow: 0 0 14px rgba(242, 184, 203, 0.35);
+    }
+    .story-poem p + p { margin-top: 1.6em; }
+    .story-poem em { font-style: normal; color: var(--sakura); }
+
+    .story-synopsis {
+      max-width: 820px;
+      margin: 0 auto;
+      line-height: 2.1;
+    }
+    .story-synopsis p + p { margin-top: 1.4em; }
+    .story-synopsis strong { font-weight: 500; color: var(--sakura); }
+    .story-synopsis .closing {
+      font-family: var(--font-title);
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-top: 2.4em;
+    }
+
+    @media (max-width: 600px) {
+      .story-poem { font-size: 1rem; line-height: 2.3; }
+    }
+  </style>
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -27,7 +60,6 @@
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <a href="index.html" class="site-logo">
-      <!-- ロゴ画像ができたら、下の文字を <img src="images/logo.png" alt="夢見草の夜、君と"> に置き換え -->
       夢見草の夜、君と
     </a>
     <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
@@ -56,30 +88,48 @@
 
       <div class="story-visual fade-in">
         <!-- ストーリー用のイラストに差し替え：<img src="images/story.webp" alt=""> -->
-        <div class="placeholder">ストーリー用イラスト（images/story.webp）</div>
+        <img src="images/story.jpg" alt="夢見草の夜、君と ストーリーイラスト">
       </div>
 
-      <!-- ※ここの文章は仮です。芹菜さんのあらすじに書き換えてください -->
-      <div class="story-text panel fade-in">
-        <p>夢の中で、いつも誰かが私を呼んでいる。<br>
-        桜の舞う夜、知らないはずの人が、<br>
-        とても懐かしい顔で微笑んでいた。</p>
+      <!-- ===== 冒頭の詩的な数行 ===== -->
+      <div class="story-poem fade-in">
+        <p>桜が咲くたびに、同じ夢を見る。</p>
 
-        <p>大学生の<em>結月</em>は、<br>
-        夢で見た人と同じ顔の青年に出会う。<br>
-        その出会いをきっかけに、<br>
-        彼女の周りには不思議な縁を持つ人々が集まりはじめ――</p>
+        <p>月の下、舞い散る花びらの中で<br>
+        誰かが、私に手を伸ばしている。</p>
 
-        <p>遠い昔に結ばれなかった想いが、<br>
-        いま、夢見草の夜にふたたび巡る。</p>
+        <p>知らないはずのその人を、<br>
+        どうしてか、<em>懐かしい</em>と思った――</p>
       </div>
+
+      <!-- ===== あらすじ ===== -->
+      <div class="story-synopsis panel fade-in">
+        <p>一人暮らしをしながら大学に通う<strong>篠宮結月</strong>は、穏やかな日々を送っていた。<br>
+        ただひとつ、桜の季節になると繰り返し見る、不思議な夢を除いては。</p>
+
+        <p>ある日、結月は夢に出てくる人物とよく似た男性を見かけ、思わずその後を追いかける。<br>
+        たどり着いたのは、古書店【夢見堂】。<br>
+        店主の<strong>霧島弦真</strong>は穏やかに微笑んで彼女を迎えるが、その瞳には、どこか哀しげな色が宿っていた。</p>
+
+        <p>その出会いを境に、結月の周りでは不思議な巡り合わせが重なっていく。<br>
+        いつも一人でいる大学の先輩・<strong>三嶋光成</strong>。<br>
+        行きつけのカフェで働く高校生・<strong>有栖川詩音</strong>。<br>
+        地元に戻ってきた幼馴染・<strong>神尾涼馬</strong>。<br>
+        そして突然目の前に現れ、結月に執着する謎の男性・<strong>鴻上伊織</strong>。</p>
+
+        <p>夢の中に映る、遠い日の記憶。<br>
+        かつて「花祈姫」と呼ばれたひとりの姫と、彼女のそばにいた者たちの物語。</p>
+
+        <p class="closing">時を越えて巡り合った想いの先に、<br>
+        結月が見つけるものとは――。</p>
+      </div>
+
     </div>
   </main>
 
   <!-- ===== フッター（全ページ共通） ===== -->
   <footer class="site-footer">
     <ul class="footer-links">
-      <!-- 公式XとSteamのURLに差し替えてください -->
       <li><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">公式X</a></li>
       <li><a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steam</a></li>
       <li><a href="contact.html">お問い合わせ</a></li>
