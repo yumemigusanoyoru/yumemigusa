@@ -727,3 +727,18 @@ main { position: relative; z-index: 2; }
   color: var(--sakura);
   box-shadow: 0 0 12px rgba(242, 184, 203, 0.4);
 }
+/* キャッチコピー：薄紫のドロップシャドウ */
+.hero-catch {
+  text-shadow:
+    0.05em 0.05em 4px rgba(201, 179, 240, 0.9),
+    0 0 10px rgba(90, 50, 140, 0.9),
+    0 0 3px rgba(40, 20, 70, 0.8);
+}
+@media (max-width: 768px) {
+  .hero-catch {
+    text-shadow:
+      0.08em 0.08em 2px rgba(220, 180, 235, 0.9),
+      0 0 6px rgba(40, 20, 70, 0.95),
+      0 0 12px rgba(90, 50, 140, 0.9);
+  }
+}
