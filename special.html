@@ -6,7 +6,7 @@
   <title>スペシャル｜夢見草の夜、君と 公式サイト</title>
   <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
 
-  <!-- SNSでシェアされたときの表示（画像ができたら images/ogp.jpg を置いてください） -->
+  <!-- SNSでシェアされたときの表示 -->
   <meta property="og:title" content="スペシャル｜夢見草の夜、君と 公式サイト">
   <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
   <meta property="og:type" content="website">
@@ -19,7 +19,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+
+  <!-- このページだけで使う見た目 -->
+  <style>
+    .movie-wrap { background: var(--night-deep); border: 1px solid var(--line); }
+    .movie-wrap iframe { display: block; }
+    .event-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 24px;
+      margin: 16px 0 24px;
+    }
+    .event-info dt { color: var(--gold); font-family: var(--font-title); }
+    .event-list { margin: 0 0 28px 1.4em; }
+    .event-list li + li { margin-top: 4px; }
+    .event-box .btn-row { justify-content: flex-start; }
+    @media (max-width: 600px) {
+      .event-info { grid-template-columns: 1fr; gap: 0; }
+      .event-info dd { margin-bottom: 10px; }
+    }
+  </style>
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -27,7 +47,6 @@
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <a href="index.html" class="site-logo">
-      <!-- ロゴ画像ができたら、下の文字を <img src="images/logo.png" alt="夢見草の夜、君と"> に置き換え -->
       夢見草の夜、君と
     </a>
     <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
@@ -57,22 +76,23 @@
       <!-- ===== ムービー ===== -->
       <section class="special-section fade-in">
         <h2 class="section-title">ムービー<span class="en">MOVIE</span></h2>
-        <!-- YouTubeの動画は、下の div を
-             <iframe src="https://www.youtube.com/embed/動画のID" title="PV" allowfullscreen></iframe>
-             に置き換えると埋め込めます（動画のIDはURLの v= のあとの英数字） -->
         <div class="movie-grid">
           <div>
-            <div class="movie-wrap"><div class="placeholder">ストーリーPV</div></div>
+            <div class="movie-wrap">
+              <iframe src="https://www.youtube.com/embed/It0Uceii0Z0" title="夢見草の夜、君と ストーリーPV" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
             <p>ストーリーPV</p>
           </div>
           <div>
-            <div class="movie-wrap"><div class="placeholder">システムPV</div></div>
+            <div class="movie-wrap">
+              <iframe src="https://www.youtube.com/embed/EzrCHLivgw0" title="夢見草の夜、君と システムPV" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
             <p>システムPV</p>
           </div>
-          <div>
-            <div class="movie-wrap"><div class="placeholder">キャラクターPV 伊織編</div></div>
-            <p>キャラクターPV 伊織編</p>
-          </div>
+
+          <!-- キャラクターPVを追加するときは、上の <div>〜</div> のまとまりをコピーして、
+               embed/ のあとを動画のID（URLの youtu.be/ のあとの英数字）に、
+               タイトルと下の文字を「キャラクターPV ○○編」に書き換えてください -->
         </div>
       </section>
 
@@ -81,34 +101,30 @@
         <h2 class="section-title">イベント出展<span class="en">EVENT</span></h2>
         <div class="panel event-box">
           <h3>大阪ゲームダンジョン2</h3>
-          <p>日時：2026年12月26日<br>
-          会場：○○○○（会場名・ブース番号を入れる）</p>
-          <p style="margin-top:1em">ブースでは試遊版を遊んでいただけます。<br>
-          試遊してくださった方には、描き下ろしミニキャラシールをプレゼントします。</p>
+          <dl class="event-info">
+            <dt>日時</dt><dd>2026年12月26日</dd>
+            <dt>会場</dt><dd>マイドームおおさか（大阪・堺筋本町）</dd>
+            <!-- ブース番号が決まったら「決まり次第お知らせします」を書き換えてください -->
+            <dt>ブース</dt><dd>決まり次第お知らせします</dd>
+          </dl>
+          <ul class="event-list">
+            <li>ブースで試遊版を遊んでいただけます。</li>
+            <li>試遊してくださった方に、描き下ろしミニキャラシールをプレゼントします。</li>
+          </ul>
+          <div class="btn-row">
+            <a href="https://store.steampowered.com/app/4115570/" class="btn" target="_blank" rel="noopener">Steamでウィッシュリストに追加</a>
+          </div>
         </div>
       </section>
 
-      <!-- ===== 壁紙 ===== -->
-      <section class="special-section fade-in">
-        <h2 class="section-title">壁紙<span class="en">WALLPAPER</span></h2>
-        <div class="wallpaper-grid">
-          <div>
-            <div class="thumb placeholder">壁紙 01</div>
-            <div class="links"><a href="#">PC用</a><a href="#">スマホ用</a></div>
-          </div>
-          <div>
-            <div class="thumb placeholder">壁紙 02</div>
-            <div class="links"><a href="#">PC用</a><a href="#">スマホ用</a></div>
-          </div>
-        </div>
-      </section>
+      <!-- 壁紙のコーナーは、壁紙の準備ができたら追加します -->
+
     </div>
   </main>
 
   <!-- ===== フッター（全ページ共通） ===== -->
   <footer class="site-footer">
     <ul class="footer-links">
-      <!-- 公式XとSteamのURLに差し替えてください -->
       <li><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">公式X</a></li>
       <li><a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steam</a></li>
       <li><a href="contact.html">お問い合わせ</a></li>
