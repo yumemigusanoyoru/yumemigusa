@@ -595,3 +595,34 @@ main { position: relative; z-index: 2; }
     bottom: 5%;
   }
 }
+/* キャラアイコン：外枠をなくして、丸く光らせる */
+.chara-tab,
+.chara-tab:hover,
+.chara-tab.is-active {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.chara-tab .thumb {
+  margin-bottom: 8px;
+}
+.chara-tab .thumb img {
+  filter: brightness(0.8);
+  transition: filter .3s, transform .3s;
+}
+
+/* マウスを乗せたとき：桜色にふわっと光る */
+.chara-tab:hover .thumb img {
+  filter: brightness(1) drop-shadow(0 0 8px rgba(242, 184, 203, 0.8));
+  transform: scale(1.05);
+}
+
+/* 選んでいるキャラ：金色にゆっくり明滅して光る */
+.chara-tab.is-active .thumb img {
+  filter: brightness(1.05) drop-shadow(0 0 10px rgba(232, 199, 122, 0.9));
+  animation: iconGlow 2.4s ease-in-out infinite;
+}
+@keyframes iconGlow {
+  0%, 100% { filter: brightness(1.05) drop-shadow(0 0 6px rgba(232, 199, 122, 0.7)); }
+  50%      { filter: brightness(1.1)  drop-shadow(0 0 16px rgba(232, 199, 122, 1)); }
+}
