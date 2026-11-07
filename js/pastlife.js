@@ -12,6 +12,7 @@
       ruby: "はなのりひめ",
       role: "常夜の灯",
       image: "images/chara/hananorihime.png",
+      stillId: "hananorihime",   // スチル：images/chara/hananorihime-still1.jpg …
       intro: "古き時代、祈りと記憶を司る一族に生まれた姫。<br>“記憶紡ぎ”と“夢渡り”という特別な力を持っていた。",
       quote: "",
     },
@@ -20,6 +21,7 @@
       ruby: "そうま",
       role: "暁の蒼",
       image: "images/chara/souma.png",
+      stillId: "souma",   // スチル：images/chara/souma-still1.jpg …
       intro: "花祈姫に仕えた“蒼の護衛”。<br>朔夜とは異なる役割を担い、主に宮中の外側で姫を守っていた。",
       quote: "「ご安心ください。貴女は必ずや、私が守ります」",
     },
@@ -28,6 +30,7 @@
       ruby: "さくや",
       role: "月なき夜",
       image: "images/chara/sakuya.png",
+      stillId: "sakuya",   // スチル：images/chara/sakuya-still1.jpg …
       intro: "花祈姫の護衛の中でも、もっとも近くで彼女を守り続けた男。<br>時に自身を犠牲にするほど、花祈姫のことを常に第一に想っていた。",
       quote: "「ひとつだけ覚えていてください。どこにいても、私は必ず貴女を見つけます」",
     },
@@ -127,6 +130,7 @@
     // 前世のプロフィール（年齢・身長などは今世の欄をそのまま使う）
     const pastText = document.createElement("div");
     pastText.className = "chara-text is-hidden";
+    pastText.dataset.stillId = past.stillId;
     const profile = section.querySelector(".chara-profile");
     pastText.innerHTML = `
       <p class="chara-role">${past.role}</p>

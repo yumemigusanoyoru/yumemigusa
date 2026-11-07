@@ -3,6 +3,8 @@
    images/chara/ に「キャラ名-still1.jpg」「キャラ名-still2.jpg」…
    を置くと、そのキャラのプロフィールの下に自動で表示されます。
    （例：genma-still1.jpg、iori-still2.jpg）
+   前世は、hananorihime / souma / sakuya の名前で置きます
+   （例：sakuya-still1.jpg）
    画像がないキャラには何も表示されません。
    ========================================================= */
 
@@ -113,12 +115,14 @@
     });
   }
 
-  /* ---------- 各キャラにスチルを追加 ---------- */
-  document.querySelectorAll(".chara-detail").forEach(async (section) => {
-    const id = section.id;
-    const name = (section.querySelector(".chara-name")?.lastChild?.textContent || "").trim();
-    const textArea = section.querySelector(".chara-text");
-    if (!id || !textArea) return;
+  /* ---------- 各キャラにスチルを追加 ----------
+     今世はキャラのID（genma など）、前世は data-still-id（sakuya など）で探します */
+  function addStills() {
+  document.querySelectorAll(".chara-detail .chara-text").forEach(async (textArea) => {
+    const section = textArea.closest(".chara-detail");
+    const id = textArea.dataset.stillId || section.id;
+    const name = (textArea.querySelector(".chara-name")?.lastChild?.textContent || "").trim();
+    if (!id) return;
 
     const found = [];
     for (let i = 1; i <= MAX_STILLS; i++) {
@@ -148,4 +152,12 @@
 
     textArea.appendChild(box);
   });
+  }
+
+  // 前世の欄ができあがってから探すため、ページの読み込みが終わってから実行
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", addStills);
+  } else {
+    addStills();
+  }
 })();
