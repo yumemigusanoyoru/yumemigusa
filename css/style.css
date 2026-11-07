@@ -644,3 +644,40 @@ main { position: relative; z-index: 2; }
   text-shadow: 0 0 16px rgba(242, 184, 203, 0.6), 0 0 32px rgba(232, 199, 122, 0.3);
   margin: 4px 0 12px;
 }
+/* トップ：キャッチコピー（縦書き） */
+.hero-catch {
+  position: absolute;
+  z-index: 3;
+  top: 2.5vw;                 /* 上からの位置 */
+  writing-mode: vertical-rl;  /* 縦書き */
+  font-family: var(--font-title);
+  font-weight: 600;
+    font-size: 1.95vw;          /* 文字の大きさ */
+  white-space: nowrap;        /* 折り返さない */
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(90, 50, 140, 0.9), 0 0 3px rgba(40, 20, 70, 0.8);
+  opacity: 0;
+  animation: catchIn 2s ease 0.5s forwards;
+}
+.hero-catch-left  { left: 9.6%; }                          /* 左のコピーの位置 */
+.hero-catch-right { right: 9.7%; animation-delay: 1.2s; font-size: 1.7vw; }  /* 右のコピーの位置と大きさ */
+
+/* ページを開くと、左→右の順にふわっと浮かび上がる */
+@keyframes catchIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* スマホ（縦長のキービジュアル）での位置と大きさ */
+@media (max-width: 768px) {
+  .hero-catch { font-size: 5vw; top: 3vw; }
+  .hero-catch-left  { left: 4%; }
+  .hero-catch-right { right: 4%; }
+}
+
+/* 動きを減らす設定の人には、最初から表示 */
+@media (prefers-reduced-motion: reduce) {
+  .hero-catch { opacity: 1; }
+}
