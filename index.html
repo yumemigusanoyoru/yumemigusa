@@ -120,11 +120,6 @@
 
         <div class="gd-timer" id="gd-timer">
           <p class="gd-days"><span class="gd-label">あと</span><span class="gd-num" id="gd-d">--</span><span class="gd-label">日</span></p>
-          <p class="gd-hms">
-            <span id="gd-h">--</span><small>時間</small>
-            <span id="gd-m">--</span><small>分</small>
-            <span id="gd-s">--</span><small>秒</small>
-          </p>
         </div>
         <p class="gd-message" id="gd-message" hidden></p>
 
@@ -136,7 +131,10 @@
         <p class="gd-gift">試遊してくださった方には<b>描き下ろしミニキャラシール</b>、<br class="gd-br">その場でウィッシュリストに登録してくださった方には<b>アクリルキーホルダー</b>をプレゼント！</p>
 
         <div class="gd-btns">
-          <a class="gd-btn" href="special.html#event">イベントの詳細を見る</a>
+          <div class="gd-btn-wrap">
+            <a class="gd-btn" href="https://tokyogamedungeon.com/" target="_blank" rel="noopener">イベントの詳細を見る</a>
+            <small class="gd-note">ゲームダンジョンの公式サイトに飛びます</small>
+          </div>
           <a class="gd-btn gd-btn-sub" href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
         </div>
       </section>
@@ -179,14 +177,6 @@
           text-shadow: 0 0 28px rgba(232, 200, 121, 0.45);
         }
         .gd-label { font-size: clamp(16px, 4vw, 20px); color: var(--gd-ink); letter-spacing: 0.15em; }
-        .gd-hms {
-          display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 4px 6px;
-          margin-top: 14px !important; padding-top: 14px; border-top: 1px solid var(--gd-line);
-          width: fit-content; margin-inline: auto !important;
-          font-family: var(--gd-title-font); font-size: 22px; font-variant-numeric: tabular-nums;
-        }
-        .gd-hms small { font-size: 12px; color: var(--gd-soft); margin-right: 10px; letter-spacing: 0.1em; }
-        .gd-hms small:last-child { margin-right: 0; }
         .gd-message {
           margin: 6px 0 4px; font-family: var(--gd-title-font); font-weight: 600;
           font-size: clamp(22px, 6vw, 30px); color: var(--gd-sakura); letter-spacing: 0.1em; line-height: 1.6;
@@ -200,7 +190,9 @@
         .gd-info dd { margin: 0; }
         .gd-gift { margin: 0 auto 24px; max-width: 32em; font-size: 13px; color: var(--gd-soft); line-height: 1.9; }
         .gd-gift b { color: var(--gd-sakura); font-weight: 500; }
-        .gd-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .gd-btns { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px; }
+        .gd-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .gd-note { font-size: 11px; color: var(--gd-soft); letter-spacing: 0.05em; }
         .gd-btn {
           display: inline-block; padding: 11px 22px; font-family: var(--gd-title-font); font-size: 14px;
           letter-spacing: 0.1em; text-decoration: none; color: #0d1330;
@@ -232,7 +224,6 @@
 
         const $ = id => document.getElementById(id);
         const start = Date.parse(GD.start), end = Date.parse(GD.end);
-        const pad = n => String(n).padStart(2, "0");
         if (GD.booth) $("gd-booth").textContent = GD.booth;
 
         function showMessage(title, msg) {
@@ -251,22 +242,19 @@
             showMessage("大阪ゲームダンジョン2", "ただいま開催中！ ブースでお待ちしています");
             return true;
           }
-          const left = Math.floor((start - now) / 1000);
-          const d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600),
-                m = Math.floor(left % 3600 / 60), s = left % 60;
-          if (left < 12 * 3600) {  // 当日（0時〜開場前）は「本日開催！」に切り替えて、日数を隠す
-            $("gd-title").textContent = "本日開催！ 12:00の開場まで";
-            document.querySelector(".gd-days").hidden = true;
+          // 日本時間の「日付」で何日後かを数える（12月25日なら「あと1日」）
+          const dayJST = t => Math.floor((t + 9 * 3600e3) / 86400e3);
+          const d = dayJST(start) - dayJST(now);
+          if (d <= 0) {  // 当日（0時〜開場前）
+            showMessage("大阪ゲームダンジョン2", "本日開催！ 12:00に開場します");
+            return true;
           }
           $("gd-d").textContent = d;
-          $("gd-h").textContent = pad(h);
-          $("gd-m").textContent = pad(m);
-          $("gd-s").textContent = pad(s);
           return true;
         }
 
         if (tick()) {
-          const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 1000);
+          const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 60000);
         }
       })();
       </script>
