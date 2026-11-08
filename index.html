@@ -108,6 +108,171 @@
       </div>
     </section>
 
+    <!-- ===== イベントカウントダウン ===== -->
+    <div class="container">
+      <!-- ===== 大阪ゲームダンジョン2 カウントダウン（ここから） =====
+           index.html の、表示したい場所にこのブロックをまるごと貼り付けてください。
+           ブース番号が決まったら、下の script 部分にある GD.booth に書き込むと表示されます。 -->
+      <section class="gd-count fade-in" id="gd-count" aria-label="大阪ゲームダンジョン2までのカウントダウン">
+        <i class="gd-gem gd-gem-t"></i><i class="gd-gem gd-gem-b"></i>
+        <p class="gd-eyebrow">EVENT COUNTDOWN</p>
+        <h2 class="gd-title" id="gd-title">大阪ゲームダンジョン2 出展まで</h2>
+
+        <div class="gd-timer" id="gd-timer">
+          <p class="gd-days"><span class="gd-label">あと</span><span class="gd-num" id="gd-d">--</span><span class="gd-label">日</span></p>
+          <p class="gd-hms">
+            <span id="gd-h">--</span><small>時間</small>
+            <span id="gd-m">--</span><small>分</small>
+            <span id="gd-s">--</span><small>秒</small>
+          </p>
+        </div>
+        <p class="gd-message" id="gd-message" hidden></p>
+
+        <dl class="gd-info">
+          <dt>日時</dt><dd>2026年12月26日（土）12:00〜17:00</dd>
+          <dt>会場</dt><dd>マイドームおおさか 3階 展示ホールE・F</dd>
+          <dt>ブース</dt><dd id="gd-booth">決まり次第お知らせします</dd>
+        </dl>
+        <p class="gd-gift">試遊してくださった方には<b>描き下ろしミニキャラシール</b>、<br class="gd-br">その場でウィッシュリストに登録してくださった方には<b>アクリルキーホルダー</b>をプレゼント！</p>
+
+        <div class="gd-btns">
+          <a class="gd-btn" href="special.html#event">イベントの詳細を見る</a>
+          <a class="gd-btn gd-btn-sub" href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
+        </div>
+      </section>
+
+      <style>
+        .gd-count {
+          --gd-gold: var(--gold, #e8c879);
+          --gd-sakura: var(--sakura, #f1b6c6);
+          --gd-ink: #ece8f4;
+          --gd-soft: #a9adc9;
+          --gd-line: rgba(232, 200, 121, 0.3);
+          --gd-title-font: var(--font-title, "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif);
+          position: relative;
+          max-width: 640px;
+          margin: 56px auto;
+          padding: 44px 28px 38px;
+          text-align: center;
+          color: var(--gd-ink);
+          background:
+            radial-gradient(90% 60% at 50% 0%, rgba(232, 200, 121, 0.12), transparent 70%),
+            rgba(13, 19, 48, 0.72);
+          border: 1px solid var(--gd-line);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+        .gd-gem { position: absolute; left: 50%; width: 8px; height: 8px; background: var(--gd-gold); transform: translateX(-50%) rotate(45deg); }
+        .gd-gem-t { top: -4px; } .gd-gem-b { bottom: -4px; }
+        .gd-eyebrow { margin: 0; font-size: 11px; letter-spacing: 0.4em; color: var(--gd-gold); }
+        .gd-title {
+          margin: 10px 0 18px; font-family: var(--gd-title-font); font-weight: 600;
+          font-size: clamp(19px, 4.6vw, 24px); letter-spacing: 0.12em; line-height: 1.5;
+        }
+        .gd-timer p { margin: 0; }
+        .gd-days {
+          display: flex; justify-content: center; align-items: baseline; gap: 10px;
+          font-family: var(--gd-title-font); line-height: 1;
+        }
+        .gd-num {
+          font-size: clamp(72px, 20vw, 112px); font-weight: 600; color: var(--gd-gold);
+          font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+          text-shadow: 0 0 28px rgba(232, 200, 121, 0.45);
+        }
+        .gd-label { font-size: clamp(16px, 4vw, 20px); color: var(--gd-ink); letter-spacing: 0.15em; }
+        .gd-hms {
+          display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 4px 6px;
+          margin-top: 14px !important; padding-top: 14px; border-top: 1px solid var(--gd-line);
+          width: fit-content; margin-inline: auto !important;
+          font-family: var(--gd-title-font); font-size: 22px; font-variant-numeric: tabular-nums;
+        }
+        .gd-hms small { font-size: 12px; color: var(--gd-soft); margin-right: 10px; letter-spacing: 0.1em; }
+        .gd-hms small:last-child { margin-right: 0; }
+        .gd-message {
+          margin: 6px 0 4px; font-family: var(--gd-title-font); font-weight: 600;
+          font-size: clamp(22px, 6vw, 30px); color: var(--gd-sakura); letter-spacing: 0.1em; line-height: 1.6;
+          text-shadow: 0 0 22px rgba(241, 182, 198, 0.45);
+        }
+        .gd-info {
+          display: grid; grid-template-columns: auto auto; justify-content: center; gap: 4px 18px;
+          margin: 26px auto 18px; font-size: 14px; text-align: left;
+        }
+        .gd-info dt { color: var(--gd-gold); font-family: var(--gd-title-font); letter-spacing: 0.1em; }
+        .gd-info dd { margin: 0; }
+        .gd-gift { margin: 0 auto 24px; max-width: 32em; font-size: 13px; color: var(--gd-soft); line-height: 1.9; }
+        .gd-gift b { color: var(--gd-sakura); font-weight: 500; }
+        .gd-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .gd-btn {
+          display: inline-block; padding: 11px 22px; font-family: var(--gd-title-font); font-size: 14px;
+          letter-spacing: 0.1em; text-decoration: none; color: #0d1330;
+          background: linear-gradient(180deg, #f6dfa0, var(--gd-gold));
+          border: 1px solid var(--gd-gold); transition: box-shadow .2s, transform .15s;
+        }
+        .gd-btn:hover { transform: translateY(-1px); box-shadow: 0 0 24px rgba(232, 200, 121, 0.4); }
+        .gd-btn-sub { background: transparent; color: var(--gd-ink); border-color: var(--gd-line); }
+        .gd-btn-sub:hover { border-color: var(--gd-sakura); box-shadow: none; }
+        .gd-btn:focus-visible { outline: 2px solid var(--gd-sakura); outline-offset: 3px; }
+        .gd-br { display: none; }
+        @media (max-width: 520px) {
+          .gd-count { margin: 40px auto; padding: 38px 18px 32px; }
+          .gd-info { grid-template-columns: 1fr; gap: 0; text-align: center; }
+          .gd-info dd { margin-bottom: 8px; }
+          .gd-br { display: inline; }
+        }
+      </style>
+
+      <script>
+      (function () {
+        /* ===== 設定（ここだけ書き換えればOK） ===== */
+        const GD = {
+          start: "2026-12-26T12:00:00+09:00",  // 開場（日本時間）
+          end:   "2026-12-26T17:00:00+09:00",  // 終了（日本時間）
+          booth: ""                            // ブース番号が決まったら "E-12" のように入れる
+        };
+        /* ========================================= */
+
+        const $ = id => document.getElementById(id);
+        const start = Date.parse(GD.start), end = Date.parse(GD.end);
+        const pad = n => String(n).padStart(2, "0");
+        if (GD.booth) $("gd-booth").textContent = GD.booth;
+
+        function showMessage(title, msg) {
+          $("gd-title").textContent = title;
+          $("gd-timer").hidden = true;
+          const m = $("gd-message"); m.textContent = msg; m.hidden = false;
+        }
+
+        function tick() {
+          const now = Date.now();
+          if (now >= end) {
+            showMessage("大阪ゲームダンジョン2", "ご来場ありがとうございました！");
+            return false;
+          }
+          if (now >= start) {
+            showMessage("大阪ゲームダンジョン2", "ただいま開催中！ ブースでお待ちしています");
+            return true;
+          }
+          const left = Math.floor((start - now) / 1000);
+          const d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600),
+                m = Math.floor(left % 3600 / 60), s = left % 60;
+          if (left < 12 * 3600) {  // 当日（0時〜開場前）は「本日開催！」に切り替えて、日数を隠す
+            $("gd-title").textContent = "本日開催！ 12:00の開場まで";
+            document.querySelector(".gd-days").hidden = true;
+          }
+          $("gd-d").textContent = d;
+          $("gd-h").textContent = pad(h);
+          $("gd-m").textContent = pad(m);
+          $("gd-s").textContent = pad(s);
+          return true;
+        }
+
+        if (tick()) {
+          const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 1000);
+        }
+      })();
+      </script>
+      <!-- ===== 大阪ゲームダンジョン2 カウントダウン（ここまで） ===== -->
+    </div>
+
     <!-- ===== 最新ニュース（新しいものを上に3件ほど） ===== -->
     <section class="top-news container fade-in">
       <h2 class="section-title">ニュース<span class="en">NEWS</span></h2>
