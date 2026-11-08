@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="乙女ゲーム『夢見草の夜、君と』の攻略キャラ5人から、あなたにお似合いのキャラを8問で診断します。">
-<title>夢見草 お似合い診断</title>
+<title>お似合い診断｜夢見草の夜、君と 公式サイト</title>
+<meta property="og:title" content="お似合い診断｜夢見草の夜、君と 公式サイト">
+<meta property="og:description" content="攻略キャラ5人の中から、あなたにお似合いのキャラクターを8問で診断します。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://yumemigusanoyoru.github.io/yumemigusa/images/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="images/favicon.png?v=1">
+<link rel="apple-touch-icon" href="images/favicon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
@@ -201,6 +208,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--sakura); outlin
 .tab[aria-current="true"] { background: var(--tc); border-color: var(--tc); color: var(--night); font-weight: 700; }
 .viewing { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 0 0 6px; }
 
+.site-back { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 14px; font-size: 13px; }
+.site-back a { color: var(--ink-soft); text-decoration: none; letter-spacing: 0.08em; padding: 4px 0; transition: color .2s; }
+.site-back a:hover { color: var(--sakura); }
+.site-back .logo { font-family: var(--display); font-weight: 700; color: var(--gold); letter-spacing: 0.15em; }
 .links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; }
 .links a { color: var(--sakura); text-decoration: none; border-bottom: 1px solid rgba(241,182,198,0.4); }
 
@@ -271,6 +282,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--sakura); outlin
 <div class="stars"></div>
 <canvas id="petals" aria-hidden="true"></canvas>
 <main>
+  <nav class="site-back" aria-label="公式サイト">
+    <a href="index.html">← 公式サイトに戻る</a>
+    <a class="logo" href="index.html">夢見草の夜、君と</a>
+  </nav>
   <section class="card" id="card"><i class="gem t"></i><i class="gem b"></i><div id="view"></div></section>
 </main>
 
@@ -482,6 +497,7 @@ function renderStart() {
         <button class="btn" type="submit">診断をはじめる</button>
       </form>
       <p class="note">※ 結果はお遊びです。本編の内容とは関係ありません。</p>
+      <div class="links"><a href="character.html">キャラクター紹介を見る</a><a href="index.html">公式サイトに戻る</a></div>
     </div>`;
   document.getElementById("startForm").onsubmit = e => {
     e.preventDefault();
@@ -620,6 +636,7 @@ function renderResult(key, isMine) {
       <div class="links">
         <a href="${SITE.steam}" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
         <a href="${SITE.x}" target="_blank" rel="noopener">公式X @yumemigusa_5052</a>
+        <a href="index.html">公式サイトに戻る</a>
       </div>
     </div>`;
   decorate(key);
