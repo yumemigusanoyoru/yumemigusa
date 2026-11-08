@@ -21,6 +21,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- このページだけで使う見た目（同じ日のお知らせを1つの枠にまとめた時の小見出し） -->
+  <style>
+    .news-sub {
+      margin: 28px 0 8px; padding-top: 20px;
+      border-top: 1px solid var(--line, rgba(232, 200, 121, 0.28));
+      font-family: var(--font-title, "Shippori Mincho", serif); font-weight: 500;
+      font-size: 1.08em; letter-spacing: 0.08em; color: var(--gold, #e8c879);
+    }
+    .news-sub::before { content: "◆"; font-size: 0.6em; margin-right: 0.6em; vertical-align: 0.2em; }
+    .news-article, .news-sub { scroll-margin-top: 90px; }
+  </style>
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -58,31 +70,43 @@
 
       <!-- 新しいお知らせは、いちばん上に article をひとつ増やして追加します。
            id は「n + 日付」にしておくと、トップページからリンクできます -->
-      <article class="news-article panel fade-in" id="n20261109-diagnosis">
-        <p><span class="news-date">2026.11.09</span> <span class="news-tag">新コンテンツ</span></p>
-        <h2>「お似合い診断」を公開しました</h2>
-        <p>スペシャルページに「お似合い診断」を追加しました。<br>
-        全8問の質問に答えると、攻略キャラクター5人の中から、あなたにお似合いのキャラクターがわかります。</p>
-        <p>診断結果はXでシェアしたり、画像にして保存したりできます。<br>
+      <article class="news-article panel fade-in" id="n20261109">
+        <p><span class="news-date">2026.11.09</span> <span class="news-tag">新コンテンツ</span> <span class="news-tag">更新</span></p>
+        <h2>「お似合い診断」「夢見草みくじ」を公開しました</h2>
+        <p>スペシャルページに、新しいコンテンツを2つ追加しました。<br>
+        あわせて、お問い合わせページに「よくある質問」を追加しています。</p>
+
+        <h3 class="news-sub" id="n20261109-diagnosis">お似合い診断</h3>
+        <p>全8問の質問に答えると、攻略キャラクター5人の中から、あなたにお似合いのキャラクターがわかります。<br>
+        診断結果はXでシェアしたり、画像にして保存したりできます。<br>
         ぜひ、あなたと夜を歩く相手を見つけてみてください。</p>
         <p><a href="special.html#diagnosis">お似合い診断はこちら</a></p>
+
+        <h3 class="news-sub" id="n20261109-omikuji">夢見草みくじ</h3>
+        <p>一日一回引けるおみくじで、大吉・中吉・吉・小吉・末吉の運勢ごとに、攻略キャラクターからひとことが届きます。<br>
+        おみくじは日本時間の0時に引き直せるようになります。毎日の運だめしに、ぜひ遊んでみてください。</p>
+        <p><a href="special.html#omikuji">夢見草みくじはこちら</a></p>
+
+        <h3 class="news-sub" id="n20261109-faq">よくある質問</h3>
+        <p>お問い合わせページに「よくある質問」を追加しました。<br>
+        お問い合わせの前に、ぜひ一度ご覧ください。</p>
+        <p><a href="contact.html#faq">よくある質問はこちら</a></p>
       </article>
-      <article class="news-article panel fade-in" id="n20261107-update">
-        <p><span class="news-date">2026.11.07</span> <span class="news-tag">更新</span></p>
-        <h2>キャラクターページ・スペシャルページを更新しました</h2>
+
+      <article class="news-article panel fade-in" id="n20261107">
+        <p><span class="news-date">2026.11.07</span> <span class="news-tag">お知らせ</span> <span class="news-tag">更新</span></p>
+        <h2>公式サイトを公開しました</h2>
+        <p>『夢見草の夜、君と ～想い繋ぐ刻～』の公式サイトを公開しました。<br>
+        今後、ゲームの最新情報をこちらでお知らせしていきます。</p>
+
+        <h3 class="news-sub" id="n20261107-update">キャラクターページ・スペシャルページ</h3>
         <p>キャラクターページに、結月・弦真・伊織の「前世」の情報を追加しました。<br>
         「今世｜前世」のボタンで、花祈姫・蒼真・朔夜のプロフィールに切り替えられます。<br>
         あわせて、一部のキャラクターのスチルも公開しています。</p>
         <p>また、スペシャルページでイラストを3枚公開しました。</p>
         <p><a href="character.html">キャラクターページはこちら</a>　／　<a href="special.html">スペシャルページはこちら</a></p>
       </article>
-      <article class="news-article panel fade-in" id="n20261107">
-        <p><span class="news-date">2026.11.07</span> <span class="news-tag">お知らせ</span></p>
-        <h2>公式サイトを公開しました</h2>
-        <p>『夢見草の夜、君と ～想い繋ぐ刻～』の公式サイトを公開しました。<br>
-        今後、ゲームの最新情報をこちらでお知らせしていきます。</p>
-      </article>
-      
+
       <article class="news-article panel fade-in" id="n20261030">
         <p><span class="news-date">2026.10.30</span> <span class="news-tag">お知らせ</span></p>
         <h2>Steamストアページを公開しました</h2>
