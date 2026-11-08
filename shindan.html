@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="乙女ゲーム『夢見草の夜、君と』の攻略キャラ5人から、あなたにお似合いのキャラを8問で診断します。">
+<title>夢見草 お似合い診断</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 夜空の一枚紙。中央の「栞」カードが 問い→診断中→結果 と書き換わり、背後の夜空の光が答えに合わせて色を変える */
+:root {
+  --night: #0d1330;
+  --night-2: #151d45;
+  --ink: #ece8f4;
+  --ink-soft: #a9adc9;
+  --sakura: #f1b6c6;
+  --sakura-deep: #d9849c;
+  --gold: #e8c879;
+  --line: rgba(232, 200, 121, 0.28);
+  --card: rgba(21, 29, 69, 0.74);
+  --display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.8;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 56px;
+  overflow-x: hidden;
+}
+.aura {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  color: #2f3478;
+  background:
+    radial-gradient(120% 65% at 50% -12%, currentColor 0%, transparent 62%),
+    radial-gradient(80% 50% at 85% 110%, rgba(217,132,156,0.16) 0%, transparent 70%);
+  transition: color 1.4s ease;
+}
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .7;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 9%, #fff 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 64% 28%, #f6e7b8 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 40%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 90% 46%, #fff 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 8% 70%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 46% 12%, #fff 50%, transparent 51%);
+}
+#petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+main { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
+
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 44px 32px 36px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+.gem { position: absolute; left: 50%; width: 7px; height: 7px; background: var(--gold); transform: translateX(-50%) rotate(45deg); z-index: 3; }
+.gem.t { top: 10px; } .gem.b { bottom: 10px; }
+
+.eyebrow { font-size: 12px; letter-spacing: 0.32em; color: var(--gold); text-align: center; margin: 0; }
+h1 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(30px, 8vw, 40px); line-height: 1.35;
+  text-align: center; margin: 14px 0 6px; text-wrap: balance; letter-spacing: 0.04em;
+}
+h1 .moon { color: var(--sakura); text-shadow: 0 0 22px rgba(241,182,198,0.6); }
+.sub { text-align: center; color: var(--ink-soft); margin: 0 0 26px; font-size: 14px; }
+.lead { margin: 0 auto 28px; max-width: 30em; font-size: 14.5px; }
+
+.cast { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 0 0 32px; }
+.cast span {
+  font-family: var(--display); font-weight: 700; font-size: 15px;
+  writing-mode: vertical-rl; display: flex; align-items: center; justify-content: center;
+  padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  letter-spacing: 0.2em; min-height: 92px;
+}
+
+.namefield { display: grid; gap: 8px; margin: 0 0 22px; }
+.namefield label { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; text-align: center; color: var(--gold); }
+.namefield input {
+  font: inherit; font-family: var(--display); font-size: 18px; text-align: center; color: var(--ink);
+  background: rgba(255,255,255,0.04); border: 0; border-bottom: 1px solid var(--line);
+  padding: 10px 12px; width: 100%; max-width: 280px; margin: 0 auto; border-radius: 0;
+}
+.namefield input::placeholder { color: rgba(169,173,201,0.55); }
+.namefield input:focus { outline: none; border-bottom-color: var(--sakura); background: rgba(241,182,198,0.06); }
+.namefield small { font-size: 11.5px; color: var(--ink-soft); text-align: center; }
+.btn {
+  display: block; width: 100%; font: inherit; font-family: var(--display); font-weight: 700;
+  font-size: 17px; letter-spacing: 0.18em; cursor: pointer; text-align: center; text-decoration: none;
+  color: var(--night); background: linear-gradient(180deg, #f6dfa0, var(--gold));
+  border: 0; border-radius: 2px; padding: 15px 20px;
+  box-shadow: 0 0 0 1px rgba(232,200,121,0.5), 0 0 28px rgba(232,200,121,0.28);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(232,200,121,0.7), 0 0 40px rgba(232,200,121,0.45); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: none; border: 1px solid var(--line); font-size: 15px; }
+.btn.ghost:hover { border-color: var(--gold); }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--sakura); outline-offset: 3px; }
+.note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 14px 0 0; }
+
+/* 問い */
+.progress { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.progress .num { font-family: var(--display); font-weight: 700; color: var(--gold); white-space: nowrap; font-size: 14px; letter-spacing: 0.1em; }
+.progress .count { color: var(--ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 2px; background: rgba(255,255,255,0.1); position: relative; }
+.bar i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, var(--sakura-deep), var(--gold)); transition: width .4s ease; }
+.scene { font-size: 13px; color: var(--ink-soft); margin: 0 0 6px; letter-spacing: 0.05em; }
+.q { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 5.4vw, 24px); line-height: 1.55; margin: 0 0 24px; text-wrap: balance; }
+.choices { display: grid; gap: 10px; }
+.choice {
+  font: inherit; text-align: left; color: var(--ink); cursor: pointer;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px; padding: 13px 16px 13px 42px; position: relative;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.choice::before {
+  content: ""; position: absolute; left: 17px; top: 50%; width: 9px; height: 9px;
+  border: 1px solid var(--sakura); transform: translateY(-50%) rotate(45deg); transition: background .2s;
+}
+.choice:hover { border-color: var(--sakura-deep); background: rgba(241,182,198,0.06); }
+.choice:hover::before { background: var(--sakura); }
+.choice.picked { border-color: var(--gold); background: rgba(232,200,121,0.1); }
+.choice.picked::before { background: var(--gold); border-color: var(--gold); }
+.choice .voice { font-family: var(--display); font-weight: 700; }
+.back { margin-top: 20px; background: none; border: 0; color: var(--ink-soft); font: inherit; font-size: 13px; cursor: pointer; padding: 4px 0; }
+.back:hover { color: var(--ink); }
+
+/* 診断中 */
+.reveal { text-align: center; padding: 40px 0 30px; }
+.orb { width: 120px; height: 120px; margin: 0 auto 28px; border-radius: 50%; position: relative;
+  background: radial-gradient(circle at 40% 38%, #fff6dc, var(--gold) 45%, rgba(232,200,121,0) 72%);
+  animation: orb 1.9s ease-in-out both; }
+.orb::after { content: ""; position: absolute; inset: -30px; border-radius: 50%; border: 1px solid var(--line); animation: ring 1.9s ease-out both; }
+@keyframes orb { 0% { transform: scale(.4); opacity: 0; } 50% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.12); opacity: .9; filter: blur(1px); } }
+@keyframes ring { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.4); opacity: 0; } }
+.reveal p { font-family: var(--display); font-size: 18px; letter-spacing: 0.2em; margin: 0; }
+
+/* 結果 */
+.result-head { display: grid; grid-template-columns: 128px 1fr; gap: 22px; align-items: center; margin: 18px 0 24px; }
+.portrait {
+  aspect-ratio: 3 / 4; max-width: 100%; border: 1px solid var(--c); position: relative;
+  background: radial-gradient(90% 70% at 50% 30%, color-mix(in srgb, var(--c) 50%, transparent), transparent 75%), var(--night-2);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--c) 35%, transparent);
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.portrait b { font-family: var(--display); font-size: 50px; font-weight: 800; color: var(--ink); text-shadow: 0 0 24px var(--c); }
+.rtitle { font-size: 13px; color: var(--c); letter-spacing: 0.2em; margin: 0; }
+.rname { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 7vw, 36px); line-height: 1.3; margin: 4px 0 2px; letter-spacing: 0.06em; }
+.rruby { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.15em; margin: 0; }
+.rmeta { font-size: 12.5px; color: var(--ink-soft); margin: 8px 0 0; }
+
+.quote {
+  font-family: var(--display); font-weight: 500; font-size: 17px; line-height: 1.9;
+  margin: 0 0 22px; padding: 18px 20px; border-left: 2px solid var(--c);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c) 14%, transparent), transparent);
+}
+.rbody { margin: 0 0 22px; }
+.gift { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 0 26px; font-size: 14px; }
+.gift dt { color: var(--gold); font-size: 12px; letter-spacing: 0.15em; white-space: nowrap; }
+.gift dd { margin: 0; }
+
+.aff h3, .others h3 { font-family: var(--display); font-size: 15px; letter-spacing: 0.15em; margin: 0 0 12px; color: var(--ink-soft); font-weight: 700; }
+.aff ul { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 9px; }
+.aff li { display: grid; grid-template-columns: 4.5em 1fr 3em; gap: 10px; align-items: center; font-size: 13px; }
+.aff .track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+.aff .fill { display: block; height: 100%; background: var(--c); border-radius: 3px; transform-origin: left; animation: grow .9s .2s ease both; }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.aff .pct { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.aff li.top .pct { color: var(--ink); font-weight: 700; }
+
+.actions { display: grid; gap: 10px; }
+.shot { margin-top: 14px; text-align: center; }
+.shot img { width: 100%; border: 1px solid var(--line); border-radius: 2px; display: block; }
+.shot p { font-size: 12px; color: var(--ink-soft); margin: 8px 0 0; }
+
+.others { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  font: inherit; font-size: 13px; cursor: pointer; color: var(--ink);
+  background: transparent; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 5px 14px;
+}
+.tab:hover { border-color: var(--tc); color: var(--tc); }
+.tab[aria-current="true"] { background: var(--tc); border-color: var(--tc); color: var(--night); font-weight: 700; }
+.viewing { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 0 0 6px; }
+
+.links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; }
+.links a { color: var(--sakura); text-decoration: none; border-bottom: 1px solid rgba(241,182,198,0.4); }
+
+/* 伊織の特別演出：蜘蛛の巣と蝶 */
+.web { position: absolute; top: -6px; right: -6px; width: 200px; height: 200px; pointer-events: none; opacity: .5; z-index: 0; }
+.web path { fill: none; stroke: #e7dcc4; stroke-width: .8; }
+.web.draw path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 2.4s ease forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.fly { position: absolute; width: 22px; height: 22px; pointer-events: none; z-index: 1; animation: flutter 6s ease-in-out infinite; }
+.fly svg { width: 100%; height: 100%; animation: wing .5s ease-in-out infinite alternate; transform-origin: center; }
+@keyframes wing { from { transform: scaleX(1); } to { transform: scaleX(.35); } }
+@keyframes flutter { 0%,100% { translate: 0 0; } 50% { translate: -14px -18px; } }
+.card > .fade { position: relative; z-index: 2; }
+
+/* 4人のモチーフ演出（右上） */
+.deco { position: absolute; top: -6px; right: -6px; width: 210px; height: 210px; pointer-events: none; z-index: 0; opacity: .62; }
+.deco svg { width: 100%; height: 100%; overflow: visible; }
+.deco * { transform-box: fill-box; }
+/* 弦真：庇護の繭 */
+.deco .silk ellipse { fill: none; stroke: #dcefe3; stroke-width: .7; stroke-dasharray: 220; stroke-dashoffset: 220; animation: draw 2.6s ease forwards; }
+.deco .breathe { transform-origin: center; animation: breathe 4s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { transform: scale(.9); opacity: .75; } 50% { transform: scale(1.08); opacity: 1; } }
+.deco .thread { stroke: #dcefe3; stroke-width: .8; opacity: .7; }
+/* 光成：見守りの灯火 */
+.deco .frame { fill: rgba(255,255,255,.04); stroke: #d9def5; stroke-width: 1; }
+.deco .flame { transform-origin: 50% 100%; animation: flicker 1.6s ease-in-out infinite; }
+@keyframes flicker { 0%,100% { transform: scale(1, 1) skewX(0); } 25% { transform: scale(.94, 1.08) skewX(-3deg); } 55% { transform: scale(1.04, .93) skewX(2deg); } 80% { transform: scale(.97, 1.04) skewX(-1deg); } }
+.deco .halo { transform-origin: center; animation: halo 2.8s ease-in-out infinite; }
+@keyframes halo { 0%,100% { opacity: .7; transform: scale(.95); } 50% { opacity: 1; transform: scale(1.06); } }
+/* 詩音：導きの風 */
+.deco .gust { fill: none; stroke: #f2d68a; stroke-linecap: round; stroke-dasharray: 70 260; animation: gust 3.4s linear infinite; }
+@keyframes gust { from { stroke-dashoffset: 330; } to { stroke-dashoffset: 0; } }
+.deco .leaf { animation: leaf 5s ease-in-out infinite; }
+@keyframes leaf { 0% { transform: translate(0,0) rotate(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(-150px, 40px) rotate(-220deg); opacity: 0; } }
+/* 涼馬：陽だまりの花 */
+.deco .rays { transform-origin: 100% 0%; animation: rays 7s ease-in-out infinite; }
+@keyframes rays { 0%,100% { transform: rotate(-3deg); opacity: .75; } 50% { transform: rotate(3deg); opacity: 1; } }
+.deco .rays line { stroke: #f7d6a6; stroke-linecap: round; }
+.deco .bloom { transform-origin: center; animation: bloom 1.8s cubic-bezier(.2,.8,.3,1.2) both; }
+@keyframes bloom { from { transform: scale(0) rotate(-60deg); } to { transform: scale(1) rotate(0); } }
+.deco .twinkle { animation: twinkle 2.4s ease-in-out infinite; }
+@keyframes twinkle { 0%,100% { opacity: .2; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .deco * { animation: none !important; }
+  .deco .silk ellipse { stroke-dashoffset: 0; }
+  .deco .leaf { opacity: .8; }
+}
+@media (max-width: 440px) { .deco { width: 150px; height: 150px; } }
+
+.fade { animation: fade .6s ease both; }
+@keyframes fade { from { opacity: .001; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .fade, .orb, .orb::after, .aff .fill, .fly, .fly svg, .web.draw path { animation: none !important; }
+  .web.draw path { stroke-dashoffset: 0; }
+  .bar i, .btn, .aura { transition: none; }
+}
+@media (max-width: 440px) {
+  .card { padding: 38px 20px 30px; }
+  .result-head { grid-template-columns: 100px 1fr; gap: 16px; }
+  .cast span { min-height: 84px; font-size: 14px; }
+  .web { width: 150px; height: 150px; }
+}
+</style>
+</head>
+<body>
+
+<div class="aura" id="aura"></div>
+<div class="stars"></div>
+<canvas id="petals" aria-hidden="true"></canvas>
+<main>
+  <section class="card" id="card"><i class="gem t"></i><i class="gem b"></i><div id="view"></div></section>
+</main>
+
+<script>
+/* ============================================================
+   キャラクターデータ（台詞・文章・画像はここを書き換えてください）
+   image: 立ち絵やバストアップの画像パス（例: "img/genma.png"）
+   ============================================================ */
+const CHARS = {
+  genma: {
+    name: "霧島 弦真", ruby: "きりしま げんま", title: "微笑みの店主",
+    meta: "25歳 ／ 11月7日生まれ ／ 180cm ／ 古書店【夢見堂】店主",
+    color: "#5fa486", image: "", motif: "庇護の繭",
+    quote: "「焦らなくていいんですよ。貴女の歩幅で、ゆっくりいきましょう。私はここにいますから」",
+    body: "穏やかな時間と、言葉にしない優しさを大切にするあなた。静かな古書店で微笑む弦真は、繭のようにやわらかく、あなたを外の冷たい風から包み込んでくれるはず。けれどその微笑みの奥には、あなたを想うからこそ隠している何かがあるのかもしれません。",
+    gift: "ネックレス"
+  },
+  kosei: {
+    name: "三嶋 光成", ruby: "みしま こうせい", title: "優しさを隠す先輩",
+    meta: "22歳 ／ 6月11日生まれ ／ 175cm ／ 結月の大学の先輩",
+    color: "#8b9fe0", image: "", motif: "見守りの灯火",
+    quote: "「君といると、時間の進みが早く感じる。……こんな時間も、悪くないと思える」",
+    body: "言葉より行動で示す人に惹かれるあなた。素っ気ない態度の裏で、光成は暗い夜道を照らす灯火のように、いつも少し離れた場所からあなたを見守っています。その不器用な優しさに、あなたなら誰よりも早く気づけるはずです。",
+    gift: "ブレスレット"
+  },
+  shion: {
+    name: "有栖川 詩音", ruby: "ありすがわ しおん", title: "笑顔の案内人",
+    meta: "18歳 ／ 5月20日生まれ ／ 163cm ／ 高校生・カフェでアルバイト",
+    color: "#e8c56a", image: "", motif: "導きの風",
+    quote: "「今日は僕に案内させてください！ あなたと一緒なら、どこへ行っても楽しいですから」",
+    body: "毎日の小さな楽しみを見つけるのが上手なあなた。風のように軽やかに、笑顔で手を引いてくれる詩音となら、見慣れた街もきらきらした場所に変わっていきそうです。迷った時は、きっと彼が行き先を示してくれるはず。",
+    gift: "髪留め"
+  },
+  ryoma: {
+    name: "神尾 涼馬", ruby: "かみお りょうま", title: "一途な幼馴染",
+    meta: "23歳 ／ 12月2日生まれ ／ 177cm ／ 地元に戻ってきた幼馴染",
+    color: "#d39662", image: "", motif: "陽だまりの花",
+    quote: "「昔から言ってるだろ。何があっても、俺はお前の味方だって」",
+    body: "積み重ねた時間と、変わらない想いを信じるあなた。昔からずっとそばにいた涼馬は、陽だまりのようにあたたかく、どんな時でも真っ先に駆けつけてくれる、いちばん心強い存在になりそうです。",
+    gift: "イヤリング"
+  },
+  iori: {
+    name: "鴻上 伊織", ruby: "こうがみ いおり", title: "執着の蜘蛛",
+    meta: "28歳 ／ 2月18日生まれ ／ 185cm",
+    color: "#d65a68", image: "", motif: "執着の蜘蛛",
+    quote: "「逃げても無駄だ。……お前はもう、俺のものだ」",
+    body: "すべてを懸けるような、深く激しい想いに惹かれるあなた。神出鬼没で強引な伊織の瞳に映っているのは、本当にあなたなのでしょうか。その答えを知りたいなら、蜘蛛の糸に絡め取られる覚悟を。",
+    gift: "指輪"
+  }
+};
+const ORDER = ["genma", "kosei", "shion", "ryoma", "iori"];
+
+/* 質問：scene は問いの上に出る小さな地の文。voice: true の問いは選択肢を台詞として明朝体で表示 */
+const QUESTIONS = [
+  { scene: "夢見草の花びらが舞う、静かな夜。", q: "帰り道、あなたがふと足を止めたのは？", a: [
+    ["灯りのともる、古い本屋の前", {genma: 2}],
+    ["人のいなくなった、大学のキャンパス", {kosei: 2}],
+    ["甘い香りがこぼれる、小さなカフェ", {shion: 2}],
+    ["子どもの頃によく遊んだ、近所の公園", {ryoma: 2}],
+    ["見上げるほど高い、マンションの前", {iori: 2}]
+  ]},
+  { scene: "背後から、誰かがあなたを呼び止めた。", q: "思わず振り向いてしまうのは、どの声？", voice: true, a: [
+    ["「こんな夜更けにお一人ですか？」", {genma: 2}],
+    ["「……君、こんな時間に一人で何してるんだ」", {kosei: 2}],
+    ["「あっ、こんばんは！ こんなところで会えるなんて、奇遇ですね！」", {shion: 2}],
+    ["「……ったく。こんな時間にどこ行くんだよ、お前は」", {ryoma: 2}],
+    ["「──やっと、見つけた」", {iori: 2}]
+  ]},
+  { scene: "夜空を見上げながら、考える。", q: "あなたがいちばん好きな時間は？", a: [
+    ["雨音の聞こえる、静かな午後", {genma: 2}],
+    ["夕焼けに染まる、帰り道", {kosei: 2}],
+    ["よく晴れた、休日の朝", {shion: 2}],
+    ["お祭りの賑わいが残る、夏の夜", {ryoma: 2}],
+    ["月が雲に隠れた、真夜中", {iori: 2}]
+  ]},
+  { scene: "どうしても眠れない、落ち込んだ夜。", q: "そばにいてほしいのは、どんな人？", a: [
+    ["何も聞かずに、温かいお茶を淹れてくれる人", {genma: 2}],
+    ["素っ気ないけど、気づけば隣にいてくれる人", {kosei: 2}],
+    ["くだらない話で、笑わせてくれる人", {shion: 2}],
+    ["「大丈夫か？」と、すぐ駆けつけてくれる人", {ryoma: 2}],
+    ["「他の誰も見るな」と、抱きしめてくれる人", {iori: 2}]
+  ]},
+  { scene: "次の休日、二人で出かけるなら。", q: "行ってみたい場所は？", a: [
+    ["古い町並みを、のんびり散歩", {genma: 2}],
+    ["静かなプラネタリウム", {kosei: 2}],
+    ["雑貨屋さんと、甘いもの巡り", {shion: 2}],
+    ["二人だけが知っている、思い出の場所", {ryoma: 2}],
+    ["夜景を見下ろす、高層階のレストラン", {iori: 2}]
+  ]},
+  { scene: "隣を歩く人の横顔を、そっと見つめる。", q: "相手のどんな一面に、ときめく？", a: [
+    ["大人の余裕の奥に、ふと見える寂しさ", {genma: 2, iori: 1}],
+    ["厳しい言葉の裏に隠れた、本当の優しさ", {kosei: 2}],
+    ["無邪気な笑顔と、時々見せる真剣な顔", {shion: 2}],
+    ["昔から変わらない、まっすぐなところ", {ryoma: 2}],
+    ["心まで見透かすような、強いまなざし", {iori: 2, genma: 1}]
+  ]},
+  { scene: "想いが通じ合った、その証に。", q: "贈られたら、いちばん嬉しいものは？", a: [
+    ["胸元で揺れる、ネックレス", {genma: 2}],
+    ["手首にそっと寄り添う、ブレスレット", {kosei: 2}],
+    ["髪を彩る、かわいい髪留め", {shion: 2}],
+    ["耳元できらめく、イヤリング", {ryoma: 2}],
+    ["約束のかたちをした、指輪", {iori: 2}]
+  ]},
+  { scene: "夜明けまで、あと少し。", q: "あなたの恋愛観に、いちばん近いのは？", a: [
+    ["ゆっくり時間をかけて、育てていきたい", {genma: 2}],
+    ["言葉より、行動で伝わる愛が好き", {kosei: 2}],
+    ["一緒にいて、毎日が楽しいのが一番", {shion: 2}],
+    ["運命より、積み重ねてきた日々を信じたい", {ryoma: 2}],
+    ["すべてを懸けるくらいの恋がしたい", {iori: 2}]
+  ]}
+];
+
+const SITE = {
+  steam: "https://store.steampowered.com/app/4115570/",
+  x: "https://x.com/yumemigusa_5052",
+  hashtag: "#夢見草の夜君と"
+};
+
+/* ============================================================ */
+const view = document.getElementById("view");
+const card = document.getElementById("card");
+const aura = document.getElementById("aura");
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let step = 0, picks = [], shuffled = [], result = null, playerName = "";
+const you = () => playerName ? `${playerName}さん` : "あなた";
+try { playerName = localStorage.getItem("ymg-name") || ""; } catch (e) {}
+const KANJI = ["一","二","三","四","五","六","七","八","九","十"];
+const SKY = ["#2f3478", "#33337a", "#37327a", "#3c3179", "#413078", "#462f76", "#4b2f73", "#502f6f"];
+
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const given = n => n.split(" ")[1];
+
+function clearDeco() { card.querySelectorAll(".web, .fly, .deco").forEach(n => n.remove()); }
+
+/* 右上のモチーフ演出（伊織は decorIori） */
+const DECO = {
+  genma() {  // 庇護の繭
+    let silk = "";
+    for (let i = 0; i < 9; i++) silk += `<ellipse cx="0" cy="0" rx="${22 + (i % 3) * 3}" ry="40" transform="rotate(${-40 + i * 10})" style="animation-delay:${i * 0.12}s"/>`;
+    return `<svg viewBox="0 0 200 200"><defs><radialGradient id="gGen"><stop offset="0" stop-color="#f1fbf4" stop-opacity=".95"/><stop offset=".4" stop-color="#5fa486" stop-opacity=".55"/><stop offset="1" stop-color="#5fa486" stop-opacity="0"/></radialGradient></defs>
+      <line class="thread" x1="146" y1="-10" x2="144" y2="44"/>
+      <circle class="breathe" cx="140" cy="86" r="62" fill="url(#gGen)"/>
+      <g class="silk" transform="translate(140 86) rotate(-14)">${silk}</g></svg>`;
+  },
+  kosei() {  // 見守りの灯火
+    return `<svg viewBox="0 0 200 200"><defs><radialGradient id="gKos"><stop offset="0" stop-color="#fff3cf"/><stop offset=".28" stop-color="#f4d58a" stop-opacity=".8"/><stop offset=".6" stop-color="#8b9fe0" stop-opacity=".35"/><stop offset="1" stop-color="#8b9fe0" stop-opacity="0"/></radialGradient></defs>
+      <line class="thread" x1="140" y1="-10" x2="140" y2="40" style="stroke:#d9def5"/>
+      <circle class="halo" cx="140" cy="90" r="66" fill="url(#gKos)"/>
+      <path class="frame" d="M128 40 H152 L158 48 H122 Z"/>
+      <rect class="frame" x="120" y="48" width="40" height="70" rx="7"/>
+      <path class="frame" d="M122 118 H158 L152 125 H128 Z"/>
+      <line x1="140" y1="48" x2="140" y2="62" style="stroke:#d9def5;stroke-width:.6;opacity:.5"/>
+      <path class="flame" d="M140 70 C151 85 149 100 140 105 C131 100 129 85 140 70 Z" fill="#fff1c4"/>
+      <path class="flame" d="M140 84 C145 92 144 100 140 102 C136 100 135 92 140 84 Z" fill="#f4c46a"/></svg>`;
+  },
+  shion() {  // 導きの風
+    const gusts = [
+      ["M230 22 C180 12 150 52 105 44 S40 30 0 58", 1.4, 0],
+      ["M230 64 C190 54 160 92 118 84 S60 74 20 100", 1, -1.1],
+      ["M230 108 C196 100 170 128 136 122 S90 112 56 134", .8, -2.2],
+      ["M230 40 C200 34 176 66 140 62", .7, -.6]
+    ].map(([d, w, dl]) => `<path class="gust" d="${d}" style="stroke-width:${w};animation-delay:${dl}s"/>`).join("");
+    const leaves = [[188, 30, 0], [196, 80, -1.7], [182, 118, -3.3]].map(([x, y, dl]) =>
+      `<g transform="translate(${x} ${y})"><path class="leaf" d="M0 0 C4 -6 10 -6 12 0 C8 4 3 4 0 0 Z" fill="#f1b6c6" style="animation-delay:${dl}s"/></g>`).join("");
+    return `<svg viewBox="0 0 200 200">${gusts}${leaves}</svg>`;
+  },
+  ryoma() {  // 陽だまりの花
+    let rays = "";
+    for (let i = 0; i < 9; i++) { const a = (100 + i * 9) * Math.PI / 180, L = 150 + (i % 3) * 30; rays += `<line x1="200" y1="0" x2="${200 + Math.cos(a) * L}" y2="${Math.sin(a) * L}" style="stroke-width:${i % 2 ? 1 : 2};opacity:${i % 2 ? .45 : .7}"/>`; }
+    let petals = "";
+    for (let i = 0; i < 6; i++) petals += `<ellipse cx="0" cy="-15" rx="8" ry="15" transform="rotate(${i * 60})" fill="#f6c48f" opacity=".92"/>`;
+    const sparks = [[100, 46, 0], [160, 128, -.8], [84, 104, -1.6], [176, 54, -1.1]].map(([x, y, d]) =>
+      `<circle class="twinkle" cx="${x}" cy="${y}" r="1.8" fill="#fff3d6" style="animation-delay:${d}s"/>`).join("");
+    return `<svg viewBox="0 0 200 200"><defs><radialGradient id="gRyo" cx="100%" cy="0%" r="100%"><stop offset="0" stop-color="#ffe2b0" stop-opacity=".9"/><stop offset=".5" stop-color="#d39662" stop-opacity=".3"/><stop offset="1" stop-color="#d39662" stop-opacity="0"/></radialGradient></defs>
+      <rect x="0" y="0" width="200" height="200" fill="url(#gRyo)"/>
+      <g class="rays">${rays}</g>
+      <g transform="translate(128 82)"><g class="bloom">${petals}<circle r="8" fill="#e08f50"/><circle r="4" fill="#ffe2b0"/></g></g>
+      ${sparks}</svg>`;
+  }
+};
+function decorate(key) {
+  if (key === "iori") return decorIori();
+  if (!DECO[key]) return;
+  const d = document.createElement("div");
+  d.className = "deco"; d.setAttribute("aria-hidden", "true");
+  d.innerHTML = DECO[key]();
+  card.appendChild(d);
+}
+function setAura(c) { aura.style.color = c; }
+
+function renderStart() {
+  clearDeco(); setAura(SKY[0]); result = null;
+  view.innerHTML = `
+    <div class="fade">
+      <p class="eyebrow">夢見草の夜、君と ── 相性診断</p>
+      <h1>あなたと夜を歩くのは、<br><span class="moon">誰</span>？</h1>
+      <p class="sub">全${QUESTIONS.length}問 ／ 約1分</p>
+      <p class="lead">夢見草の舞う夜、あなたの前に現れる五人。その中で、いちばんお似合いなのは誰なのか。直感で選んでみてください。</p>
+      <div class="cast" aria-label="攻略キャラクター">
+        ${ORDER.map(k => `<span style="color:${CHARS[k].color}">${esc(given(CHARS[k].name))}</span>`).join("")}
+      </div>
+      <form id="startForm">
+        <div class="namefield">
+          <label for="pname">あなたのお名前</label>
+          <input id="pname" type="text" maxlength="10" autocomplete="off" placeholder="結月" value="${esc(playerName)}">
+          <small>空欄のままでも診断できます（10文字まで）</small>
+        </div>
+        <button class="btn" type="submit">診断をはじめる</button>
+      </form>
+      <p class="note">※ 結果はお遊びです。本編の内容とは関係ありません。</p>
+    </div>`;
+  document.getElementById("startForm").onsubmit = e => {
+    e.preventDefault();
+    playerName = document.getElementById("pname").value.trim().slice(0, 10);
+    try { localStorage.setItem("ymg-name", playerName); } catch (err) {}
+    step = 0; picks = []; shuffled = QUESTIONS.map(q => shuffle(q.a)); renderQ();
+  };
+}
+
+function renderQ() {
+  const Q = QUESTIONS[step];
+  setAura(SKY[Math.min(step, SKY.length - 1)]);
+  view.innerHTML = `
+    <div class="fade">
+      <div class="progress">
+        <span class="num">第${KANJI[step]}問</span>
+        <div class="bar"><i style="width:${(step / QUESTIONS.length) * 100}%"></i></div>
+        <span class="count">${step + 1} / ${QUESTIONS.length}</span>
+      </div>
+      <p class="scene">${esc(Q.scene)}</p>
+      <h2 class="q">${esc(Q.q)}</h2>
+      <div class="choices">
+        ${shuffled[step].map((c, i) => `<button class="choice" data-i="${i}">${Q.voice ? `<span class="voice">${esc(c[0])}</span>` : esc(c[0])}</button>`).join("")}
+      </div>
+      ${step > 0 ? `<button class="back" id="back">← ひとつ前に戻る</button>` : ""}
+    </div>`;
+  view.querySelectorAll(".choice").forEach(b => b.onclick = () => {
+    if (view.dataset.lock) return;
+    view.dataset.lock = "1";
+    b.classList.add("picked");
+    picks[step] = shuffled[step][+b.dataset.i][1];
+    setTimeout(() => {
+      delete view.dataset.lock;
+      step++;
+      step < QUESTIONS.length ? renderQ() : renderReveal();
+    }, reduce ? 0 : 260);
+  });
+  const back = document.getElementById("back");
+  if (back) back.onclick = () => { step--; picks.length = step; renderQ(); };
+}
+
+function score() {
+  const s = Object.fromEntries(ORDER.map(k => [k, 0]));
+  picks.forEach(p => Object.entries(p).forEach(([k, v]) => s[k] += v));
+  const max = Math.max(...Object.values(s));
+  const tied = ORDER.filter(k => s[k] === max);
+  let win = tied[0];
+  if (tied.length > 1) {  // 同点なら、後ろの質問で選んだキャラを優先
+    for (let i = picks.length - 1; i >= 0; i--) {
+      const hit = tied.find(k => (picks[i][k] || 0) >= 2);
+      if (hit) { win = hit; break; }
+    }
+  }
+  return { s, win };
+}
+
+function renderReveal() {
+  result = score();
+  setAura("#5a3a6e");
+  view.innerHTML = `<div class="reveal fade"><div class="orb"></div><p>${esc(you())}の運命の相手は……</p></div>`;
+  setTimeout(() => renderResult(result.win, true), reduce ? 400 : 2000);
+}
+
+function decorIori() {
+  const web = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  web.setAttribute("viewBox", "0 0 200 200");
+  web.setAttribute("class", "web" + (reduce ? "" : " draw"));
+  web.setAttribute("aria-hidden", "true");
+  let d = "";
+  const cx = 200, cy = 0;
+  const angles = [95, 115, 135, 155, 175];
+  angles.forEach(a => { const r = a * Math.PI / 180; d += `M${cx},${cy} L${cx + Math.cos(r) * 210},${cy + Math.sin(r) * 210} `; });
+  [40, 75, 110, 145, 180].forEach(R => {
+    angles.forEach((a, i) => {
+      const r = a * Math.PI / 180, x = cx + Math.cos(r) * R, y = cy + Math.sin(r) * R;
+      d += (i ? "Q" + (cx + Math.cos(r - 0.17) * R * 0.93) + "," + (cy + Math.sin(r - 0.17) * R * 0.93) + " " : "M") + x + "," + y + " ";
+    });
+  });
+  web.innerHTML = `<path d="${d}"/>`;
+  card.appendChild(web);
+  [["8%", "58%", "0s"], ["84%", "34%", "-2s"], ["16%", "88%", "-4s"]].forEach(([l, t, delay]) => {
+    const f = document.createElement("div");
+    f.className = "fly"; f.setAttribute("aria-hidden", "true");
+    f.style.left = l; f.style.top = t; f.style.animationDelay = delay;
+    f.innerHTML = `<svg viewBox="0 0 24 24"><path fill="#f1b6c6" opacity=".85" d="M12 12C9 4 2 3 2 8c0 3 3 5 10 4zM12 12c3-8 10-9 10-4 0 3-3 5-10 4zM12 12c-4 2-7 6-5 8 2 1 4-3 5-8zM12 12c4 2 7 6 5 8-2 1-4-3-5-8z"/></svg>`;
+    card.appendChild(f);
+  });
+}
+
+function renderResult(key, isMine) {
+  const C = CHARS[key], { s, win } = result;
+  const total = Object.values(s).reduce((a, b) => a + b, 0) || 1;
+  const ranked = ORDER.slice().sort((a, b) => s[b] - s[a] || (a === win ? -1 : b === win ? 1 : 0));
+  const shareText = `『夢見草の夜、君と』お似合い診断の結果、${playerName ? you() : "私"}にお似合いなのは『${CHARS[win].title}』${CHARS[win].name.replace(" ", "")}でした！\n${SITE.hashtag}\n${SITE.steam}`;
+  clearDeco();
+  setAura(C.color);
+  card.style.setProperty("--c", C.color);
+  view.innerHTML = `
+    <div class="fade">
+      ${isMine ? `<p class="eyebrow">${esc(you())}にお似合いなのは</p>` : `<p class="viewing">ほかのキャラクターの結果を見ています</p>`}
+      <div class="result-head">
+        <div class="portrait">${C.image ? `<img src="${esc(C.image)}" alt="${esc(C.name)}">` : `<b>${esc(given(C.name)[0])}</b>`}</div>
+        <div>
+          <p class="rtitle">『${esc(C.title)}』</p>
+          <p class="rname">${esc(C.name)}</p>
+          <p class="rruby">${esc(C.ruby)}</p>
+          <p class="rmeta">${esc(C.meta)}</p>
+        </div>
+      </div>
+      <p class="quote">${esc(C.quote)}</p>
+      <p class="rbody">${esc(C.body)}</p>
+      <dl class="gift">${C.motif ? `<dt>モチーフ</dt><dd>${esc(C.motif)}</dd>` : ""}<dt>心を通わせた証</dt><dd>${esc(C.gift)}</dd></dl>
+      ${isMine ? `
+      <div class="aff">
+        <h3>みんなとの相性</h3>
+        <ul>
+          ${ranked.map(k => { const p = Math.round(s[k] / total * 100); return `<li class="${k === win ? "top" : ""}" style="--c:${CHARS[k].color}">
+            <span>${esc(given(CHARS[k].name))}</span>
+            <span class="track"><span class="fill" style="width:${p}%"></span></span>
+            <span class="pct">${p}%</span></li>`; }).join("")}
+        </ul>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://x.com/intent/post?text=${encodeURIComponent(shareText)}" target="_blank" rel="noopener">結果をXでシェアする</a>
+        <button class="btn ghost" id="img">結果画像をつくる</button>
+        <button class="btn ghost" id="again">もう一度診断する</button>
+      </div>
+      <div class="shot" id="shot" hidden></div>` : `
+      <div class="actions"><button class="btn ghost" id="mine">自分の結果に戻る</button></div>`}
+      <div class="others">
+        <h3>ほかのキャラクターの結果も見る</h3>
+        <div class="tabs">
+          ${ORDER.map(k => `<button class="tab" data-k="${k}" style="--tc:${CHARS[k].color}" aria-current="${k === key}">${esc(given(CHARS[k].name))}</button>`).join("")}
+        </div>
+      </div>
+      <div class="links">
+        <a href="${SITE.steam}" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
+        <a href="${SITE.x}" target="_blank" rel="noopener">公式X @yumemigusa_5052</a>
+      </div>
+    </div>`;
+  decorate(key);
+  view.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+    const k = t.dataset.k;
+    renderResult(k, k === win);
+    card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  });
+  const again = document.getElementById("again"); if (again) again.onclick = renderStart;
+  const mine = document.getElementById("mine"); if (mine) mine.onclick = () => renderResult(win, true);
+  const img = document.getElementById("img"); if (img) img.onclick = () => makeImage(win);
+  if (isMine) window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+}
+
+/* ---------- シェア用の結果画像（1200×675） ---------- */
+function wrap(ctx, text, maxW) {
+  const lines = []; let line = "";
+  for (const ch of text) { if (ctx.measureText(line + ch).width > maxW && line) { lines.push(line); line = ch; } else line += ch; }
+  if (line) lines.push(line);
+  return lines;
+}
+function loadImg(src) { return new Promise(r => { if (!src) return r(null); const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; }); }
+
+async function makeImage(key, noPic) {
+  const C = CHARS[key];
+  const btn = document.getElementById("img"); btn.textContent = "画像をつくっています…"; btn.disabled = true;
+  try { await Promise.all([document.fonts.load('800 60px "Shippori Mincho B1"'), document.fonts.load('500 30px "Shippori Mincho B1"'), document.fonts.load('500 20px "Zen Kaku Gothic New"')]); } catch (e) {}
+  const W = 1200, H = 675, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  const x = cv.getContext("2d");
+  const MIN = '"Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif';
+  const GO = '"Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif';
+
+  x.fillStyle = "#0d1330"; x.fillRect(0, 0, W, H);
+  let g = x.createRadialGradient(330, 300, 20, 330, 300, 520); g.addColorStop(0, C.color + "88"); g.addColorStop(1, "#0d133000");
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  g = x.createRadialGradient(1050, 700, 10, 1050, 700, 500); g.addColorStop(0, "rgba(217,132,156,0.28)"); g.addColorStop(1, "rgba(217,132,156,0)");
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  for (let i = 0; i < 70; i++) { x.fillStyle = `rgba(255,255,255,${Math.random() * 0.6 + 0.2})`; x.fillRect(Math.random() * W, Math.random() * H * 0.7, 1.4, 1.4); }
+  for (let i = 0; i < 26; i++) {
+    const px = Math.random() * W, py = Math.random() * H, r = 5 + Math.random() * 7;
+    x.save(); x.translate(px, py); x.rotate(Math.random() * 6.28); x.globalAlpha = 0.25 + Math.random() * 0.4; x.fillStyle = "#f1b6c6";
+    x.beginPath(); x.moveTo(0, -r); x.bezierCurveTo(r, -r, r * 0.8, r * 0.6, 0, r); x.bezierCurveTo(-r * 0.8, r * 0.6, -r, -r, 0, -r * 0.55); x.fill(); x.restore();
+  }
+  // 枠
+  x.strokeStyle = "rgba(232,200,121,0.45)"; x.lineWidth = 1.5; x.strokeRect(36, 36, W - 72, H - 72);
+  x.fillStyle = "#e8c879"; [[W / 2, 36], [W / 2, H - 36]].forEach(([a, b]) => { x.save(); x.translate(a, b); x.rotate(Math.PI / 4); x.fillRect(-6, -6, 12, 12); x.restore(); });
+
+  // 立ち絵枠
+  const px = 96, py = 104, pw = 330, ph = 440;
+  const pic = noPic ? null : await loadImg(C.image);
+  x.save(); x.beginPath(); x.rect(px, py, pw, ph); x.clip();
+  g = x.createRadialGradient(px + pw / 2, py + ph * 0.35, 10, px + pw / 2, py + ph * 0.35, ph * 0.7); g.addColorStop(0, C.color + "aa"); g.addColorStop(1, "#151d45");
+  x.fillStyle = g; x.fillRect(px, py, pw, ph);
+  if (pic) { const s = Math.max(pw / pic.width, ph / pic.height); x.drawImage(pic, px + (pw - pic.width * s) / 2, py, pic.width * s, pic.height * s); }
+  else { x.fillStyle = "#ece8f4"; x.font = `800 150px ${MIN}`; x.textAlign = "center"; x.textBaseline = "middle"; x.shadowColor = C.color; x.shadowBlur = 40; x.fillText(given(C.name)[0], px + pw / 2, py + ph / 2); }
+  x.restore();
+  x.strokeStyle = C.color; x.lineWidth = 2; x.strokeRect(px, py, pw, ph);
+
+  // テキスト
+  const tx = 490; x.textAlign = "left"; x.textBaseline = "alphabetic"; x.shadowBlur = 0;
+  x.fillStyle = "#e8c879"; x.font = `500 20px ${GO}`; x.fillText("夢見草の夜、君と  お似合い診断", tx, 130);
+  x.fillStyle = "#a9adc9"; x.font = `500 22px ${GO}`; x.fillText(`${you()}にお似合いなのは`, tx, 196);
+  x.fillStyle = C.color; x.font = `700 24px ${MIN}`; x.fillText(`『${C.title}』`, tx, 250);
+  x.fillStyle = "#ece8f4"; x.font = `800 76px ${MIN}`; x.shadowColor = C.color; x.shadowBlur = 24; x.fillText(C.name, tx, 336); x.shadowBlur = 0;
+  x.fillStyle = "#a9adc9"; x.font = `500 18px ${GO}`; x.fillText(C.ruby, tx + 4, 372);
+  x.fillStyle = C.color; x.fillRect(tx, 412, 3, 92);
+  x.fillStyle = "#ece8f4"; x.font = `500 26px ${MIN}`;
+  wrap(x, C.quote, 580).slice(0, 3).forEach((l, i) => x.fillText(l, tx + 22, 446 + i * 38));
+  x.fillStyle = "#e8c879"; x.font = `500 18px ${GO}`; x.fillText(`心を通わせた証 ── ${C.gift}`, tx, 556);
+  x.fillStyle = "#f1b6c6"; x.font = `500 18px ${GO}`; x.fillText(`Steamでウィッシュリスト受付中  ${SITE.hashtag}`, tx, 600);
+
+  // パソコン上で直接開いた時など、立ち絵入りの画像を書き出せない場合は立ち絵なしで作り直す
+  let dataUrl;
+  try { dataUrl = cv.toDataURL("image/png"); } catch (e) { if (!noPic) return makeImage(key, true); }
+  const shot = document.getElementById("shot");
+  shot.innerHTML = `<img alt="${esc(C.name)}の診断結果画像" src="${dataUrl}"><p>画像を長押し（パソコンは右クリック）で保存できます</p>`;
+  shot.hidden = false;
+  btn.textContent = "結果画像をつくり直す"; btn.disabled = false;
+  shot.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+}
+
+renderStart();
+
+/* ---------- 舞い散る花びら ---------- */
+(function () {
+  if (reduce) return;
+  const cv = document.getElementById("petals"), ctx = cv.getContext("2d");
+  let W, H; const P = [];
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function resize() { W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  const petal = init => ({ x: Math.random() * W, y: init ? Math.random() * H : -20, r: 4 + Math.random() * 5, vy: 0.3 + Math.random() * 0.6, vx: -0.2 + Math.random() * 0.5, a: Math.random() * 6.28, va: (Math.random() - 0.5) * 0.03, sway: Math.random() * 6.28, o: 0.35 + Math.random() * 0.45 });
+  resize(); addEventListener("resize", resize);
+  const N = Math.round(Math.min(26, W / 30));
+  for (let i = 0; i < N; i++) P.push(petal(true));
+  (function loop() {
+    ctx.clearRect(0, 0, W, H);
+    P.forEach((p, i) => {
+      p.sway += 0.012; p.x += p.vx + Math.sin(p.sway) * 0.35; p.y += p.vy; p.a += p.va;
+      if (p.y > H + 20) P[i] = petal(false);
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.globalAlpha = p.o; ctx.fillStyle = "#f1b6c6";
+      ctx.beginPath(); ctx.moveTo(0, -p.r);
+      ctx.bezierCurveTo(p.r, -p.r, p.r * 0.8, p.r * 0.6, 0, p.r);
+      ctx.bezierCurveTo(-p.r * 0.8, p.r * 0.6, -p.r, -p.r, 0, -p.r * 0.55);
+      ctx.fill(); ctx.restore();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
+</body>
+</html>
