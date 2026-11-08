@@ -785,3 +785,101 @@ main { position: relative; z-index: 2; }
     transform: none;
   }
 }
+/* キャラアイコン：スマホで光が残らないように */
+.chara-tab {
+  -webkit-tap-highlight-color: transparent;
+}
+.chara-tab .thumb img {
+  transform: translateZ(0);
+  will-change: filter, transform;
+}
+
+/* スマホなど、マウスがない端末ではホバーの光を出さない */
+@media (hover: none) {
+  .chara-tab:hover .thumb img {
+    filter: brightness(0.8);
+    transform: translateZ(0);
+  }
+}
+
+/* マウスがある端末だけ、マウスを乗せたときに光る */
+@media (hover: hover) {
+  .chara-tab:hover .thumb img {
+    transform: scale(1.05) translateZ(0);
+  }
+}
+/* お問い合わせ：よくある質問 */
+.faq {
+  max-width: 760px;
+  margin: 80px auto 0;
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item:first-of-type {
+  border-top: 1px solid var(--line);
+}
+.faq-item summary {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 48px 20px 44px;
+  font-family: var(--font-title);
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+  transition: color .3s, background .3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::before {
+  content: "Q";
+  position: absolute;
+  left: 10px;
+  top: 18px;
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+.faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform .3s;
+}
+.faq-item[open] summary::after {
+  transform: translateY(-30%) rotate(-135deg);
+}
+.faq-item summary:hover,
+.faq-item[open] summary {
+  color: var(--sakura);
+}
+.faq-answer {
+  position: relative;
+  padding: 0 20px 22px 44px;
+  color: var(--text);
+  animation: faqOpen .4s ease;
+}
+.faq-answer::before {
+  content: "A";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  color: var(--sakura);
+}
+@keyframes faqOpen {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (max-width: 600px) {
+  .faq-item summary { font-size: 0.95rem; padding: 18px 40px 18px 36px; }
+  .faq-item summary::before { left: 6px; top: 16px; }
+  .faq-answer { padding: 0 12px 20px 36px; }
+  .faq-answer::before { left: 6px; }
+}
