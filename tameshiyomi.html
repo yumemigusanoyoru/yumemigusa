@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>名前変換 試し読み｜夢見草の夜、君と 公式サイト</title>
+<meta name="description" content="名前を入力すると、攻略キャラクター5人との短いシーンをあなたの名前で読める『夢見草の夜、君と』の試し読みです。">
+<meta property="og:title" content="名前変換 試し読み｜夢見草の夜、君と 公式サイト">
+<meta property="og:description" content="名前を入力すると、攻略キャラクター5人との短いシーンをあなたの名前で読める『夢見草の夜、君と』の試し読みです。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://yumemigusanoyoru.github.io/yumemigusa/images/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="images/favicon.png?v=1">
+<link rel="apple-touch-icon" href="images/favicon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: ノベルゲームの一画面。上に舞台（背景・立ち絵）、下端にテキストウィンドウと名前枠。タップで次へ */
+:root {
+  --night: #0d1330;
+  --night-2: #151d45;
+  --ink: #ece8f4;
+  --ink-soft: #a9adc9;
+  --sakura: #f1b6c6;
+  --gold: #e8c879;
+  --line: rgba(232, 200, 121, 0.28);
+  --card: rgba(21, 29, 69, 0.74);
+  --display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--night); color: var(--ink);
+  font-family: var(--body); font-size: 15px; line-height: 1.8;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px; overflow-x: hidden;
+}
+.aura { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(120% 65% at 50% -12%, #2f3478 0%, transparent 62%), radial-gradient(80% 50% at 85% 110%, rgba(217,132,156,0.16) 0%, transparent 70%); }
+#petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+main { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+
+.site-back { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 14px; font-size: 13px; }
+.site-back a { color: var(--ink-soft); text-decoration: none; letter-spacing: 0.08em; padding: 4px 0; transition: color .2s; }
+.site-back a:hover { color: var(--sakura); }
+.site-back .logo { font-family: var(--display); font-weight: 700; color: var(--gold); letter-spacing: 0.15em; }
+
+.card { position: relative; max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--line); border-radius: 4px;
+  padding: 44px 32px 36px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
+.card.wide { max-width: 860px; }
+.gem { position: absolute; left: 50%; width: 7px; height: 7px; background: var(--gold); transform: translateX(-50%) rotate(45deg); }
+.gem.t { top: -4px; } .gem.b { bottom: -4px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.32em; color: var(--gold); text-align: center; margin: 0; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 7.5vw, 38px); line-height: 1.35; text-align: center; margin: 10px 0 6px; letter-spacing: 0.1em; text-wrap: balance; }
+.sub { text-align: center; color: var(--ink-soft); margin: 0 0 26px; font-size: 14px; }
+
+.names { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 8px; }
+.field { display: grid; gap: 6px; }
+.field label { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.12em; text-align: center; color: var(--gold); }
+.field input { font: inherit; font-family: var(--display); font-size: 20px; text-align: center; color: var(--ink); background: rgba(255,255,255,0.04);
+  border: 0; border-bottom: 1px solid var(--line); padding: 10px 8px; width: 100%; border-radius: 0; }
+.field input::placeholder { color: rgba(169,173,201,0.5); }
+.field input:focus { outline: none; border-bottom-color: var(--sakura); background: rgba(241,182,198,0.06); }
+.small { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 4px 0 24px; }
+
+.btn { display: block; width: 100%; font: inherit; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: 0.18em; cursor: pointer; text-align: center; text-decoration: none;
+  color: var(--night); background: linear-gradient(180deg, #f6dfa0, var(--gold)); border: 0; border-radius: 2px; padding: 15px 20px;
+  box-shadow: 0 0 0 1px rgba(232,200,121,0.5), 0 0 28px rgba(232,200,121,0.28); transition: transform .15s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(232,200,121,0.7), 0 0 40px rgba(232,200,121,0.45); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: none; border: 1px solid var(--line); font-size: 15px; }
+.btn.ghost:hover { border-color: var(--gold); }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--sakura); outline-offset: 3px; }
+
+/* キャラ選択 */
+.choose-head { text-align: center; margin: 0 0 18px; font-size: 14px; color: var(--ink-soft); }
+.choose-head b { color: var(--ink); font-family: var(--display); font-size: 17px; font-weight: 700; }
+.picks { display: grid; gap: 10px; }
+.pick { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; text-align: left; font: inherit; color: var(--ink); cursor: pointer;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-left: 3px solid var(--c); border-radius: 2px; padding: 10px 14px; transition: background .2s, border-color .2s; }
+.pick:hover { background: color-mix(in srgb, var(--c) 12%, transparent); border-color: var(--c); }
+.pick .thumb { aspect-ratio: 3/4; max-width: 100%; overflow: hidden; display: grid; place-items: center; border: 1px solid var(--c);
+  background: radial-gradient(90% 70% at 50% 30%, color-mix(in srgb, var(--c) 50%, transparent), transparent 75%), var(--night-2); }
+.pick .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.pick .thumb b, .portrait b { font-family: var(--display); font-weight: 800; text-shadow: 0 0 16px var(--c); }
+.pick .thumb b { font-size: 22px; }
+.pick .nm { font-family: var(--display); font-weight: 700; font-size: 17px; display: block; letter-spacing: 0.06em; }
+.pick .sc { font-size: 12.5px; color: var(--ink-soft); }
+.pick .go { color: var(--c); font-size: 13px; letter-spacing: 0.1em; white-space: nowrap; }
+.back-link { display: block; margin: 18px auto 0; background: none; border: 0; color: var(--ink-soft); font: inherit; font-size: 13px; cursor: pointer; }
+.back-link:hover { color: var(--ink); }
+
+/* 舞台 */
+.stage {
+  position: relative; container-type: inline-size; aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; cursor: pointer; user-select: none; -webkit-user-select: none;
+  border: 1px solid var(--line); background: var(--bg, var(--night-2)); background-size: cover; background-position: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+}
+.stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 40%, transparent 50%, rgba(0,0,0,0.45)); }
+.scene-title { position: absolute; top: 14px; left: 18px; z-index: 3; font-family: var(--display); font-size: 13px; letter-spacing: 0.2em; color: var(--ink); opacity: .85;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+.counter { position: absolute; top: 14px; right: 18px; z-index: 3; font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+.portrait { position: absolute; left: 50%; bottom: 0; height: 92%; aspect-ratio: 3 / 4; transform: translateX(-50%); z-index: 1;
+  display: grid; place-items: end center; transition: opacity .5s ease, filter .4s ease; opacity: 0; }
+.portrait.on { opacity: 1; }
+.portrait.dim { filter: brightness(.62) saturate(.8); }
+.portrait img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; }
+.portrait b { font-size: clamp(80px, 18vw, 150px); align-self: center; color: var(--ink); opacity: .9; }
+
+/* テキストウィンドウ：画像を9分割して伸縮させるので、スマホで文字が増えても飾りが崩れない */
+.window { --s: calc(94cqw / 1395); position: absolute; left: 3%; right: 3%; bottom: 3%; z-index: 2; }
+.window .frame {
+  position: absolute; inset: 0; box-sizing: border-box; border-style: solid; border-color: transparent;
+  border-width: calc(var(--s) * 115) calc(var(--s) * 95) calc(var(--s) * 208) calc(var(--s) * 240);
+  border-image-source: url("tameshiyomi-img/window.png");
+  border-image-slice: 115 95 208 240 fill;
+  border-image-width: calc(var(--s) * 115) calc(var(--s) * 95) calc(var(--s) * 208) calc(var(--s) * 240);
+  border-image-repeat: stretch;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+}
+.window .inner { position: relative; min-height: calc(var(--s) * 338); padding: calc(var(--s) * 82) calc(var(--s) * 90) calc(var(--s) * 44) calc(var(--s) * 236); }
+.nameplate {
+  position: absolute; z-index: 1; left: calc(var(--s) * 140); top: calc(var(--s) * -45);
+  width: calc(var(--s) * 455); height: calc(var(--s) * 108);
+  background: url("tameshiyomi-img/nameplate.png") 0 0 / 100% 100% no-repeat;
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(var(--s) * 6) calc(var(--s) * 130) 0 calc(var(--s) * 24);
+  font-family: var(--display); font-weight: 700; letter-spacing: 0.14em; white-space: nowrap;
+  font-size: clamp(11px, calc(var(--s) * 34), 20px);
+  color: color-mix(in srgb, var(--np, #5a4a2a) 40%, #2a1f30);
+}
+.nameplate[hidden] { display: none; }
+.text { margin: 0; font-family: var(--display); font-weight: 500; font-size: clamp(13.5px, calc(var(--s) * 31), 18.5px); line-height: 1.85; letter-spacing: 0.04em; color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.text.narr { color: #dcd8ea; }
+.next { position: absolute; right: calc(var(--s) * 70 + 4px); bottom: calc(var(--s) * 40 + 4px); width: 9px; height: 9px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+  transform: rotate(45deg); animation: bob 1s ease-in-out infinite; opacity: 0; }
+.next.show { opacity: 1; }
+@keyframes bob { 0%,100% { translate: 0 -2px; } 50% { translate: 0 3px; } }
+
+.end { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; text-align: center; padding: 20px;
+  background: rgba(8, 11, 30, 0.82); animation: fade .8s ease both; cursor: default; }
+.end p { margin: 0; }
+.end .fin { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 4.5vw, 28px); letter-spacing: 0.25em; }
+.end .to { color: var(--ink-soft); font-size: 13px; margin: 8px 0 22px; }
+.end .row { display: grid; gap: 10px; width: min(320px, 100%); margin: 0 auto; }
+.end .btn { font-size: 15px; padding: 12px 16px; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-top: 14px; font-size: 13px; }
+.controls button { background: none; border: 0; color: var(--ink-soft); font: inherit; cursor: pointer; padding: 4px 2px; }
+.controls button:hover { color: var(--ink); }
+.tip { text-align: center; font-size: 12px; color: var(--ink-soft); margin: 6px 0 0; }
+
+.links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 24px; font-size: 13px; }
+.links a { color: var(--sakura); text-decoration: none; border-bottom: 1px solid rgba(241,182,198,0.4); }
+
+@media (prefers-reduced-motion: reduce) { .next, .end { animation: none; } .portrait, .btn { transition: none; } }
+@media (max-width: 600px) {
+  .card { padding: 38px 18px 30px; }
+  .stage { aspect-ratio: 3 / 4; }
+  .portrait { height: 78%; bottom: 18%; }
+  .names { gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="aura"></div>
+<canvas id="petals" aria-hidden="true"></canvas>
+<main>
+  <nav class="site-back" aria-label="公式サイト">
+    <a href="index.html">← 公式サイトに戻る</a>
+    <a class="logo" href="index.html">夢見草の夜、君と</a>
+  </nav>
+  <div id="app"></div>
+  <div class="links">
+    <a href="shindan.html">お似合い診断</a>
+    <a href="omikuji.html">夢見草みくじ</a>
+    <a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
+  </div>
+</main>
+
+<script>
+/* ============================================================
+   設定（シーンの文章・画像はここを書き換えてください）
+   本文の中の {姓} と {名} が、入力された名前に置き換わります
+   who: ""（地の文）／ "me"（主人公）／ キャラのキー（genma など）
+   ============================================================ */
+const DEFAULT_SEI = "篠宮", DEFAULT_MEI = "結月";
+
+const CHARS = {
+  genma: { name: "弦真", full: "霧島 弦真", color: "#5fa486", image: "shindan-img/genma.png" },
+  kosei: { name: "光成", full: "三嶋 光成", color: "#8b9fe0", image: "shindan-img/kosei.png" },
+  shion: { name: "詩音", full: "有栖川 詩音", color: "#e8c56a", image: "shindan-img/shion.png" },
+  ryoma: { name: "涼馬", full: "神尾 涼馬", color: "#d39662", image: "shindan-img/ryoma.png" },
+  iori:  { name: "伊織", full: "鴻上 伊織", color: "#d65a68", image: "shindan-img/iori.png" }
+};
+
+/* bg：背景画像を使う場合は "url(images/bg/kosho.jpg) center / cover" のように書く */
+const SCENES = {
+  genma: { title: "夢見堂の灯り", bg: "radial-gradient(80% 70% at 30% 30%, #6b5a36 0%, transparent 60%), linear-gradient(180deg, #2e3a30, #121a2c)", lines: [
+    ["", "夕暮れの路地裏。古い木の看板に「夢見堂」と書かれた古書店の扉を、そっと押し開ける。"],
+    ["", "紙とインクの匂い。積み上げられた本の向こうで、眼鏡の男性が顔を上げた。"],
+    ["genma", "「いらっしゃいませ。……おや、{名}さん。今日も来てくださったんですね」"],
+    ["me", "「こんにちは、弦真さん。この前教えてもらった本、すごく面白かったです」"],
+    ["genma", "「それは良かった。貴女なら、きっと気に入ってくださると思っていました」"],
+    ["", "弦真さんは柔らかく微笑んで、棚から一冊の本を取り出す。"],
+    ["genma", "「では、次はこちらを。……少し切ないお話ですが、最後はきっと、貴女を笑顔にしてくれますよ」"],
+    ["", "差し出された本を受け取る時、指先がほんの少しだけ触れた。"],
+    ["genma", "「ゆっくりしていってください。ここは、急ぐ人のための場所ではありませんから」"]
+  ]},
+  kosei: { title: "閉館前の図書館", bg: "radial-gradient(70% 60% at 75% 20%, #6d6aa3 0%, transparent 60%), linear-gradient(180deg, #2c3163, #141838)", lines: [
+    ["", "閉館間際の大学図書館。レポートの資料を探して、高い棚の前で背伸びをする。"],
+    ["", "あと少しで指が届く――そう思った時、横から伸びてきた手が、目当ての本をすっと抜き取った。"],
+    ["kosei", "「……これか」"],
+    ["me", "「三嶋先輩！ ありがとうございます」"],
+    ["kosei", "「{姓}、こんな時間まで残ってたのか」"],
+    ["kosei", "「……別に、責めてるわけじゃない。君が頑張ってるのは、知ってるから」"],
+    ["", "先輩はそう言って、ふいっと目を逸らすと、もう一冊の本を重ねて差し出した。"],
+    ["kosei", "「こっちも使える。……もう暗いし、駅まで送っていく。早く借りてこい」"]
+  ]},
+  shion: { title: "甘い香りのカフェ", bg: "radial-gradient(70% 60% at 25% 30%, #a0784a 0%, transparent 60%), linear-gradient(180deg, #4a3a30, #1d1a32)", lines: [
+    ["", "大学からの帰り道。甘い香りに誘われて、小さなカフェの扉を開ける。"],
+    ["shion", "「いらっしゃいませ！ ……あっ、{名}さん！ 来てくれたんですね！」"],
+    ["me", "「こんにちは。今日もアルバイトなんだね」"],
+    ["shion", "「はい！ ちょうど今日から新作のケーキが出たんです。僕のイチオシなんですよ」"],
+    ["", "楽しそうにメニューを開いて、ひとつずつ指さしながら説明してくれる。"],
+    ["shion", "「迷ったら、僕が案内しますね。あなたが笑顔になれる一皿、ちゃんと見つけますから！」"],
+    ["me", "「じゃあ、詩音くんのおすすめでお願いしようかな」"],
+    ["shion", "「任せてください！ ……えへへ、あなたに選んでもらえるの、なんだか嬉しいです」"]
+  ]},
+  ryoma: { title: "夕焼けの帰り道", bg: "radial-gradient(90% 60% at 50% 10%, #c4794e 0%, transparent 60%), linear-gradient(180deg, #5a3a40, #1f1a3d)", lines: [
+    ["", "夕焼けに染まる商店街。大学からの帰り道を歩いていると、後ろから軽い足音が近づいてきた。"],
+    ["ryoma", "「よっ、{名}。今帰りか？」"],
+    ["me", "「涼馬！ びっくりした……」"],
+    ["ryoma", "「はは、悪い悪い。お前の後ろ姿、遠くからでもすぐわかったからさ」"],
+    ["", "涼馬は当たり前のように隣に並んで、こちらの歩幅に合わせて歩き出す。"],
+    ["ryoma", "「こっちに戻ってきて、まだ慣れないことばっかだけど……お前がいると、なんか安心するんだよな」"],
+    ["me", "「なにそれ。昔と全然変わってないね」"],
+    ["ryoma", "「お前もな。……ほら、荷物貸せよ。家まで送ってく」"]
+  ]},
+  iori: { title: "夜桜の下で", bg: "radial-gradient(60% 50% at 70% 25%, #5a2236 0%, transparent 60%), linear-gradient(180deg, #1c1430, #07081a)", lines: [
+    ["", "夜桜の舞う帰り道。ふと、誰かの視線を感じて足を止める。"],
+    ["", "街灯の下に、長い髪を夜風に揺らした男性が立っていた。"],
+    ["iori", "「──{名}」"],
+    ["me", "「……え？ どうして、私の名前を……」"],
+    ["iori", "「……ようやく見つけた」"],
+    ["", "赤い瞳が、まっすぐにこちらを射抜く。逃げなきゃ、と思うのに、足が動かない。"],
+    ["iori", "「怯えるな。お前を傷つけるつもりはない」"],
+    ["iori", "「今はまだ、何も知らなくていい。……だが、もう二度と見失いはしない」"]
+  ]}
+};
+const ORDER = ["genma", "kosei", "shion", "ryoma", "iori"];
+
+/* ============================================================ */
+const app = document.getElementById("app");
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let sei = "", mei = "";   // 名前は保存せず、毎回入力してもらう
+
+const fill = t => t.replace(/\{姓\}/g, sei).replace(/\{名\}/g, mei);
+function faceHTML(C) {
+  const init = esc(C.name[0]);
+  return C.image ? `<img src="${esc(C.image)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'${init}'}))">` : `<b>${init}</b>`;
+}
+
+function renderTitle() {
+  app.innerHTML = `
+    <section class="card">
+      <i class="gem t"></i><i class="gem b"></i>
+      <p class="eyebrow">夢見草の夜、君と</p>
+      <h1>名前変換 試し読み</h1>
+      <p class="sub">あなたの名前で、彼らとの短いひとときを。</p>
+      <form id="nameForm">
+        <div class="names">
+          <div class="field"><label for="sei">苗字</label><input id="sei" type="text" maxlength="6" autocomplete="off" placeholder="${DEFAULT_SEI}" value="${esc(sei)}"></div>
+          <div class="field"><label for="mei">名前</label><input id="mei" type="text" maxlength="6" autocomplete="off" placeholder="${DEFAULT_MEI}" value="${esc(mei)}"></div>
+        </div>
+        <p class="small">空欄の場合は「${DEFAULT_SEI} ${DEFAULT_MEI}」で読めます（各6文字まで）。<br>入力した名前は保存されません。</p>
+        <button class="btn" type="submit">名前を決定する</button>
+      </form>
+    </section>`;
+  document.getElementById("nameForm").onsubmit = e => {
+    e.preventDefault();
+    sei = document.getElementById("sei").value.trim().slice(0, 6) || DEFAULT_SEI;
+    mei = document.getElementById("mei").value.trim().slice(0, 6) || DEFAULT_MEI;
+    renderChoose();
+  };
+}
+
+function renderChoose() {
+  app.innerHTML = `
+    <section class="card">
+      <i class="gem t"></i><i class="gem b"></i>
+      <p class="eyebrow">CHOOSE A SCENE</p>
+      <h1>誰と過ごしますか？</h1>
+      <p class="choose-head"><b>${esc(sei)} ${esc(mei)}</b> さんとして読みます</p>
+      <div class="picks">
+        ${ORDER.map(k => { const C = CHARS[k]; return `
+        <button class="pick" data-k="${k}" style="--c:${C.color}">
+          <span class="thumb">${faceHTML(C)}</span>
+          <span><span class="nm">${esc(C.full)}</span><span class="sc">「${esc(SCENES[k].title)}」</span></span>
+          <span class="go">読む →</span>
+        </button>`; }).join("")}
+      </div>
+      <button class="back-link" id="rename">← 名前を変える</button>
+    </section>`;
+  app.querySelectorAll(".pick").forEach(b => b.onclick = () => play(b.dataset.k));
+  document.getElementById("rename").onclick = renderTitle;
+}
+
+let S = null;  // 再生中の状態
+function play(key) {
+  const sc = SCENES[key], C = CHARS[key];
+  app.innerHTML = `
+    <div class="stage" id="stage" style="--bg:${sc.bg}" tabindex="0" aria-label="シーン。タップ、またはEnterキーで次へ進みます">
+      <p class="scene-title">${esc(sc.title)}</p>
+      <p class="counter" id="counter"></p>
+      <div class="portrait" id="portrait" style="--c:${C.color}">${faceHTML(C)}</div>
+      <div class="window">
+        <div class="frame"></div>
+        <span class="nameplate" id="nameplate" hidden></span>
+        <div class="inner"><p class="text" id="text" aria-live="polite"></p></div>
+        <i class="next" id="next"></i>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="prev">◀ ひとつ戻る</button>
+      <button id="restart">最初から</button>
+      <button id="toChoose">キャラ選択へ</button>
+    </div>
+    <p class="tip">画面をタップ（パソコンはクリックかEnterキー）で次へ進みます</p>`;
+  S = { key, i: -1, typing: null, full: "" };
+  const stage = document.getElementById("stage");
+  stage.onclick = advance;
+  stage.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); advance(); } };
+  document.getElementById("prev").onclick = () => {
+    stopTyping();
+    const end = stage.querySelector(".end"); if (end) end.remove();
+    const last = SCENES[key].lines.length - 1;
+    if (S.i > last) S.i = last + 1;
+    if (S.i > 0) { S.i -= 2; advance(true); }
+  };
+  document.getElementById("restart").onclick = () => play(key);
+  document.getElementById("toChoose").onclick = () => { stopTyping(); renderChoose(); };
+  stage.focus({ preventScroll: true });
+  advance();
+}
+
+function stopTyping() { if (S && S.typing) { clearInterval(S.typing); S.typing = null; } }
+
+function advance(instant) {
+  const text = document.getElementById("text");
+  if (!text) return;
+  if (S.typing) { stopTyping(); text.textContent = S.full; document.getElementById("next").classList.add("show"); return; }
+  const lines = SCENES[S.key].lines;
+  S.i++;
+  if (S.i >= lines.length) return showEnd();
+  const [who, raw] = lines[S.i];
+  const C = CHARS[S.key], plate = document.getElementById("nameplate"), por = document.getElementById("portrait");
+  document.getElementById("counter").textContent = `${S.i + 1} / ${lines.length}`;
+  document.getElementById("next").classList.remove("show");
+  // 名前枠
+  if (who === "") { plate.hidden = true; }
+  else {
+    plate.hidden = false;
+    plate.textContent = who === "me" ? mei : CHARS[who].name;
+    plate.style.setProperty("--np", who === "me" ? "#f1b6c6" : CHARS[who].color);
+  }
+  text.classList.toggle("narr", who === "");
+  // 立ち絵：キャラが一度話したら表示し、他の人が話す間は少し暗くする
+  const appeared = lines.slice(0, S.i + 1).some(l => l[0] === S.key);
+  por.classList.toggle("on", appeared);
+  por.classList.toggle("dim", appeared && who !== S.key);
+  // 文字送り
+  S.full = fill(raw);
+  if (reduce || instant) { text.textContent = S.full; document.getElementById("next").classList.add("show"); return; }
+  const chars = [...S.full]; let n = 0; text.textContent = "";
+  S.typing = setInterval(() => {
+    n++; text.textContent = chars.slice(0, n).join("");
+    if (n >= chars.length) { stopTyping(); document.getElementById("next").classList.add("show"); }
+  }, 38);
+}
+
+function showEnd() {
+  const stage = document.getElementById("stage");
+  if (stage.querySelector(".end")) return;
+  const end = document.createElement("div");
+  end.className = "end";
+  end.innerHTML = `<div>
+    <p class="fin">── 続きは本編で</p>
+    <p class="to">『夢見草の夜、君と』鋭意制作中</p>
+    <div class="row">
+      <a class="btn" href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
+      <button class="btn ghost" id="other">ほかのキャラのシーンを読む</button>
+      <button class="btn ghost" id="again">もう一度読む</button>
+    </div></div>`;
+  end.onclick = e => e.stopPropagation();
+  stage.appendChild(end);
+  document.getElementById("other").onclick = renderChoose;
+  document.getElementById("again").onclick = () => play(S.key);
+}
+
+renderTitle();
+
+/* ---------- 舞い散る花びら ---------- */
+(function () {
+  if (reduce) return;
+  const cv = document.getElementById("petals"), ctx = cv.getContext("2d");
+  let W, H; const P = [];
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function resize() { W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  const petal = init => ({ x: Math.random() * W, y: init ? Math.random() * H : -20, r: 4 + Math.random() * 5, vy: 0.3 + Math.random() * 0.6, vx: -0.2 + Math.random() * 0.5, a: Math.random() * 6.28, va: (Math.random() - 0.5) * 0.03, sway: Math.random() * 6.28, o: 0.3 + Math.random() * 0.4 });
+  resize(); addEventListener("resize", resize);
+  const N = Math.round(Math.min(22, W / 34));
+  for (let i = 0; i < N; i++) P.push(petal(true));
+  (function loop() {
+    ctx.clearRect(0, 0, W, H);
+    P.forEach((p, i) => {
+      p.sway += 0.012; p.x += p.vx + Math.sin(p.sway) * 0.35; p.y += p.vy; p.a += p.va;
+      if (p.y > H + 20) P[i] = petal(false);
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.globalAlpha = p.o; ctx.fillStyle = "#f1b6c6";
+      ctx.beginPath(); ctx.moveTo(0, -p.r);
+      ctx.bezierCurveTo(p.r, -p.r, p.r * 0.8, p.r * 0.6, 0, p.r);
+      ctx.bezierCurveTo(-p.r * 0.8, p.r * 0.6, -p.r, -p.r, 0, -p.r * 0.55);
+      ctx.fill(); ctx.restore();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
+</body>
+</html>
