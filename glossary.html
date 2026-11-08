@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>用語集｜夢見草の夜、君と 公式サイト</title>
+  <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』に登場する言葉や場所、システムを解説する用語集です。">
+
+  <!-- SNSでシェアされたときの表示 -->
+  <meta property="og:title" content="用語集｜夢見草の夜、君と 公式サイト">
+  <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』に登場する言葉や場所、システムを解説する用語集です。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://yumemigusanoyoru.github.io/yumemigusa/images/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- タブのアイコン -->
+  <link rel="icon" href="images/favicon.png?v=1">
+  <link rel="apple-touch-icon" href="images/favicon.png?v=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=15">
+
+  <!-- このページだけで使う見た目 -->
+  <style>
+    .gl-lead { text-align: center; margin: 0 auto 28px; max-width: 36em; line-height: 1.9; }
+    .gl-tools { display: grid; gap: 14px; justify-items: center; margin: 0 auto 44px; max-width: 640px; }
+    .gl-search {
+      width: 100%; font: inherit; font-size: 15px; color: inherit; text-align: center;
+      background: rgba(255, 255, 255, 0.04); border: 0; border-bottom: 1px solid var(--line, rgba(232, 200, 121, 0.3));
+      padding: 10px 12px; border-radius: 0;
+    }
+    .gl-search::placeholder { color: rgba(169, 173, 201, 0.6); }
+    .gl-search:focus { outline: none; border-bottom-color: var(--sakura, #f1b6c6); background: rgba(241, 182, 198, 0.06); }
+    .gl-index { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .gl-index a {
+      display: inline-block; padding: 5px 16px; font-size: 13px; letter-spacing: 0.1em; text-decoration: none; color: inherit;
+      border: 1px solid var(--line, rgba(232, 200, 121, 0.3)); border-radius: 999px; transition: border-color .2s, color .2s;
+    }
+    .gl-index a:hover { border-color: var(--gold, #e8c879); color: var(--gold, #e8c879); }
+
+    .gl-group { margin-bottom: 56px; scroll-margin-top: 90px; }
+    .gl-list { display: grid; gap: 14px; margin: 0; }
+    .gl-item { scroll-margin-top: 90px; transition: box-shadow .4s; }
+    .gl-item:target { box-shadow: 0 0 0 1px var(--gold, #e8c879), 0 0 28px rgba(232, 200, 121, 0.3); }
+    .gl-item dt { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 8px; }
+    .gl-term { font-family: var(--font-title, "Shippori Mincho", serif); font-weight: 600; font-size: 1.3em; letter-spacing: 0.1em; color: var(--gold, #e8c879); }
+    .gl-ruby { font-size: 12px; letter-spacing: 0.15em; opacity: .7; }
+    .gl-item dd { margin: 0; line-height: 1.9; }
+    .gl-related { margin-top: 10px; font-size: 13px; }
+    .gl-related a { margin-right: 1em; }
+
+    /* ネタバレを含む用語：押すまで隠す */
+    .gl-spoiler-btn {
+      font: inherit; font-size: 13px; color: inherit; cursor: pointer; letter-spacing: 0.05em;
+      background: rgba(255, 255, 255, 0.04); border: 1px dashed var(--line, rgba(232, 200, 121, 0.3)); padding: 8px 14px; width: 100%; text-align: left;
+    }
+    .gl-spoiler-btn:hover { border-color: var(--sakura, #f1b6c6); }
+    .gl-item[hidden], .gl-group[hidden], .gl-empty[hidden] { display: none !important; }
+    .gl-empty { text-align: center; opacity: .75; margin: 0 0 40px; }
+    @media (max-width: 600px) { .gl-term { font-size: 1.18em; } }
+  </style>
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">
+      夢見草の夜、君と
+    </a>
+    <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">トップ<small>TOP</small></a></li>
+        <li><a href="news.html">ニュース<small>NEWS</small></a></li>
+        <li><a href="story.html">ストーリー<small>STORY</small></a></li>
+        <li><a href="character.html">キャラクター<small>CHARACTER</small></a></li>
+        <li><a href="system.html">システム<small>SYSTEM</small></a></li>
+        <li><a href="special.html">スペシャル<small>SPECIAL</small></a></li>
+        <li><a href="guideline.html">ガイドライン<small>GUIDELINE</small></a></li>
+        <li><a href="contact.html">お問い合わせ<small>CONTACT</small></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <div class="page-title fade-in">
+        <h1>用語集</h1>
+        <span class="en">GLOSSARY</span>
+      </div>
+
+      <p class="gl-lead fade-in">『夢見草の夜、君と』に登場する言葉を紹介します。<br>物語をより深く楽しむ手がかりに、お役立てください。</p>
+
+      <div class="gl-tools fade-in">
+        <label for="gl-search" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">用語を検索</label>
+        <input id="gl-search" class="gl-search" type="search" placeholder="言葉を入力して探す（例：夢見草）" autocomplete="off">
+        <ul class="gl-index">
+          <li><a href="#cat-world">世界観</a></li>
+          <li><a href="#cat-place">場所</a></li>
+          <li><a href="#cat-system">システム</a></li>
+        </ul>
+      </div>
+      <p class="gl-empty" id="gl-empty" hidden>見つかりませんでした。別の言葉でお試しください。</p>
+
+      <!--
+        ===== 用語の追加のしかた =====
+        下の <div class="gl-item panel" …> 〜 </div> のまとまりをコピーして、
+        ・id … 英数字の名前（ストーリーページなどから glossary.html#この名前 で直接リンクできます）
+        ・data-key … 検索に引っかけたい言葉（読みがなや別の呼び方をスペース区切りで）
+        ・gl-term … 用語　・gl-ruby … 読みがな　・dd … 説明
+        を書き換えてください。
+        ネタバレを含む用語は、dd に class="gl-spoiler" を付けると「タップで表示」になります。
+      -->
+
+      <!-- ===== 世界観 ===== -->
+      <section class="gl-group" id="cat-world">
+        <h2 class="section-title fade-in">世界観<span class="en">WORLD</span></h2>
+        <dl class="gl-list">
+          <div class="gl-item panel fade-in" id="yumemigusa" data-key="夢見草 ゆめみぐさ 桜 さくら">
+            <dt><span class="gl-term">夢見草</span><span class="gl-ruby">ゆめみぐさ</span></dt>
+            <dd>桜の古い呼び名のひとつ。夢のように美しく、儚く散っていく花の姿から、こう呼ばれてきました。本作のタイトルにもなっている言葉です。</dd>
+          </div>
+          <div class="gl-item panel fade-in" id="zense-konse" data-key="前世 今世 ぜんせ こんせ">
+            <dt><span class="gl-term">前世・今世</span><span class="gl-ruby">ぜんせ・こんせ</span></dt>
+            <dd>本作では、遠い昔の時代を「前世」、結月たちが生きる現代を「今世」と呼びます。今世を生きるキャラクターの中には、前世の姿を持つ者もいます。
+              <p class="gl-related"><a href="character.html">キャラクターページで前世のプロフィールを見る</a></p>
+            </dd>
+          </div>
+          <div class="gl-item panel fade-in" id="hananorihime" data-key="花祈姫 はなのりひめ 姫">
+            <dt><span class="gl-term">花祈姫</span><span class="gl-ruby">はなのりひめ</span></dt>
+            <dd>遠い昔、前世の時代を生きた姫。今世を生きる結月の、前世の姿です。
+              <p class="gl-related"><a href="character.html">キャラクターページを見る</a></p>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- ===== 場所 ===== -->
+      <section class="gl-group" id="cat-place">
+        <h2 class="section-title fade-in">場所<span class="en">PLACE</span></h2>
+        <dl class="gl-list">
+          <div class="gl-item panel fade-in" id="yumemido" data-key="夢見堂 ゆめみどう 古書店 本屋 弦真">
+            <dt><span class="gl-term">夢見堂</span><span class="gl-ruby">ゆめみどう</span></dt>
+            <dd>霧島弦真が営む古書店。路地裏にひっそりと佇み、古い本と紙の匂いに包まれた、静かな時間が流れる場所です。
+              <p class="gl-related"><a href="character.html">弦真のプロフィールを見る</a></p>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- ===== システム ===== -->
+      <section class="gl-group" id="cat-system">
+        <h2 class="section-title fade-in">システム<span class="en">SYSTEM</span></h2>
+        <dl class="gl-list">
+          <div class="gl-item panel fade-in" id="suki-meter" data-key="好きメーター すきめーたー 好感度">
+            <dt><span class="gl-term">好きメーター</span><span class="gl-ruby">すきめーたー</span></dt>
+            <dd>結月から攻略キャラクターへの想いの大きさを、目に見える形で表したもの。物語の選択によって変化し、迎えるエンディングにも関わります。
+              <p class="gl-related"><a href="system.html">システムページを見る</a></p>
+            </dd>
+          </div>
+          <div class="gl-item panel fade-in" id="akashi" data-key="心を通わせた証 あかし アクセサリー ネックレス ブレスレット 髪留め イヤリング 指輪">
+            <dt><span class="gl-term">心を通わせた証</span><span class="gl-ruby">こころをかよわせたあかし</span></dt>
+            <dd class="gl-spoiler">想いを通わせた攻略キャラクターから、結月へ贈られるアクセサリー。弦真はネックレス、光成はブレスレット、詩音は髪留め、涼馬はイヤリング、伊織は指輪を贈ります。</dd>
+          </div>
+        </dl>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">公式X</a></li>
+      <li><a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steam</a></li>
+      <li><a href="guideline.html">ガイドライン</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <p class="footer-circle"><a href="https://haneiro-final.vercel.app/" target="_blank" rel="noopener">羽根いろの記憶</a></p>
+    <p class="copyright" style="margin-bottom:6px">制作：知花　芹菜（<a href="https://x.com/serina_haneiro" target="_blank" rel="noopener">@serina_haneiro</a>）</p>
+    <p class="copyright">&copy; 2026 羽根いろの記憶 All Rights Reserved.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5b90241d184643a3bd6e7395674b8b5f"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    // ネタバレの用語は、押すまで説明を隠す
+    document.querySelectorAll(".gl-spoiler").forEach(dd => {
+      const body = document.createElement("div");
+      while (dd.firstChild) body.appendChild(dd.firstChild);
+      body.hidden = true;
+      const btn = document.createElement("button");
+      btn.type = "button"; btn.className = "gl-spoiler-btn";
+      btn.textContent = "ネタバレを含みます。タップで表示";
+      btn.setAttribute("aria-expanded", "false");
+      btn.onclick = () => { body.hidden = false; btn.remove(); };
+      dd.append(btn, body);
+    });
+
+    // 検索：用語・読みがな・data-key に入力した言葉が含まれるものだけ表示
+    const input = document.getElementById("gl-search"), empty = document.getElementById("gl-empty");
+    const norm = s => s.toLowerCase().replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+    input.addEventListener("input", () => {
+      const q = norm(input.value.trim());
+      let hits = 0;
+      document.querySelectorAll(".gl-group").forEach(g => {
+        let any = false;
+        g.querySelectorAll(".gl-item").forEach(it => {
+          const hay = norm((it.dataset.key || "") + " " + it.querySelector("dt").textContent);
+          const ok = !q || hay.includes(q);
+          it.hidden = !ok; if (ok) { any = true; hits++; }
+        });
+        g.hidden = !any;
+      });
+      empty.hidden = hits > 0;
+    });
+  })();
+  </script>
+</body>
+</html>

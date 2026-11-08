@@ -50,6 +50,14 @@
       margin-top: 2.4em;
     }
 
+    /* 用語集へのリンク（本文になじむよう、点線の下線だけで示す） */
+    .story-synopsis a.gl-link {
+      color: inherit; text-decoration: underline dotted; text-decoration-color: var(--gold);
+      text-underline-offset: 5px; transition: color .2s;
+    }
+    .story-synopsis a.gl-link:hover { color: var(--gold); }
+    .story-glossary { margin-top: 40px; }
+
     @media (max-width: 600px) {
       .story-poem { font-size: 1rem; line-height: 2.3; }
     }
@@ -110,20 +118,25 @@
         ただひとつ、桜の季節になると繰り返し見る、不思議な夢を除いては。</p>
 
         <p>ある日、あなたは夢に出てくる人物とよく似た男性を見かけ、思わずその後を追いかける。<br>
-        たどり着いたのは、古書店【夢見堂】。<br>
+        たどり着いたのは、古書店【<a class="gl-link" href="glossary.html#yumemido">夢見堂</a>】。<br>
         店主の<strong>霧島弦真</strong>は穏やかに微笑んで彼女を迎えるが、<br>その瞳には、どこか哀しげな色が宿っていた。<br></p>
 
-        <p>その出会いを境に、結月の周りでは不思議な巡り合わせが重なっていく。<br>
+        <p>その出会いを境に、あなたの周りでは不思議な巡り合わせが重なっていく。<br>
         いつも一人でいる大学の先輩・<strong>三嶋光成</strong>。<br>
         行きつけのカフェで働く高校生・<strong>有栖川詩音</strong>。<br>
         地元に戻ってきた幼馴染・<strong>神尾涼馬</strong>。<br>
         そして突然目の前に現れ、あなたに執着する謎の男性・<strong>鴻上伊織</strong>。</p>
 
         <p>夢の中に映る、遠い日の記憶。<br>
-        かつて「花祈姫」と呼ばれたひとりの姫と、彼女のそばにいた者たちの物語。</p>
+        かつて「<a class="gl-link" href="glossary.html#hananorihime">花祈姫</a>」と呼ばれたひとりの姫と、彼女のそばにいた者たちの物語。</p>
 
         <p class="closing">時を越えて巡り合った想いの先に、<br>
         あなたが見つけるものとは――。</p>
+      </div>
+
+      <!-- ===== 用語集へ ===== -->
+      <div class="btn-row story-glossary fade-in">
+        <a href="glossary.html" class="btn btn-sakura">用語集を見る</a>
       </div>
 
     </div>
