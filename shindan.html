@@ -591,7 +591,7 @@ function renderResult(key, isMine) {
   const C = CHARS[key], { s, win } = result;
   const total = Object.values(s).reduce((a, b) => a + b, 0) || 1;
   const ranked = ORDER.slice().sort((a, b) => s[b] - s[a] || (a === win ? -1 : b === win ? 1 : 0));
-  const shareText = `『夢見草の夜、君と』お似合い診断の結果、${playerName ? you() : "私"}にお似合いなのは『${CHARS[win].title}』${CHARS[win].name.replace(" ", "")}でした！\n${SITE.hashtag}\n${SITE.steam}`;
+  const shareText = `『夢見草の夜、君と』お似合い診断の結果、${playerName ? you() : "私"}にお似合いなのは『${CHARS[win].title}』${CHARS[win].name.replace(" ", "")}でした！\n${SITE.hashtag}\nhttps://yumemigusanoyoru.github.io/yumemigusa/shindan.html`;
   clearDeco();
   setAura(C.color);
   card.style.setProperty("--c", C.color);
@@ -747,5 +747,6 @@ renderStart();
 })();
 </script>
 
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5b90241d184643a3bd6e7395674b8b5f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
