@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ページが見つかりません｜夢見草の夜、君と 公式サイト</title>
+  <meta name="robots" content="noindex">
+
+  <!-- ※404ページは、どの階層のURLでも表示されるので、パスはすべて /yumemigusa/ から書いています -->
+  <link rel="icon" href="/yumemigusa/images/favicon.png?v=1">
+  <link rel="apple-touch-icon" href="/yumemigusa/images/favicon.png?v=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/yumemigusa/css/style.css">
+
+  <style>
+    .lost {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .lost-code {
+      font-family: var(--font-title);
+      font-size: clamp(4.5rem, 18vw, 8rem);
+      line-height: 1;
+      letter-spacing: 0.15em;
+      color: transparent;
+      background: linear-gradient(180deg, #fff6dc 0%, var(--gold) 55%, var(--sakura) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 0 18px rgba(232, 199, 122, 0.35));
+      margin-bottom: 8px;
+      animation: lostRise 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .lost-en {
+      font-size: 0.8rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .lost-butterfly {
+      width: 64px;
+      height: 48px;
+      margin: 0 auto 28px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60'%3E%3Cg fill='%23cfe0ff' fill-opacity='.5' stroke='%23ffffff' stroke-width='1.6' stroke-linejoin='round'%3E%3Cpath d='M39 25C33 13 20 3 9 3C2 3 1 10 4 15C9 23 22 28 39 29Z'/%3E%3Cpath d='M39 31C30 31 19 35 17 43C15 51 23 56 29 51C34 47 37 39 39 31Z'/%3E%3Cpath d='M41 25C47 13 60 3 71 3C78 3 79 10 76 15C71 23 58 28 41 29Z'/%3E%3Cpath d='M41 31C50 31 61 35 63 43C65 51 57 56 51 51C46 47 43 39 41 31Z'/%3E%3C/g%3E%3Cpath d='M40 20C41.8 20 41.8 42 40 46C38.2 42 38.2 20 40 20Z' fill='%23ffffff'/%3E%3C/svg%3E") center / contain no-repeat;
+      filter: drop-shadow(0 0 6px rgba(150, 185, 255, 0.95)) drop-shadow(0 0 14px rgba(120, 150, 255, 0.6));
+      animation: lostFlutter 3.6s ease-in-out infinite;
+    }
+    .lost-message {
+      font-family: var(--font-title);
+      font-size: clamp(1.05rem, 3.6vw, 1.35rem);
+      line-height: 2.2;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 14px rgba(242, 184, 203, 0.35);
+    }
+    .lost-sub {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+    }
+    .lost .btn-row { gap: 14px; }
+    .lost-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      margin-top: 32px;
+      font-size: 0.9rem;
+    }
+    @keyframes lostRise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes lostFlutter {
+      0%, 100% { transform: translateY(0) rotate(-8deg) scaleX(1); }
+      25%      { transform: translateY(-6px) rotate(-8deg) scaleX(0.55); }
+      50%      { transform: translateY(-10px) rotate(-8deg) scaleX(1); }
+      75%      { transform: translateY(-4px) rotate(-8deg) scaleX(0.7); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <main class="lost">
+    <p class="lost-code">404</p>
+    <p class="lost-en">PAGE NOT FOUND</p>
+    <div class="lost-butterfly" aria-hidden="true"></div>
+
+    <h1 class="lost-message">お探しのページは、<br>夢の向こうへ消えてしまったようです。</h1>
+    <p class="lost-sub">URLが間違っているか、ページが移動・削除された可能性があります。</p>
+
+    <div class="btn-row">
+      <a href="/yumemigusa/" class="btn">トップへ戻る</a>
+      <a href="/yumemigusa/news.html" class="btn btn-sakura">最新のニュースを見る</a>
+    </div>
+
+    <nav class="lost-links" aria-label="サイト内のページ">
+      <a href="/yumemigusa/story.html">ストーリー</a>
+      <a href="/yumemigusa/character.html">キャラクター</a>
+      <a href="/yumemigusa/system.html">システム</a>
+      <a href="/yumemigusa/special.html">スペシャル</a>
+      <a href="/yumemigusa/contact.html">お問い合わせ</a>
+    </nav>
+  </main>
+
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5b90241d184643a3bd6e7395674b8b5f"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="/yumemigusa/js/main.js"></script>
+</body>
+</html>
