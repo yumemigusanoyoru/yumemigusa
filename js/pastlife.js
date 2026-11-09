@@ -24,6 +24,7 @@
       stillId: "souma",   // スチル：images/chara/souma-still1.jpg …
       intro: "花祈姫に仕えた“蒼の護衛”。<br>朔夜とは異なる役割を担い、主に宮中の外側で姫を守っていた。",
       quote: "「ご安心ください。貴女は必ずや、私が守ります」",
+      profile: [["趣味", "書道"], ["特技", "和歌"]],
     },
     iori: {
       name: "朔夜",
@@ -33,6 +34,7 @@
       stillId: "sakuya",   // スチル：images/chara/sakuya-still1.jpg …
       intro: "花祈姫の護衛の中でも、もっとも近くで彼女を守り続けた男。<br>時に自身を犠牲にするほど、花祈姫のことを常に第一に想っていた。",
       quote: "「ひとつだけ覚えていてください。どこにいても、私は必ず貴女を見つけます」",
+      profile: [["趣味", "笛を吹くこと"], ["特技", "剣術"]],
     },
   };
 
@@ -121,22 +123,33 @@
     if (!nowStand || !nowText) return;
 
     const nowName = (section.querySelector(".chara-name")?.lastChild?.textContent || "").trim();
+    const profile = section.querySelector(".chara-profile");
 
     // 前世の立ち絵
     const pastStand = document.createElement("div");
     pastStand.className = "chara-stand is-hidden";
     pastStand.innerHTML = `<img src="${past.image}" alt="${past.name}">`;
 
-    // 前世のプロフィール（年齢・身長などは今世の欄をそのまま使う）
+    // 前世のプロフィール
+    // 年齢・身長などは今世の欄をそのまま使い、class="now-only" の行（趣味・好きな食べ物など）は外して、
+    // 上の PAST_LIVES に書いた profile の行を足します
+    let profileHTML = "";
+    if (profile) {
+      const copy = profile.cloneNode(true);
+      copy.querySelectorAll(".now-only").forEach((el) => el.remove());
+      (past.profile || []).forEach(([label, value]) => {
+        copy.insertAdjacentHTML("beforeend", `<dt>${label}</dt><dd>${value}</dd>`);
+      });
+      profileHTML = copy.outerHTML;
+    }
     const pastText = document.createElement("div");
     pastText.className = "chara-text is-hidden";
     pastText.dataset.stillId = past.stillId;
-    const profile = section.querySelector(".chara-profile");
     pastText.innerHTML = `
       <p class="chara-role">${past.role}</p>
       <h2 class="chara-name"><span class="ruby">${past.ruby}</span>${past.name}</h2>
       <p class="chara-past-note">${nowName}の前世</p>
-      ${profile ? profile.outerHTML : ""}
+      ${profileHTML}
       <p>${past.intro}</p>
       ${past.quote ? `<p class="chara-quote">${past.quote}</p>` : ""}
     `;
