@@ -21,6 +21,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=19">
+
+  <!-- このページだけで使う見た目（イメージカラーの丸） -->
+  <style>
+    .color-chip {
+      display: inline-block;
+      width: 0.95em;
+      height: 0.95em;
+      margin-right: 0.5em;
+      border-radius: 50%;
+      background: var(--chip);
+      box-shadow: 0 0 8px var(--chip), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      vertical-align: -0.1em;
+    }
+  </style>
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -95,7 +109,10 @@
           <p class="chara-cv">※名前は変更可能</p>
           <dl class="chara-profile">
             <dt>年齢</dt><dd>20歳</dd>
+            <dt>血液型</dt><dd>A型</dd>
             <dt>身長</dt><dd>158cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">私</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#f2b8cb"></span>桜色</dd>
           </dl>
           <p>一人暮らしをしている大学生の女性。<br>
           大人しい性格ではあるが、嫌なことは嫌と言える芯の強さがある。</p>
@@ -114,7 +131,12 @@
           <dl class="chara-profile">
             <dt>年齢</dt><dd>25歳</dd>
             <dt>誕生日</dt><dd>11月7日</dd>
+            <dt>星座</dt><dd>さそり座</dd>
+            <dt>血液型</dt><dd>O型</dd>
             <dt>身長</dt><dd>180cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">私</dd>
+            <dt class="now-only">主人公の呼び方</dt><dd class="now-only">貴女／名前＋さん</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#5fa486"></span>翡翠色</dd>
             <dt class="now-only">趣味</dt><dd class="now-only">古書の修繕／お茶を飲みながらまったり過ごす</dd>
             <dt class="now-only">特技</dt><dd class="now-only">書道</dd>
             <dt class="now-only">好きな食べ物</dt><dd class="now-only">和食／和菓子</dd>
@@ -138,7 +160,12 @@
           <dl class="chara-profile">
             <dt>年齢</dt><dd>22歳</dd>
             <dt>誕生日</dt><dd>6月11日</dd>
+            <dt>星座</dt><dd>ふたご座</dd>
+            <dt>血液型</dt><dd>A型</dd>
             <dt>身長</dt><dd>175cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">俺</dd>
+            <dt class="now-only">主人公の呼び方</dt><dd class="now-only">君／苗字の呼び捨て</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#8b9fe0"></span>桔梗色</dd>
             <dt class="now-only">趣味</dt><dd class="now-only">読書／寝ること</dd>
             <dt class="now-only">特技</dt><dd class="now-only">どこでも寝られる</dd>
             <dt class="now-only">好きな食べ物</dt><dd class="now-only">薄味のもの</dd>
@@ -162,7 +189,12 @@
           <dl class="chara-profile">
             <dt>年齢</dt><dd>18歳</dd>
             <dt>誕生日</dt><dd>5月20日</dd>
+            <dt>星座</dt><dd>おうし座</dd>
+            <dt>血液型</dt><dd>B型</dd>
             <dt>身長</dt><dd>163cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">僕</dd>
+            <dt class="now-only">主人公の呼び方</dt><dd class="now-only">あなた／名前＋さん</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#e8c56a"></span>山吹色</dd>
             <dt class="now-only">趣味</dt><dd class="now-only">スイーツ作り／料理</dd>
             <dt class="now-only">特技</dt><dd class="now-only">ラテアート</dd>
             <dt class="now-only">好きな食べ物</dt><dd class="now-only">甘いもの</dd>
@@ -186,7 +218,12 @@
           <dl class="chara-profile">
             <dt>年齢</dt><dd>23歳</dd>
             <dt>誕生日</dt><dd>12月2日</dd>
+            <dt>星座</dt><dd>いて座</dd>
+            <dt>血液型</dt><dd>O型</dd>
             <dt>身長</dt><dd>177cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">俺</dd>
+            <dt class="now-only">主人公の呼び方</dt><dd class="now-only">お前／名前の呼び捨て</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#d39662"></span>琥珀色</dd>
             <dt class="now-only">趣味</dt><dd class="now-only">バイクでのドライブ／筋トレ</dd>
             <dt class="now-only">特技</dt><dd class="now-only">DIY</dd>
             <dt class="now-only">好きな食べ物</dt><dd class="now-only">ファーストフード</dd>
@@ -210,7 +247,12 @@
           <dl class="chara-profile">
             <dt>年齢</dt><dd>28歳</dd>
             <dt>誕生日</dt><dd>2月18日</dd>
+            <dt>星座</dt><dd>みずがめ座</dd>
+            <dt>血液型</dt><dd>AB型</dd>
             <dt>身長</dt><dd>185cm</dd>
+            <dt class="now-only">一人称</dt><dd class="now-only">俺</dd>
+            <dt class="now-only">主人公の呼び方</dt><dd class="now-only">お前</dd>
+            <dt class="now-only">イメージカラー</dt><dd class="now-only"><span class="color-chip" style="--chip:#d65a68"></span>緋色</dd>
             <dt class="now-only">趣味</dt><dd class="now-only">仕事／映画鑑賞</dd>
             <dt class="now-only">特技</dt><dd class="now-only">チェス</dd>
             <dt class="now-only">好きな食べ物</dt><dd class="now-only">肉料理</dd>
