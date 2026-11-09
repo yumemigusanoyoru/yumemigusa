@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プレスキット｜夢見草の夜、君と 公式サイト</title>
+  <meta name="description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+
+  <!-- SNSでシェアされたときの表示 -->
+  <meta property="og:title" content="プレスキット｜夢見草の夜、君と 公式サイト">
+  <meta property="og:description" content="乙女ゲーム『夢見草の夜、君と ～想い繋ぐ刻～』公式サイト。前世と今世が交差する、夜桜の恋物語。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://yumemigusanoyoru.github.io/yumemigusa/images/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- タブのアイコン（images/favicon.png を置くと表示されます） -->
+  <link rel="icon" href="images/favicon.png?v=1">
+  <link rel="apple-touch-icon" href="images/favicon.png?v=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=17">
+
+
+  <!-- このページだけで使う見た目 -->
+  <style>
+    .pk-intro { max-width: 820px; margin: 0 auto 56px; text-align: center; }
+    .pk-section { max-width: 960px; margin: 0 auto 72px; scroll-margin-top: calc(var(--header-h) + 24px); }
+    .pk-section h2 { margin-bottom: 28px; }
+    .pk-toc { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: -24px auto 56px; }
+    .pk-toc a {
+      padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(24, 33, 74, 0.5); color: var(--text);
+      font-family: var(--font-title); font-size: 0.95rem; letter-spacing: 0.12em;
+      transition: border-color .3s, color .3s, box-shadow .3s;
+    }
+    .pk-toc a:hover { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 12px var(--gold-soft); }
+
+    .pk-copy { position: relative; }
+    .pk-copy h3 { font-family: var(--font-title); font-weight: 500; font-size: 1.05rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 10px; }
+    .pk-copy p + h3, .pk-copy .copy-btn + h3 { margin-top: 32px; }
+    .pk-copy .copy-btn {
+      margin-top: 10px; padding: 4px 16px; font-size: 0.8rem;
+      border: 1px solid var(--line); border-radius: 999px; background: none; color: var(--text-sub);
+      cursor: pointer; transition: color .3s, border-color .3s;
+    }
+    .pk-copy .copy-btn:hover { color: var(--sakura); border-color: var(--sakura); }
+
+    .pk-features { list-style: none; display: grid; gap: 10px; }
+    .pk-features li { position: relative; padding-left: 1.6em; }
+    .pk-features li::before { content: "❀"; position: absolute; left: 0; color: var(--sakura); }
+    .pk-features b { font-weight: 500; color: var(--sakura); }
+
+    .pk-chara { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .pk-chara div { padding: 16px 20px; border: 1px solid var(--line); background: rgba(24, 33, 74, 0.4); }
+    .pk-chara .role { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.15em; }
+    .pk-chara .nm { font-family: var(--font-title); font-size: 1.15rem; letter-spacing: 0.1em; margin: 2px 0 6px; }
+    .pk-chara p:last-child { font-size: 0.9rem; color: var(--text-sub); }
+
+    .pk-assets { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+    .pk-asset { display: flex; flex-direction: column; }
+    .pk-asset .thumb {
+      aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line);
+      background: repeating-conic-gradient(rgba(255,255,255,0.05) 0 25%, transparent 0 50%) 0 0 / 16px 16px, var(--night);
+    }
+    .pk-asset .thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .pk-asset .thumb.tall { aspect-ratio: 3 / 4; }
+    .pk-group {
+      font-family: var(--font-title); font-weight: 500; font-size: 1.1rem; letter-spacing: 0.15em;
+      color: var(--sakura); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+    }
+    .pk-group:first-of-type { margin-top: 0; }
+    .pk-bulk { text-align: center; margin: 0 auto 40px; }
+    .pk-bulk .btn { min-width: 320px; }
+    .pk-bulk .btn:disabled { opacity: 0.6; cursor: wait; }
+    .pk-bulk-note { margin-top: 10px; font-size: 0.85rem; color: var(--text-sub); }
+    @media (max-width: 600px) { .pk-bulk .btn { min-width: 0; width: 100%; } }
+    #assets .pk-assets { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .pk-asset .label { font-family: var(--font-title); letter-spacing: 0.1em; margin-top: 10px; }
+    .pk-asset .spec { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 8px; }
+    .pk-asset a.dl {
+      align-self: flex-start; margin-top: auto; padding: 4px 18px; font-size: 0.85rem;
+      border: 1px solid var(--line); border-radius: 999px; color: var(--text);
+      transition: border-color .3s, color .3s, box-shadow .3s;
+    }
+    .pk-asset a.dl:hover { border-color: var(--sakura); color: var(--sakura); box-shadow: 0 0 12px rgba(242, 184, 203, 0.4); }
+
+    .pk-rules { list-style: none; display: grid; gap: 8px; }
+    .pk-rules li { position: relative; padding-left: 1.6em; }
+    .pk-rules.ok li::before { content: "○"; position: absolute; left: 0; color: var(--gold); }
+    .pk-rules.ng li::before { content: "×"; position: absolute; left: 0; color: var(--sakura-deep); }
+    .pk-rules-title { font-family: var(--font-title); color: var(--gold); letter-spacing: 0.15em; margin: 0 0 10px; }
+    .pk-rules + .pk-rules-title { margin-top: 28px; }
+    .pk-credit { margin-top: 28px; padding: 14px 20px; border: 1px dashed var(--line); text-align: center; font-family: var(--font-title); letter-spacing: 0.1em; }
+
+    .pk-section .spec-table td { overflow-wrap: anywhere; }
+    @media (max-width: 600px) {
+      .pk-section .spec-table th { width: 32%; padding: 12px 8px; }
+      .pk-section .spec-table td { padding: 12px 8px; }
+      .pk-toc { gap: 8px; }
+      .pk-toc a { padding: 6px 14px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <a href="index.html" class="site-logo">
+      夢見草の夜、君と
+    </a>
+    <button class="menu-toggle" aria-label="メニュー" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">トップ<small>TOP</small></a></li>
+        <li><a href="news.html">ニュース<small>NEWS</small></a></li>
+        <li><a href="story.html">ストーリー<small>STORY</small></a></li>
+        <li><a href="character.html">キャラクター<small>CHARACTER</small></a></li>
+        <li><a href="system.html">システム<small>SYSTEM</small></a></li>
+        <li><a href="special.html">スペシャル<small>SPECIAL</small></a></li>
+        <li><a href="guideline.html">ガイドライン<small>GUIDELINE</small></a></li>
+        <li><a href="contact.html">お問い合わせ<small>CONTACT</small></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <div class="page-title fade-in">
+        <h1>プレスキット</h1>
+        <span class="en">PRESS KIT</span>
+      </div>
+
+      <p class="pk-intro fade-in">メディア・配信者・ブロガーの方向けの資料ページです。<br>
+      記事や動画、配信のサムネイルなどで『夢見草の夜、君と』をご紹介いただく際に、こちらの素材をご自由にお使いください。</p>
+
+      <nav class="pk-toc fade-in" aria-label="プレスキットの目次">
+        <a href="#factsheet">基本情報</a>
+        <a href="#about">紹介文</a>
+        <a href="#characters">キャラクター</a>
+        <a href="#movie">動画</a>
+        <a href="#assets">素材</a>
+        <a href="#terms">ご利用について</a>
+      </nav>
+
+      <!-- ===== 基本情報 ===== -->
+      <section class="pk-section fade-in" id="factsheet">
+        <h2 class="section-title">基本情報<span class="en">FACT SHEET</span></h2>
+        <table class="spec-table" style="margin-top:0">
+          <tr><th>タイトル</th><td>夢見草の夜、君と ～想い繋ぐ刻～<br><span style="font-size:0.85em; color:var(--text-sub);">Yumemigusa: A Night With You ～The Hour That Binds Our Hearts～</span></td></tr>
+          <tr><th>ジャンル</th><td>乙女ゲーム（恋愛アドベンチャー）</td></tr>
+          <tr><th>開発・販売</th><td>羽根いろの記憶（個人制作）</td></tr>
+          <tr><th>制作</th><td>知花 芹菜（イラスト・シナリオ・UI・プログラム）</td></tr>
+          <tr><th>対応OS</th><td>Windows</td></tr>
+          <tr><th>発売日</th><td>未定（鋭意制作中）</td></tr>
+          <tr><th>価格</th><td>未定</td></tr>
+          <tr><th>販売サイト</th><td>Steam ／ DLsite ／ BOOTH</td></tr>
+          <tr><th>対応言語</th><td>日本語 ／ English ／ 简体中文 ／ 繁體中文</td></tr>
+          <tr><th>ボイス</th><td>フルボイス（日本語）</td></tr>
+          <tr><th>Steam</th><td><a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">https://store.steampowered.com/app/4115570/</a></td></tr>
+          <tr><th>公式サイト</th><td><a href="index.html">https://yumemigusanoyoru.github.io/yumemigusa/</a></td></tr>
+          <tr><th>公式X</th><td><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">@yumemigusa_5052</a></td></tr>
+          <tr><th>ハッシュタグ</th><td>#夢見草の夜君と</td></tr>
+          <tr><th>お問い合わせ</th><td><a href="mailto:haneironokioku@gmail.com">haneironokioku@gmail.com</a></td></tr>
+        </table>
+      </section>
+
+      <!-- ===== 紹介文 ===== -->
+      <section class="pk-section fade-in" id="about">
+        <h2 class="section-title">紹介文<span class="en">ABOUT</span></h2>
+        <div class="panel pk-copy">
+          <h3>ひとこと紹介</h3>
+          <p id="copy-short">前世と今世が交差する、夜桜の恋物語。夢で見た人と同じ顔の青年に出会ったことから始まる、乙女ゲーム（恋愛アドベンチャー）です。</p>
+          <button class="copy-btn" type="button" data-copy="copy-short">文章をコピー</button>
+
+          <h3>紹介文</h3>
+          <p id="copy-long">桜の季節になると、いつも同じ夢を見る――。<br>
+          一人暮らしをしながら大学に通う篠宮結月は、ある日、夢に出てくる人物とよく似た男性を見かけ、古書店【夢見堂】にたどり着く。<br>
+          その出会いを境に、結月の周りには不思議な縁を持つ人々が集まりはじめる。<br>
+          夢の中に映る遠い日の記憶と、「花祈姫」と呼ばれたひとりの姫の物語。<br>
+          時を越えて巡り合った想いの先に、結月が見つけるものとは。</p>
+          <button class="copy-btn" type="button" data-copy="copy-long">文章をコピー</button>
+
+          <h3>特徴</h3>
+          <ul class="pk-features">
+            <li><b>個人制作</b>　キャラクターイラスト・スチル・UI・シナリオ・プログラムまで、ほぼすべてを一人で制作</li>
+            <li><b>前世と今世</b>　攻略キャラクターそれぞれに「前世の姿」があり、二つの時代の想いが交差する物語</li>
+            <li><b>好きメーター</b>　主人公から攻略キャラクターへの「好き」の気持ちを、メーターで目に見える形に</li>
+            <li><b>名前変更・立ち絵の表示切り替え</b>　主人公の名前を変更でき、主人公と前世の姿の立ち絵は表示・非表示を選べます</li>
+            <li><b>4言語対応</b>　日本語・英語・中国語（簡体字・繁体字）。文字入りの画面パーツも言語ごとに切り替わります</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== キャラクター ===== -->
+      <section class="pk-section fade-in" id="characters">
+        <h2 class="section-title">キャラクター<span class="en">CHARACTERS</span></h2>
+        <div class="pk-chara">
+          <div><p class="role">主人公</p><p class="nm">篠宮 結月</p><p>一人暮らしをしている大学生。名前は変更できます。</p></div>
+          <div><p class="role">微笑みの店主</p><p class="nm">霧島 弦真</p><p>古書店【夢見堂】の店主。結月の夢に出てきた人物とよく似ている。</p></div>
+          <div><p class="role">優しさを隠す先輩</p><p class="nm">三嶋 光成</p><p>結月の大学の先輩。クールで、いつも一人で行動している。</p></div>
+          <div><p class="role">笑顔の案内人</p><p class="nm">有栖川 詩音</p><p>結月がよく行くカフェでアルバイトをしている高校生。</p></div>
+          <div><p class="role">一途な幼馴染</p><p class="nm">神尾 涼馬</p><p>地元に戻ってきた、結月の幼馴染。</p></div>
+          <div><p class="role">執着の蜘蛛</p><p class="nm">鴻上 伊織</p><p>突然結月の前に現れた、謎に包まれた男性。</p></div>
+        </div>
+        <p style="text-align:center; margin-top:20px;"><a href="character.html">キャラクターの詳しい紹介はこちら</a></p>
+      </section>
+
+      <!-- ===== 動画 ===== -->
+      <section class="pk-section fade-in" id="movie">
+        <h2 class="section-title">動画<span class="en">MOVIE</span></h2>
+        <table class="spec-table" style="margin-top:0">
+          <tr><th>ストーリーPV</th><td><a href="https://youtu.be/It0Uceii0Z0" target="_blank" rel="noopener">https://youtu.be/It0Uceii0Z0</a></td></tr>
+          <tr><th>システムPV</th><td><a href="https://youtu.be/EzrCHLivgw0" target="_blank" rel="noopener">https://youtu.be/EzrCHLivgw0</a></td></tr>
+        </table>
+        <p class="guide-note" style="text-align:center; margin-top:14px; font-size:0.9rem; color:var(--text-sub);">動画は、記事や配信への埋め込み・紹介にご自由にお使いください。</p>
+      </section>
+
+      <!-- ===== 素材 ===== -->
+      <section class="pk-section fade-in" id="assets">
+        <h2 class="section-title">素材<span class="en">ASSETS</span></h2>
+        <div class="pk-bulk">
+          <button type="button" class="btn" id="zip-all">素材をまとめてダウンロード（ZIP）</button>
+          <p class="pk-bulk-note" id="zip-status">下の素材すべてを、種類ごとのフォルダに分けて1つのZIPファイルにまとめます。</p>
+        </div>
+
+        <!-- 素材を増やすときは、<div class="pk-asset">〜</div> のまとまりをコピーして、画像の場所と説明を書き換えてください -->
+        <h3 class="pk-group">ロゴ</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/title-logo.webp" alt="タイトルロゴ" loading="lazy"></div>
+            <p class="label">タイトルロゴ</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/title-logo.png" download="yumemigusa_logo.png">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">キービジュアル</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/wallpaper/01-pc.jpg" alt="キービジュアル（横）" loading="lazy"></div>
+            <p class="label">キービジュアル（横・ロゴなし）</p>
+            <p class="spec">JPG ／ 1920×1080</p>
+            <a class="dl" href="images/wallpaper/01-pc.jpg" download="yumemigusa_keyvisual_wide.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/presskit/kv-wide-logo.jpg" alt="キービジュアル（横・ロゴあり）" loading="lazy"></div>
+            <p class="label">キービジュアル（横・ロゴあり）</p>
+            <p class="spec">JPG ／ 1280×720</p>
+            <a class="dl" href="images/presskit/kv-wide-logo.jpg" download="yumemigusa_keyvisual_wide_logo.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/presskit/kv-vertical.jpg" alt="キービジュアル（縦）" loading="lazy"></div>
+            <p class="label">キービジュアル（縦・ロゴあり）</p>
+            <p class="spec">JPG ／ 1600×2256</p>
+            <a class="dl" href="images/presskit/kv-vertical.jpg" download="yumemigusa_keyvisual_tall.jpg">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">キャラクター立ち絵</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/yuzuki.png" alt="篠宮 結月" loading="lazy"></div>
+            <p class="label">篠宮 結月</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/yuzuki.png" download="yumemigusa_yuzuki.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/genma.png" alt="霧島 弦真" loading="lazy"></div>
+            <p class="label">霧島 弦真</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/genma.png" download="yumemigusa_genma.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/mitsunari.png" alt="三嶋 光成" loading="lazy"></div>
+            <p class="label">三嶋 光成</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/mitsunari.png" download="yumemigusa_mitsunari.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/shion.png" alt="有栖川 詩音" loading="lazy"></div>
+            <p class="label">有栖川 詩音</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/shion.png" download="yumemigusa_shion.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/ryoma.png" alt="神尾 涼馬" loading="lazy"></div>
+            <p class="label">神尾 涼馬</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/ryoma.png" download="yumemigusa_ryoma.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/iori.png" alt="鴻上 伊織" loading="lazy"></div>
+            <p class="label">鴻上 伊織</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/iori.png" download="yumemigusa_iori.png">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">前世の立ち絵</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/hananorihime.png" alt="花祈姫" loading="lazy"></div>
+            <p class="label">花祈姫（前世）</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/hananorihime.png" download="yumemigusa_hananorihime.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/souma.png" alt="蒼真" loading="lazy"></div>
+            <p class="label">蒼真（前世）</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/souma.png" download="yumemigusa_souma.png">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/chara/sakuya.png" alt="朔夜" loading="lazy"></div>
+            <p class="label">朔夜（前世）</p>
+            <p class="spec">PNG（背景透過）</p>
+            <a class="dl" href="images/chara/sakuya.png" download="yumemigusa_sakuya.png">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">イラスト</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/gallery/gallery-01.jpg" alt="弦真 × 結月" loading="lazy"></div>
+            <p class="label">弦真 × 結月</p>
+            <p class="spec">JPG ／ 1200×1697</p>
+            <a class="dl" href="images/gallery/gallery-01.jpg" download="yumemigusa_illust01.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/gallery/gallery-02.jpg" alt="蒼真 × 花祈姫" loading="lazy"></div>
+            <p class="label">蒼真 × 花祈姫</p>
+            <p class="spec">JPG ／ 1200×1697</p>
+            <a class="dl" href="images/gallery/gallery-02.jpg" download="yumemigusa_illust02.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb tall"><img src="images/gallery/gallery-03.jpg" alt="朔夜 × 花祈姫" loading="lazy"></div>
+            <p class="label">朔夜 × 花祈姫</p>
+            <p class="spec">JPG ／ 1200×1697</p>
+            <a class="dl" href="images/gallery/gallery-03.jpg" download="yumemigusa_illust03.jpg">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">ゲーム画面</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/presskit/game-01.jpg" alt="ゲーム画面 前世の場面（蒼真・花祈姫）" loading="lazy"></div>
+            <p class="label">ゲーム画面 1</p>
+            <p class="spec">JPG ／ 1920×1080 ／ 前世の場面（蒼真・花祈姫）</p>
+            <a class="dl" href="images/presskit/game-01.jpg" download="yumemigusa_game-01.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/presskit/game-02.jpg" alt="ゲーム画面 伊織の場面" loading="lazy"></div>
+            <p class="label">ゲーム画面 2</p>
+            <p class="spec">JPG ／ 1920×1080 ／ 伊織の場面</p>
+            <a class="dl" href="images/presskit/game-02.jpg" download="yumemigusa_game-02.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/presskit/game-03.jpg" alt="ゲーム画面 選択肢の場面（弦真・結月）" loading="lazy"></div>
+            <p class="label">ゲーム画面 3</p>
+            <p class="spec">JPG ／ 1920×1080 ／ 選択肢の場面（弦真・結月）</p>
+            <a class="dl" href="images/presskit/game-03.jpg" download="yumemigusa_game-03.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/presskit/game-04.jpg" alt="ゲーム画面 ルート選択画面" loading="lazy"></div>
+            <p class="label">ゲーム画面 4</p>
+            <p class="spec">JPG ／ 1920×1080 ／ ルート選択画面</p>
+            <a class="dl" href="images/presskit/game-04.jpg" download="yumemigusa_game-04.jpg">ダウンロード</a>
+          </div>
+        </div>
+
+        <h3 class="pk-group">システム画面</h3>
+        <div class="pk-assets">
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/system/01.jpg" alt="スクリーンショット1" loading="lazy"></div>
+            <p class="label">スクリーンショット 1</p>
+            <p class="spec">JPG ／ 好きメーター</p>
+            <a class="dl" href="images/system/01.jpg" download="yumemigusa_ss01.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/system/02.jpg" alt="スクリーンショット2" loading="lazy"></div>
+            <p class="label">スクリーンショット 2</p>
+            <p class="spec">JPG ／ 名前変更</p>
+            <a class="dl" href="images/system/02.jpg" download="yumemigusa_ss02.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/system/03.jpg" alt="スクリーンショット3" loading="lazy"></div>
+            <p class="label">スクリーンショット 3</p>
+            <p class="spec">JPG ／ 立ち絵の表示切り替え</p>
+            <a class="dl" href="images/system/03.jpg" download="yumemigusa_ss03.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/system/04.jpg" alt="スクリーンショット4" loading="lazy"></div>
+            <p class="label">スクリーンショット 4</p>
+            <p class="spec">JPG ／ 言語切り替え</p>
+            <a class="dl" href="images/system/04.jpg" download="yumemigusa_ss04.jpg">ダウンロード</a>
+          </div>
+          <div class="pk-asset">
+            <div class="thumb"><img src="images/system/05.jpg" alt="スクリーンショット5" loading="lazy"></div>
+            <p class="label">スクリーンショット 5</p>
+            <p class="spec">JPG ／ タイトル画面の変化</p>
+            <a class="dl" href="images/system/05.jpg" download="yumemigusa_ss05.jpg">ダウンロード</a>
+          </div>
+        </div>
+
+        <p style="text-align:center; margin-top:24px; font-size:0.9rem; color:var(--text-sub);">より大きいサイズの素材が必要な場合は、<a href="mailto:haneironokioku@gmail.com">お問い合わせ</a>ください。</p>
+      </section>
+
+      <!-- ===== ご利用について ===== -->
+      <section class="pk-section fade-in" id="terms">
+        <h2 class="section-title">ご利用について<span class="en">TERMS</span></h2>
+        <div class="panel">
+          <p class="pk-rules-title">ご自由にどうぞ</p>
+          <ul class="pk-rules ok">
+            <li>記事・レビュー・ブログでの紹介</li>
+            <li>実況・配信のサムネイル、動画内での使用</li>
+            <li>素材のサイズ変更・トリミング（作品の紹介に必要な範囲で）</li>
+          </ul>
+          <p class="pk-rules-title">ご遠慮ください</p>
+          <ul class="pk-rules ng">
+            <li>ロゴやイラストの色・形を変える加工、別の画像との合成</li>
+            <li>素材そのものの再配布・販売・グッズ化</li>
+            <li>AIの学習や画像生成への使用</li>
+            <li>公式の情報であると誤解されるような使い方</li>
+          </ul>
+          <p class="pk-credit">ご使用の際は「© 2026 羽根いろの記憶」の表記をお願いします。</p>
+          <p style="margin-top:20px; font-size:0.9rem; color:var(--text-sub);">実況・配信や二次創作については、<a href="guideline.html">ガイドライン</a>もあわせてご覧ください。取材・キーの提供などのご相談は、<a href="mailto:haneironokioku@gmail.com">haneironokioku@gmail.com</a> までお気軽にどうぞ。</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">公式X</a></li>
+      <li><a href="https://store.steampowered.com/app/4115570/" target="_blank" rel="noopener">Steam</a></li>
+         <li><a href="guideline.html">ガイドライン</a></li>
+         <li><a href="presskit.html">プレスキット</a></li>
+         <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <p class="footer-circle"><a href="https://haneiro-final.vercel.app/" target="_blank" rel="noopener">羽根いろの記憶</a></p>
+    <p class="copyright" style="margin-bottom:6px">制作：知花　芹菜（<a href="https://x.com/serina_haneiro" target="_blank" rel="noopener">@serina_haneiro</a>）</p>
+    <p class="copyright">&copy; 2026 羽根いろの記憶 All Rights Reserved.</p>
+  </footer>
+
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5b90241d184643a3bd6e7395674b8b5f"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="js/main.js"></script>
+  <script>
+    // 紹介文の「文章をコピー」ボタン
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const text = document.getElementById(btn.dataset.copy).innerText.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.textContent = "コピーしました";
+        } catch (e) {
+          btn.textContent = "コピーできませんでした";
+        }
+        setTimeout(() => { btn.textContent = "文章をコピー"; }, 2000);
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    // 素材をまとめてダウンロード：ページに並んでいる素材を自動で集めてZIPにします
+    // （素材を追加・削除しても、ここを書き換える必要はありません）
+    (function () {
+      const btn = document.getElementById("zip-all");
+      const status = document.getElementById("zip-status");
+      if (!btn) return;
+      const defaultText = status.textContent;
+
+      btn.addEventListener("click", async () => {
+        if (typeof JSZip === "undefined") {
+          status.textContent = "読み込みに失敗しました。時間をおいて、もう一度お試しください。";
+          return;
+        }
+        const files = [];
+        document.querySelectorAll("#assets .pk-group").forEach((heading) => {
+          const folder = heading.textContent.trim();
+          const grid = heading.nextElementSibling;
+          if (!grid) return;
+          grid.querySelectorAll("a.dl").forEach((a) => {
+            files.push({ url: a.getAttribute("href"), name: folder + "/" + (a.getAttribute("download") || a.getAttribute("href").split("/").pop()) });
+          });
+        });
+
+        btn.disabled = true;
+        const zip = new JSZip();
+        zip.file("はじめにお読みください.txt",
+          "『夢見草の夜、君と ～想い繋ぐ刻～』プレスキット\r\n\r\n" +
+          "ご使用の際は「© 2026 羽根いろの記憶」の表記をお願いします。\r\n" +
+          "ご利用の条件は、公式サイトのプレスキットページをご覧ください。\r\n" +
+          "https://yumemigusanoyoru.github.io/yumemigusa/presskit.html\r\n\r\n" +
+          "Steam：https://store.steampowered.com/app/4115570/\r\n" +
+          "公式X：https://x.com/yumemigusa_5052\r\n" +
+          "お問い合わせ：haneironokioku@gmail.com\r\n");
+
+        let done = 0, failed = 0;
+        for (const f of files) {
+          status.textContent = `素材を集めています…（${done + 1} / ${files.length}）`;
+          try {
+            const res = await fetch(f.url);
+            if (!res.ok) throw new Error(res.status);
+            zip.file(f.name, await res.blob());
+          } catch (e) {
+            failed++;
+          }
+          done++;
+        }
+
+        status.textContent = "ZIPファイルを作っています…";
+        try {
+          const blob = await zip.generateAsync({ type: "blob" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "yumemigusa_presskit.zip";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+          status.textContent = failed
+            ? `ダウンロードを開始しました（${failed}件の素材を取得できませんでした）`
+            : "ダウンロードを開始しました。";
+        } catch (e) {
+          status.textContent = "ZIPファイルを作れませんでした。素材を1つずつダウンロードしてください。";
+        }
+        btn.disabled = false;
+        setTimeout(() => { status.textContent = defaultText; }, 8000);
+      });
+    })();
+  </script>
+</body>
+</html>
