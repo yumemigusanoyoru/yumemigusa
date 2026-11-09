@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=15">
+  <link rel="stylesheet" href="css/style.css?v=17">
 
   <!-- このページだけで使う見た目 -->
   <style>
@@ -45,7 +45,39 @@
       .play-grid .event-box { flex: 1; display: flex; flex-direction: column; }
       .play-grid .event-box .btn-row { margin-top: auto; }
     }
+    /* ページ内の目次 */
+    .page-toc {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      max-width: 1000px;
+      margin: -24px auto 64px;
+    }
+    .page-toc a {
+      padding: 8px 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(24, 33, 74, 0.5);
+      color: var(--text);
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      transition: border-color .3s, color .3s, box-shadow .3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .page-toc a:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px var(--gold-soft);
+    }
+    /* 飛んだ先の見出しが、上のメニューに隠れないように */
+    .special-section {
+      scroll-margin-top: calc(var(--header-h) + 24px);
+    }
     @media (max-width: 600px) {
+      .page-toc { gap: 8px; margin-bottom: 48px; }
+      .page-toc a { padding: 6px 16px; font-size: 0.85rem; }
       .event-info { grid-template-columns: 1fr; gap: 0; }
       .event-info dd { margin-bottom: 10px; }
     }
@@ -84,8 +116,19 @@
         <span class="en">SPECIAL</span>
       </div>
 
+      <!-- ===== 目次（押すとそのコーナーへ移動） ===== -->
+      <nav class="page-toc fade-in" aria-label="スペシャルページの目次">
+        <a href="#movie">ムービー</a>
+        <a href="#illustration">イラスト</a>
+        <a href="#diagnosis">お似合い診断</a>
+        <a href="#omikuji">夢見草みくじ</a>
+        <a href="#tameshiyomi">試し読み</a>
+        <a href="#wallpaper">壁紙</a>
+        <a href="#event">イベント出展</a>
+      </nav>
+
       <!-- ===== ムービー ===== -->
-      <section class="special-section fade-in">
+      <section class="special-section fade-in" id="movie">
         <h2 class="section-title">ムービー<span class="en">MOVIE</span></h2>
         <div class="movie-grid">
           <div>
@@ -107,7 +150,7 @@
         </div>
       </section>
       <!-- ===== イラスト ===== -->
-      <section class="special-section fade-in">
+      <section class="special-section fade-in" id="illustration">
         <h2 class="section-title">イラスト<span class="en">ILLUSTRATION</span></h2>
         <div class="gallery-grid">
           <a class="gallery-item" href="images/gallery/gallery-01.jpg">
@@ -163,14 +206,29 @@
           </div>
         </section>
       </div>
+      <!-- ===== 壁紙 ===== -->
+      <section class="special-section fade-in" id="wallpaper">
+        <h2 class="section-title">壁紙<span class="en">WALLPAPER</span></h2>
+        <div class="wallpaper-grid">
 
+          <div class="wallpaper-item">
+            <div class="thumb"><img src="images/wallpaper/01-pc.jpg" alt="キービジュアル壁紙" loading="lazy"></div>
+            <p class="wallpaper-title">キービジュアル</p>
+            <div class="links">
+              <a href="images/wallpaper/01-pc.jpg" download="yumemigusa_wallpaper_01.jpg">PC用（1920×1080）をダウンロード</a>
+            </div>
+          </div>
+
+        </div>
+        <p class="wallpaper-note">※壁紙は個人で楽しむ範囲でご利用ください。再配布・加工・SNSアイコンへの使用はご遠慮ください。</p>
+      </section>
       <!-- ===== イベント ===== -->
       <section class="special-section fade-in" id="event">
         <h2 class="section-title">イベント出展<span class="en">EVENT</span></h2>
         <div class="panel event-box">
           <h3>大阪ゲームダンジョン2</h3>
           <dl class="event-info">
-                        <dt>日時</dt><dd>2026年12月26日（土）12:00〜17:00</dd>
+            <dt>日時</dt><dd>2026年12月26日（土）12:00〜17:00</dd>
             <dt>会場</dt><dd>マイドームおおさか 3階 展示ホールE・F（大阪・堺筋本町）<br><a href="https://www.mydome.jp/organizer/access/" target="_blank" rel="noopener">会場へのアクセス</a></dd>
             <!-- ブース番号が決まったら「決まり次第お知らせします」を書き換えてください -->
             <dt>ブース</dt><dd>決まり次第お知らせします</dd>
@@ -183,12 +241,10 @@
           <div class="btn-row">
             <a href="https://store.steampowered.com/app/4115570/" class="btn" target="_blank" rel="noopener">Steamでウィッシュリストに追加</a>
             <a href="https://tokyogamedungeon.com/" class="btn btn-sakura" target="_blank" rel="noopener">イベント公式サイト</a>
-            <a href="https://x.com/OG_Dungeon" class="btn btn-sakura" target="_blank" rel="noopener">イベント公式X</a>
+            <a href="https://x.com/TG_Dungeon" class="btn btn-sakura" target="_blank" rel="noopener">イベント公式X</a>
           </div>
         </div>
       </section>
-
-      <!-- 壁紙のコーナーは、壁紙の準備ができたら追加します -->
 
     </div>
   </main>
