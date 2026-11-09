@@ -130,11 +130,15 @@
   /* ---------- 「news.html#記事のid」で来たとき ---------- */
   function openFromHash() {
     const id = decodeURIComponent(location.hash.replace("#", ""));
-    const index = articles.findIndex((a) => a.id === id);
+    if (!id) return false;
+    // 記事そのもの、または記事の中の小見出し（同じ日のお知らせをまとめたもの）を探す
+    const target = document.getElementById(id);
+    const article = target && target.closest(".news-article");
+    const index = articles.indexOf(article);
     if (index === -1) return false;
     showPage(Math.floor(index / PER_PAGE) + 1, false);
     requestAnimationFrame(() => {
-      articles[index].scrollIntoView({ block: "start" });
+      target.scrollIntoView({ block: "start" });
     });
     return true;
   }
