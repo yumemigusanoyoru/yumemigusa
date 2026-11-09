@@ -283,7 +283,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--sakura); outlin
 <canvas id="petals" aria-hidden="true"></canvas>
 <main>
   <nav class="site-back" aria-label="公式サイト">
-    <a href="index.html">← 公式サイトに戻る</a>
+    <a href="special.html#play">← 遊べるコンテンツに戻る</a>
     <a class="logo" href="index.html">夢見草の夜、君と</a>
   </nav>
   <section class="card" id="card"><i class="gem t"></i><i class="gem b"></i><div id="view"></div></section>
@@ -497,7 +497,7 @@ function renderStart() {
         <button class="btn" type="submit">診断をはじめる</button>
       </form>
       <p class="note">※ 結果はお遊びです。本編の内容とは関係ありません。</p>
-      <div class="links"><a href="character.html">キャラクター紹介を見る</a><a href="index.html">公式サイトに戻る</a></div>
+      <div class="links"><a href="character.html">キャラクター紹介を見る</a><a href="special.html#play">遊べるコンテンツに戻る</a></div>
     </div>`;
   document.getElementById("startForm").onsubmit = e => {
     e.preventDefault();
@@ -636,7 +636,7 @@ function renderResult(key, isMine) {
       <div class="links">
         <a href="${SITE.steam}" target="_blank" rel="noopener">Steamでウィッシュリスト登録</a>
         <a href="${SITE.x}" target="_blank" rel="noopener">公式X @yumemigusa_5052</a>
-        <a href="index.html">公式サイトに戻る</a>
+        <a href="special.html#play">遊べるコンテンツに戻る</a>
       </div>
     </div>`;
   decorate(key);
