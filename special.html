@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=17">
+  <link rel="stylesheet" href="css/style.css?v=16">
 
   <!-- このページだけで使う見た目 -->
   <style>
@@ -50,12 +50,12 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px 12px;
-      max-width: 1000px;
+      gap: 10px;
+      max-width: 1100px;
       margin: -24px auto 64px;
     }
     .page-toc a {
-      padding: 8px 22px;
+      padding: 8px 18px;
       border: 1px solid var(--line);
       border-radius: 999px;
       background: rgba(24, 33, 74, 0.5);
@@ -70,6 +70,24 @@
       border-color: var(--gold);
       color: var(--gold);
       box-shadow: 0 0 12px var(--gold-soft);
+    }
+    /* グッズ：準備中のボタン */
+    .goods-box { text-align: center; }
+    .goods-box .btn-row { justify-content: center; margin-top: 24px; }
+    .btn.is-disabled {
+      opacity: 0.55;
+      cursor: default;
+      pointer-events: none;
+    }
+    .btn .soon {
+      display: inline-block;
+      margin-left: 12px;
+      padding: 0 10px;
+      border: 1px solid var(--sakura);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: var(--sakura);
+      vertical-align: 2px;
     }
     /* 飛んだ先の見出しが、上のメニューに隠れないように */
     .special-section {
@@ -124,6 +142,7 @@
         <a href="#omikuji">夢見草みくじ</a>
         <a href="#tameshiyomi">試し読み</a>
         <a href="#wallpaper">壁紙</a>
+        <a href="#goods">グッズ</a>
         <a href="#event">イベント出展</a>
       </nav>
 
@@ -222,6 +241,21 @@
         </div>
         <p class="wallpaper-note">※壁紙は個人で楽しむ範囲でご利用ください。再配布・加工・SNSアイコンへの使用はご遠慮ください。</p>
       </section>
+      <!-- ===== グッズ ===== -->
+      <section class="special-section fade-in" id="goods">
+        <h2 class="section-title">グッズ<span class="en">GOODS</span></h2>
+        <div class="panel event-box goods-box">
+          <p>『夢見草の夜、君と』のグッズを販売予定です。<br>
+          準備ができ次第、ニュースや公式Xでお知らせします。</p>
+          <div class="btn-row">
+            <!-- 販売が始まったら、下の <span ...>〜</span> を
+                 <a href="ショップのURL" class="btn" target="_blank" rel="noopener">グッズを見る</a>
+                 に書き換えてください -->
+            <span class="btn is-disabled" aria-disabled="true">グッズを見る<span class="soon">準備中</span></span>
+          </div>
+        </div>
+      </section>
+
       <!-- ===== イベント ===== -->
       <section class="special-section fade-in" id="event">
         <h2 class="section-title">イベント出展<span class="en">EVENT</span></h2>
