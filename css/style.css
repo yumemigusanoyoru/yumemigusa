@@ -942,16 +942,17 @@ main { position: relative; z-index: 2; }
   .page-toc { gap: 8px; margin-bottom: 48px; }
   .page-toc a { padding: 6px 16px; font-size: 0.85rem; }
 }
-/* スペシャルページ：コーナー見出しの両側に、夢見草（桜）のアイコン */
-.special-section > h2.section-title {
+/* 見出し（class="section-title" の h2）の両側に、夢見草（桜）のアイコン
+   トップのニュース・スペシャル・用語集・お問い合わせのよくある質問など、全ページの見出しに付きます */
+h2.section-title {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   column-gap: 0.55em;
 }
-.special-section > h2.section-title::before,
-.special-section > h2.section-title::after {
+h2.section-title::before,
+h2.section-title::after {
   content: "";
   width: 1.05em;
   height: 1.05em;
@@ -959,9 +960,9 @@ main { position: relative; z-index: 2; }
   filter: drop-shadow(0 0 5px rgba(242, 184, 203, 0.75));
   animation: sakuraSway 6s ease-in-out infinite;
 }
-.special-section > h2.section-title::before { order: -1; }
-.special-section > h2.section-title::after  { order: 1; animation-delay: -3s; }
-.special-section > h2.section-title .en { order: 2; flex-basis: 100%; }
+h2.section-title::before { order: -1; }
+h2.section-title::after  { order: 1; animation-delay: -3s; }
+h2.section-title .en { order: 2; flex-basis: 100%; }
 
 /* ゆっくり回りながら、ふわっと揺れる */
 @keyframes sakuraSway {
