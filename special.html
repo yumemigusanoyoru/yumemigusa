@@ -45,6 +45,15 @@
       .play-grid .event-box { flex: 1; display: flex; flex-direction: column; }
       .play-grid .event-box .btn-row { margin-top: auto; }
     }
+    /* 遊べるコンテンツ：中の3つの見出しは、大見出しより一回り小さく */
+    .play-section .play-title {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .play-grid .special-section { margin-bottom: 40px; }
+    @media (min-width: 1024px) {
+      .play-grid .special-section { margin-bottom: 0; }
+    }
     /* ページ内の目次 */
     .page-toc {
       display: flex;
@@ -90,7 +99,8 @@
       vertical-align: 2px;
     }
     /* 飛んだ先の見出しが、上のメニューに隠れないように */
-    .special-section {
+    .special-section,
+    .play-grid {
       scroll-margin-top: calc(var(--header-h) + 24px);
     }
     @media (max-width: 600px) {
@@ -138,9 +148,7 @@
       <nav class="page-toc fade-in" aria-label="スペシャルページの目次">
         <a href="#movie">ムービー</a>
         <a href="#illustration">イラスト</a>
-        <a href="#diagnosis">お似合い診断</a>
-        <a href="#omikuji">夢見草みくじ</a>
-        <a href="#tameshiyomi">試し読み</a>
+        <a href="#play">遊べるコンテンツ</a>
         <a href="#wallpaper">壁紙</a>
         <a href="#goods">グッズ</a>
         <a href="#event">イベント出展</a>
@@ -188,10 +196,12 @@
       </section>
 
       <!-- ===== 遊べるコンテンツ（パソコンでは3つを横並び） ===== -->
+      <section class="special-section play-section fade-in" id="play">
+      <h2 class="section-title">遊べるコンテンツ<span class="en">CONTENTS</span></h2>
       <div class="play-grid">
         <!-- ===== お似合い診断 ===== -->
           <section class="special-section fade-in" id="diagnosis">
-          <h2 class="section-title">お似合い診断<span class="en">DIAGNOSIS</span></h2>
+          <h3 class="section-title play-title">お似合い診断<span class="en">DIAGNOSIS</span></h3>
           <div class="panel event-box">
             <h3>あなたと夜を歩くのは、誰？</h3>
             <p class="shindan-lead">全8問の質問に答えると、攻略キャラクター5人の中から、あなたにお似合いのキャラクターがわかります。診断結果はXでシェアしたり、画像にして保存したりできます。</p>
@@ -203,7 +213,7 @@
 
         <!-- ===== 夢見草みくじ ===== -->
         <section class="special-section fade-in" id="omikuji">
-          <h2 class="section-title">夢見草みくじ<span class="en">OMIKUJI</span></h2>
+          <h3 class="section-title play-title">夢見草みくじ<span class="en">OMIKUJI</span></h3>
           <div class="panel event-box">
             <h3>一日一回、夜桜の下で運だめし</h3>
             <p class="shindan-lead">大吉・中吉・吉・小吉・末吉の運勢ごとに、攻略キャラクターからひとことが届きます。おみくじは日本時間の0時に引き直せるようになります。</p>
@@ -215,7 +225,7 @@
 
         <!-- ===== 名前変換 試し読み ===== -->
         <section class="special-section fade-in" id="tameshiyomi">
-          <h2 class="section-title">名前変換 試し読み<span class="en">TRIAL READING</span></h2>
+          <h3 class="section-title play-title">名前変換 試し読み<span class="en">TRIAL READING</span></h3>
           <div class="panel event-box">
             <h3>あなたの名前で、彼らとの短いひとときを</h3>
             <p class="shindan-lead">苗字と名前を入力すると、攻略キャラクター5人との短いシーンを、あなたの名前で読むことができます。入力した名前は保存されません。</p>
@@ -225,6 +235,8 @@
           </div>
         </section>
       </div>
+      </section>
+
       <!-- ===== 壁紙 ===== -->
       <section class="special-section fade-in" id="wallpaper">
         <h2 class="section-title">壁紙<span class="en">WALLPAPER</span></h2>
