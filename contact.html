@@ -21,6 +21,96 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- このページだけで使う見た目（お問い合わせフォーム） -->
+  <style>
+    .contact-form { margin-top: 36px; display: grid; gap: 24px; }
+    .contact-form[hidden], .cf-done[hidden], .cf-hint[hidden] { display: none; }
+    .cf-field { display: grid; gap: 8px; }
+    .cf-field label {
+      font-family: var(--font-title);
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+    .cf-req {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 0 8px;
+      border: 1px solid var(--sakura);
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      line-height: 1.6;
+      color: var(--sakura);
+      vertical-align: 2px;
+      letter-spacing: 0.05em;
+    }
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(7, 11, 31, 0.6);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;           /* 16px未満だとiPhoneで勝手に拡大されるため */
+      line-height: 1.7;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .contact-form textarea { resize: vertical; min-height: 180px; }
+    .contact-form select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23e8c77a' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 12px 8px;
+      cursor: pointer;
+    }
+    .contact-form select:invalid { color: var(--text-sub); }
+    .contact-form option { background: #0d1433; color: var(--text); }
+    .contact-form ::placeholder { color: var(--text-sub); opacity: 0.7; }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(232, 199, 122, 0.18);
+    }
+    .contact-form .is-error { border-color: var(--sakura-deep) !important; }
+    .cf-error { color: var(--sakura); font-size: 0.85rem; }
+    .cf-hint, .cf-privacy { color: var(--text-sub); font-size: 0.85rem; line-height: 1.8; }
+    .cf-privacy { text-align: center; }
+    .cf-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .cf-submit { min-width: 220px; cursor: pointer; font-size: 1rem; }
+    .cf-submit:disabled { opacity: 0.6; cursor: default; }
+    .cf-status { min-height: 1.5em; text-align: center; font-size: 0.9rem; color: var(--sakura); }
+    .cf-done {
+      margin-top: 36px;
+      padding: 40px 20px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(7, 11, 31, 0.4);
+      outline: none;
+    }
+    .cf-done p { word-break: auto-phrase; }
+    .cf-done-title {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 12px;
+      text-shadow: 0 0 14px var(--gold-soft);
+    }
+    .contact-other { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .contact-other-title { font-family: var(--font-title); color: var(--text-sub); font-size: 0.95rem; }
+    .contact-other .contact-way { margin-top: 16px; }
+  </style>
 </head>
 <body>
   <canvas id="petals" aria-hidden="true"></canvas>
@@ -57,20 +147,68 @@
       </div>
 
       <div class="contact-box panel fade-in">
-        <p>『夢見草の夜、君と』に関するお問い合わせは、下記までご連絡ください。</p>
+        <p>『夢見草の夜、君と』に関するお問い合わせは、下のフォームからお送りください。</p>
         <p>個人で制作しているため、お返事までにお時間をいただく場合があります。あらかじめご了承ください。</p>
-        <ul>
-          <li>ゲームの不具合のご報告</li>
-          <li>実況・配信、取材などのご相談</li>
-          <li>そのほかのお問い合わせ</li>
-        </ul>
 
-        <!-- 公開してよい連絡先に書き換えてください（個人のアドレスは載せないのがおすすめです） -->
-        <dl class="contact-way">
-          <div><dt>メール</dt><dd><a href="mailto:haneironokioku@gmail.com">haneironokioku@gmail.com</a></dd></div>
-          <div><dt>公式X</dt><dd><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">@yumemigusa_5052</a>（DMでも受け付けています）</dd></div>
-        </dl>
+        <!-- ===== お問い合わせフォーム（Web3Forms で送信） ===== -->
+        <form class="contact-form" id="contact-form" novalidate>
+          <!-- ▼ Web3Forms から届いたアクセスキーを、下の value="" の中に貼り付けてください -->
+          <input type="hidden" name="access_key" value="aa933b1f-c1c1-45d4-b6d3-b38042afcd9d">
+          <input type="hidden" name="from_name" value="夢見草の夜、君と 公式サイト">
+          <input type="hidden" name="subject" value="【夢見草】お問い合わせが届きました">
+          <!-- 迷惑メール対策（人には見えない欄です。消さないでください） -->
+          <input type="checkbox" name="botcheck" class="cf-trap" tabindex="-1" autocomplete="off">
+
+          <div class="cf-field">
+            <label for="cf-kind">お問い合わせの種類<span class="cf-req">必須</span></label>
+            <select id="cf-kind" name="お問い合わせの種類" required>
+              <option value="" selected disabled>選んでください</option>
+              <option>ゲームの不具合のご報告</option>
+              <option>実況・配信、取材などのご相談</option>
+              <option>そのほかのお問い合わせ</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-name">お名前<span class="cf-req">必須</span></label>
+            <input id="cf-name" type="text" name="お名前" required autocomplete="name" placeholder="ニックネームでもかまいません">
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-email">メールアドレス<span class="cf-req">必須</span></label>
+            <input id="cf-email" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="お返事をお送りするアドレス">
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">お問い合わせ内容<span class="cf-req">必須</span></label>
+            <textarea id="cf-message" name="お問い合わせ内容" rows="8" required></textarea>
+            <p class="cf-hint" id="cf-bug-hint" hidden>「どの場面で」「どんな操作をしたら」「どうなったか」と、お使いのパソコンの環境（Windowsのバージョンなど）を書いていただけると、原因を調べやすくなります。</p>
+          </div>
+
+          <p class="cf-privacy">ご入力いただいた内容は、お問い合わせへのお返事にのみ使用します。</p>
+
+          <div class="btn-row">
+            <button type="submit" class="btn cf-submit">送信する</button>
+          </div>
+          <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <!-- 送信が終わったら、フォームの代わりにこちらを表示 -->
+        <div class="cf-done" id="cf-done" hidden tabindex="-1">
+          <p class="cf-done-title">送信しました</p>
+          <p>お問い合わせありがとうございます。<br>内容を確認のうえ、ご入力いただいたメールアドレスへお返事いたします。</p>
+        </div>
+
+        <!-- フォーム以外の連絡先 -->
+        <div class="contact-other">
+          <p class="contact-other-title">フォームがうまく使えない場合</p>
+          <dl class="contact-way">
+            <div><dt>メール</dt><dd><a href="mailto:haneironokioku@gmail.com">haneironokioku@gmail.com</a></dd></div>
+            <div><dt>公式X</dt><dd><a href="https://x.com/yumemigusa_5052" target="_blank" rel="noopener">@yumemigusa_5052</a>（DMでも受け付けています）</dd></div>
+          </dl>
+        </div>
       </div>
+
       <!-- ===== よくある質問 ===== -->
       <section class="faq fade-in" id="faq">
         <h2 class="section-title">よくある質問<span class="en">FAQ</span></h2>
@@ -164,7 +302,7 @@
         <details class="faq-item">
           <summary>不具合を見つけたときはどうすればいいですか？</summary>
           <div class="faq-answer">
-            <p>お手数ですが、上記のメールアドレスまでご連絡ください。<br>
+            <p>お手数ですが、上の<a href="#contact-form">お問い合わせフォーム</a>から、種類を「ゲームの不具合のご報告」にしてお送りください。<br>
             「どの場面で」「どんな操作をしたら」「どうなったか」と、お使いのパソコンの環境（Windowsのバージョンなど）を書いていただけると、原因を調べやすくなります。</p>
           </div>
         </details>
@@ -190,5 +328,80 @@
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5b90241d184643a3bd6e7395674b8b5f"}'></script><!-- End Cloudflare Web Analytics -->
   <script src="js/main.js"></script>
+  <script>
+  /* ===== お問い合わせフォームの送信 ===== */
+  (function () {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+    const status = document.getElementById("cf-status");
+    const button = form.querySelector(".cf-submit");
+    const kind = document.getElementById("cf-kind");
+    const bugHint = document.getElementById("cf-bug-hint");
+
+    // 「不具合のご報告」を選んだときだけ、書き方のヒントを出す
+    kind.addEventListener("change", () => {
+      bugHint.hidden = kind.value !== "ゲームの不具合のご報告";
+    });
+
+    // 入力のチェック
+    function check() {
+      let firstBad = null;
+      form.querySelectorAll(".cf-error").forEach(e => e.remove());
+      form.querySelectorAll(".is-error").forEach(e => e.classList.remove("is-error"));
+      form.querySelectorAll("[required]").forEach(el => {
+        let msg = "";
+        if (!el.value.trim()) msg = el.tagName === "SELECT" ? "選んでください" : "入力してください";
+        else if (el.type === "email" && !el.checkValidity()) msg = "メールアドレスの形が正しくないようです";
+        if (msg) {
+          el.classList.add("is-error");
+          const p = document.createElement("p");
+          p.className = "cf-error";
+          p.textContent = msg;
+          el.after(p);
+          if (!firstBad) firstBad = el;
+        }
+      });
+      if (firstBad) firstBad.focus();
+      return !firstBad;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!check()) return;
+
+      const data = Object.fromEntries(new FormData(form));
+      if (data.access_key.includes("ここに")) {
+        status.textContent = "フォームは準備中です。お手数ですが、下のメールアドレスかXのDMからご連絡ください。";
+        return;
+      }
+      data.subject = "【夢見草】" + data["お問い合わせの種類"] + "（" + data["お名前"] + " さん）";
+
+      button.disabled = true;
+      button.textContent = "送信中…";
+      status.textContent = "";
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.success !== false) {
+          form.hidden = true;
+          const done = document.getElementById("cf-done");
+          done.hidden = false;
+          done.focus();
+          done.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          throw new Error(json.message || res.status);
+        }
+      } catch (err) {
+        status.textContent = "送信できませんでした。時間をおいてもう一度お試しいただくか、下のメールアドレスかXのDMからご連絡ください。";
+        button.disabled = false;
+        button.textContent = "送信する";
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
