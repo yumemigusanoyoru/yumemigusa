@@ -188,13 +188,14 @@ function setupPetals() {
   requestAnimationFrame(tick);
 }
 
+
 /* =========================================================
    ここから追加：「ページの上に戻る」ボタン と ニュースの「NEW」マーク
    （main.js のいちばん最後に、まるごと貼り付けてください）
    ========================================================= */
 (function () {
   /* ===== 設定（ここだけ書き換えればOK） ===== */
-  const NEW_DAYS = 7;        // 公開から何日間「NEW」を付けるか（公開日を1日目と数えます）
+  const NEW_DAYS = 7;        // いちばん新しいお知らせに、公開から何日間「NEW」を付けるか（公開日を1日目と数えます）
   const SHOW_AFTER = 400;    // 何pxスクロールしたら「上に戻る」ボタンを出すか
   /* ========================================= */
 
@@ -295,32 +296,37 @@ function setupPetals() {
     update();
   }
 
-  /* ---------- ニュースの「NEW」マーク ---------- */
+  /* ---------- ニュースの「NEW」マーク（いちばん新しい1件だけ） ---------- */
   function setupNewMarks() {
     // 日本時間の「日付」を数字にする（何日離れているかを数えるため）
     const dayJST = (t) => Math.floor((t + 9 * 3600e3) / 86400e3);
     const today = dayJST(Date.now());
 
+    // ページの中のお知らせの日付を全部読み取って、いちばん新しいものを探す
+    let newest = null, newestDay = -Infinity;
     document.querySelectorAll(".news-date").forEach((el) => {
       const m = el.textContent.trim().match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})/);
       if (!m) return;
-      const published = dayJST(Date.parse(`${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}T00:00:00+09:00`));
-      const passed = today - published;   // 公開日は 0
-      if (passed < 0 || passed >= NEW_DAYS) return;
-      if (el.nextElementSibling && el.nextElementSibling.classList.contains("news-new")) return;
-
-      const mark = document.createElement("span");
-      mark.className = "news-new";
-      mark.textContent = "NEW";
-      if (el.closest(".news-list")) {
-        // トップページの一覧：タイトルの前に付ける
-        const title = el.nextElementSibling;
-        if (title) title.prepend(mark); else el.after(mark);
-      } else {
-        // ニュースページ：日付のすぐ後ろに付ける
-        el.after(mark);
-      }
+      const day = dayJST(Date.parse(`${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}T00:00:00+09:00`));
+      if (day > newestDay) { newestDay = day; newest = el; }   // 同じ日付なら、上にあるほうを使う
     });
+    if (!newest) return;
+
+    // 公開から NEW_DAYS 日を過ぎていたら付けない
+    const passed = today - newestDay;   // 公開日は 0
+    if (passed < 0 || passed >= NEW_DAYS) return;
+
+    const mark = document.createElement("span");
+    mark.className = "news-new";
+    mark.textContent = "NEW";
+    if (newest.closest(".news-list")) {
+      // トップページの一覧：タイトルの前に付ける
+      const title = newest.nextElementSibling;
+      if (title) title.prepend(mark); else newest.after(mark);
+    } else {
+      // ニュースページ：日付のすぐ後ろに付ける
+      newest.after(mark);
+    }
   }
 
   if (document.readyState === "loading") {
@@ -331,4 +337,3 @@ function setupPetals() {
   }
 })();
 /* ===== 追加ここまで ===== */
-
