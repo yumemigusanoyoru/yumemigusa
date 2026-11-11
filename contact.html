@@ -107,6 +107,37 @@
       margin-bottom: 12px;
       text-shadow: 0 0 14px var(--gold-soft);
     }
+    /* 感想・応援メッセージ（Wavebox） */
+    .wave-box {
+      margin-top: 32px;
+      padding: 22px 24px;
+      border: 1px dashed var(--sakura);
+      border-radius: 6px;
+      background: rgba(242, 184, 203, 0.06);
+      text-align: center;
+    }
+    .wave-title {
+      font-family: var(--font-title);
+      color: var(--sakura);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .wave-text { font-size: 0.9rem; color: var(--text-sub); line-height: 1.9; word-break: auto-phrase; margin-bottom: 16px; }
+    .wave-btn {
+      display: inline-block;
+      padding: 8px 26px;
+      border: 1px solid var(--sakura);
+      border-radius: 999px;
+      color: var(--sakura);
+      font-family: var(--font-title);
+      letter-spacing: 0.12em;
+      transition: background .25s, box-shadow .25s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (hover: hover) {
+      .wave-btn:hover { background: rgba(242, 184, 203, 0.14); box-shadow: 0 0 16px rgba(242, 184, 203, 0.45); }
+    }
+    .wave-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     .contact-other { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
     .contact-other-title { font-family: var(--font-title); color: var(--text-sub); font-size: 0.95rem; }
     .contact-other .contact-way { margin-top: 16px; }
@@ -150,6 +181,13 @@
       <div class="contact-box panel fade-in">
         <p>『夢見草の夜、君と』に関するお問い合わせは、下のフォームからお送りください。</p>
         <p>個人で制作しているため、お返事までにお時間をいただく場合があります。あらかじめご了承ください。</p>
+
+        <!-- ===== 感想・応援メッセージ（Wavebox） ===== -->
+        <div class="wave-box">
+          <p class="wave-title">感想・応援メッセージは、Waveboxから</p>
+          <p class="wave-text">「キャラクターが好き」「試遊が楽しかった」など、お返事のいらないひとことは、匿名で送れるWaveboxからお気軽にどうぞ。絵文字ひとつだけでも、制作の励みになります。</p>
+          <a class="wave-btn" href="https://wavebox.me/wave/7bja4yynym2rl8wr/" target="_blank" rel="noopener">Waveboxで送る</a>
+        </div>
 
         <!-- ===== お問い合わせフォーム（Web3Forms で送信） ===== -->
         <form class="contact-form" id="contact-form" novalidate>
