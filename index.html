@@ -139,14 +139,9 @@
           <dt>日時</dt><dd>2026年12月26日（土）12:00〜17:00</dd>
           <dt>会場</dt><dd>マイドームおおさか 3階 展示ホールE・F</dd>
           <dt>ブース</dt><dd id="gd-booth">決まり次第お知らせします</dd>
-          <dt>前売り券</dt><dd>2026年11月下旬 販売開始（予定）</dd>
-          <dt>料金</dt><dd>一般チケット：1,000円（税込）<br>ビジネスチケット：2,000円（税込）</dd>
         </dl>
-        <ul class="gd-ticket-note">
-          <li>※18歳以下は終日無料、<br class="gd-br">小学生以下は保護者同伴が必須</li>
-          <li>※16:00以降の入場は無料</li>
-        </ul>
         <p class="gd-gift">試遊してくださった方には<b>描き下ろしミニキャラシール</b>、<br class="gd-br">その場でウィッシュリストに登録してくださった方には<b>アクリルキーホルダー</b>をプレゼント！</p>
+        <p class="gd-gift gd-gift-sub">すでにウィッシュリストに登録していただいている方は、その画面を見せていただければ<b>アクリルキーホルダー</b>をプレゼントいたします。</p>
 
         <div class="gd-btns">
           <div class="gd-btn-wrap">
@@ -206,12 +201,10 @@
         }
         .gd-info dt { color: var(--gd-gold); font-family: var(--gd-title-font); letter-spacing: 0.1em; }
         .gd-info dd { margin: 0; }
-        .gd-ticket-note {
-          list-style: none; margin: -6px auto 22px; padding: 0;
-          font-size: 12px; color: var(--gd-soft); line-height: 1.9;
-        }
         .gd-gift { margin: 0 auto 24px; max-width: 32em; font-size: 13px; color: var(--gd-soft); line-height: 1.9; }
         .gd-gift b { color: var(--gd-sakura); font-weight: 500; }
+        .gd-gift:has(+ .gd-gift-sub) { margin-bottom: 10px; }
+        .gd-gift { text-wrap: balance; word-break: auto-phrase; }
         .gd-btns { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px; }
         .gd-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .gd-note { font-size: 11px; color: var(--gd-soft); letter-spacing: 0.05em; }
