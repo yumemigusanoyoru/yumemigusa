@@ -187,3 +187,148 @@ function setupPetals() {
   window.addEventListener("resize", resize);
   requestAnimationFrame(tick);
 }
+
+/* =========================================================
+   ここから追加：「ページの上に戻る」ボタン と ニュースの「NEW」マーク
+   （main.js のいちばん最後に、まるごと貼り付けてください）
+   ========================================================= */
+(function () {
+  /* ===== 設定（ここだけ書き換えればOK） ===== */
+  const NEW_DAYS = 7;        // 公開から何日間「NEW」を付けるか（公開日を1日目と数えます）
+  const SHOW_AFTER = 400;    // 何pxスクロールしたら「上に戻る」ボタンを出すか
+  /* ========================================= */
+
+  /* ---------- 見た目 ---------- */
+  const style = document.createElement("style");
+  style.textContent = `
+    .to-top {
+      position: fixed;
+      right: calc(20px + env(safe-area-inset-right));
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      z-index: 90;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      padding: 0;
+      border: 1px solid var(--sakura, #f2b8cb);
+      border-radius: 50%;
+      background: rgba(13, 20, 51, 0.82);
+      color: var(--sakura, #f2b8cb);
+      font-family: var(--font-title, serif);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(242, 184, 203, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity .35s, transform .35s, visibility .35s, background .3s, box-shadow .3s;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+    .to-top.is-shown { opacity: 1; visibility: visible; transform: none; }
+    .to-top svg { width: 16px; height: 16px; }
+    @media (hover: hover) {
+      .to-top:hover {
+        background: rgba(242, 184, 203, 0.18);
+        box-shadow: 0 0 22px rgba(242, 184, 203, 0.6);
+      }
+    }
+    .to-top:focus-visible { outline: 2px solid var(--gold, #e8c77a); outline-offset: 3px; }
+    @media (max-width: 600px) {
+      .to-top { width: 46px; height: 46px; right: calc(14px + env(safe-area-inset-right)); bottom: calc(14px + env(safe-area-inset-bottom)); }
+    }
+
+    .news-new {
+      display: inline-block;
+      margin: 0 6px;
+      padding: 0 7px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #f6dfa0, var(--gold, #e8c77a));
+      color: #0d1330;
+      font-family: var(--font-body, sans-serif);
+      font-size: 0.68rem;
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: 0.1em;
+      vertical-align: 0.12em;
+      box-shadow: 0 0 10px rgba(232, 199, 122, 0.55);
+      animation: newGlow 2.4s ease-in-out infinite;
+    }
+    .news-list .news-new { margin: 0 8px 0 0; }
+    @keyframes newGlow {
+      0%, 100% { box-shadow: 0 0 6px rgba(232, 199, 122, 0.35); }
+      50%      { box-shadow: 0 0 14px rgba(232, 199, 122, 0.8); }
+    }
+    @media (prefers-reduced-motion: reduce) { .news-new { animation: none; } }
+  `;
+  document.head.appendChild(style);
+
+  /* ---------- 「ページの上に戻る」ボタン ---------- */
+  function setupToTop() {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "to-top";
+    btn.setAttribute("aria-label", "ページの上に戻る");
+    btn.innerHTML =
+      '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>TOP</span>';
+    document.body.appendChild(btn);
+
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+    });
+
+    let ticking = false;
+    function update() {
+      btn.classList.toggle("is-shown", window.scrollY > SHOW_AFTER);
+      ticking = false;
+    }
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
+  /* ---------- ニュースの「NEW」マーク ---------- */
+  function setupNewMarks() {
+    // 日本時間の「日付」を数字にする（何日離れているかを数えるため）
+    const dayJST = (t) => Math.floor((t + 9 * 3600e3) / 86400e3);
+    const today = dayJST(Date.now());
+
+    document.querySelectorAll(".news-date").forEach((el) => {
+      const m = el.textContent.trim().match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})/);
+      if (!m) return;
+      const published = dayJST(Date.parse(`${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}T00:00:00+09:00`));
+      const passed = today - published;   // 公開日は 0
+      if (passed < 0 || passed >= NEW_DAYS) return;
+      if (el.nextElementSibling && el.nextElementSibling.classList.contains("news-new")) return;
+
+      const mark = document.createElement("span");
+      mark.className = "news-new";
+      mark.textContent = "NEW";
+      if (el.closest(".news-list")) {
+        // トップページの一覧：タイトルの前に付ける
+        const title = el.nextElementSibling;
+        if (title) title.prepend(mark); else el.after(mark);
+      } else {
+        // ニュースページ：日付のすぐ後ろに付ける
+        el.after(mark);
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => { setupToTop(); setupNewMarks(); });
+  } else {
+    setupToTop();
+    setupNewMarks();
+  }
+})();
+/* ===== 追加ここまで ===== */
+
